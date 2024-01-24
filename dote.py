@@ -99,12 +99,13 @@ def loss_fn_maxutil(y_pred_batch, y_true_batch, env):
         congestion = flow_on_edges.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1))
         max_cong = torch.max(congestion)
         
-        loss = 1.0 - max_cong if max_cong.item() == 0.0 else max_cong/max_cong.item()
+        # loss = 1.0 - max_cong if max_cong.item() == 0.0 else max_cong/max_cong.item()
+        loss = max_cong # ydy: i do not think the above loss func is right
         loss_val = 1.0 if opt == 0.0 else max_cong.item() / opt
         losses.append(loss)
         loss_vals.append(loss_val)
     
-    ret = sum(losses) / len(losses)
+    ret = sum(losses) / len(losses) # ydy: another question. why average?
     ret_val = sum(loss_vals) / len(loss_vals)
     
     return ret, ret_val
@@ -146,7 +147,7 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
 
         y_pred = y_pred + 0.1 #ELU
         edges_weight = paths_to_edges.transpose(0,1).matmul(torch.transpose(y_pred, 0, 1))
-        alpha = torch.max(edges_weight.divide(torch.tensor(np.array([env._capacities])).transpose(0,1)))
+        alpha = torch.max(edges_weight.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1)))
         max_flow_on_tunnel = y_pred / alpha
         max_flow_per_commodity = commodities_to_paths.matmul(max_flow_on_tunnel.transpose(0,1))
 
@@ -253,7 +254,8 @@ if props.so_mode == SOMode.TRAIN: #train
                 loss_sum += loss_val
                 loss_count += 1
                 loss_avg = loss_sum / loss_count
-                tepoch.set_postfix(loss=loss_avg)
+                # tepoch.set_postfix(loss=loss_avg)
+                tepoch.set_postfix(loss=loss.cpu().detach().numpy())
 
     #save the model
     torch.save(model, 'model_dote.pkl')

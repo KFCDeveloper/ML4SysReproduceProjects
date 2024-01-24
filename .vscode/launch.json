@@ -17,6 +17,7 @@
                 "--paths_from", "sp",
                 "--so_mode", "train",
                 "--so_epochs","2000",
+                "--so_batch_size","1",
                 "--opt_function","MAXUTIL"
             ]
         }
