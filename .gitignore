@@ -10,4 +10,5 @@ load-balancing/cfs/*
 load-balancing/directory/*
 abr-puffer/CAUSALSIM_DIR/*
 abr-puffer/CAUSALSIM_DIRsubset_data/*
+abr-puffer/*CAUSALSIM_DIR*/*
 abr-puffer/assets/*
