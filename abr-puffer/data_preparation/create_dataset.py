@@ -12,6 +12,7 @@ import json
 import istarmap
 from multiprocessing import Pool
 import argparse
+from common_var import Durration_CON
 
 parser = argparse.ArgumentParser(description='Auto experiment launch')
 parser.add_argument('--dir', type=str, required=True, help='Puffer dataset directory')
@@ -589,20 +590,20 @@ def apply_extent(today: datetime.datetime, path_cooked: str):
 
 
 def main():
-    os.makedirs(f"{args.dir}/orig/", exist_ok=True)
-    os.makedirs(f"{args.dir}/cooked/", exist_ok=True)
-    mapper = get_mapper(f"{args.dir}/orig/")
+    os.makedirs(f"{args.dir}orig/", exist_ok=True)
+    os.makedirs(f"{args.dir}cooked/", exist_ok=True)
+    mapper = get_mapper(f"{args.dir}orig/")
 
-    start_date = datetime.date(2020, 7, 27)
-    end_date = datetime.date(2021, 6, 1) # 2021, 6, 1
+    start_date = Durration_CON.start_date # 2020, 7, 27; 2020, 9, 27; 2020, 11, 27; 2021, 1, 27;
+    end_date = Durration_CON.end_date # 2021, 6, 1
     all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date-start_date).days+1)]
 
     with Pool(32) as pool:
-        pool_args = [(day, mapper, f"{args.dir}/cooked/", f"{args.dir}/orig/") for day in all_days]
+        pool_args = [(day, mapper, f"{args.dir}cooked/", f"{args.dir}orig/") for day in all_days]
         for _ in tqdm(pool.istarmap(get_all_length_day, pool_args), total=len(pool_args)):
             pass
 
-        pool_args = [(day, f"{args.dir}/cooked/") for day in all_days]
+        pool_args = [(day, f"{args.dir}cooked/") for day in all_days]
         for _ in tqdm(pool.istarmap(get_extent_day, pool_args), total=len(pool_args)):
             pass
 

@@ -101,5 +101,5 @@ for today in tqdm(all_days):
         features = extract(np.divide(traj[:-1, 7], traj[:-1, 6]), traj[:-1, 7], feature_extractor, chats_mean,
                            chats_std, actions_mean, actions_std)
         latents.append(features)
-    np.save(f'{latent_path}/{date_string}_features.npy', latents)
+    np.save(f'{latent_path}/{date_string}_features.npy', np.array(latents,dtype=object))
     del latents
