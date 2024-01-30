@@ -99,9 +99,9 @@ def loss_fn_maxutil(y_pred_batch, y_true_batch, env):
         congestion = flow_on_edges.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1))
         max_cong = torch.max(congestion)
         
-        # loss = 1.0 - max_cong if max_cong.item() == 0.0 else max_cong/max_cong.item()
+        # loss = 1.0 - max_cong if max_cong.item() == 0.0 else max_cong/max_cong.item() # this equation identically equals to 1
         loss = max_cong # ydy: i do not think the above loss func is right
-        loss_val = 1.0 if opt == 0.0 else max_cong.item() / opt
+        loss_val = 1.0 if opt == 0.0 else max_cong.item() / opt # no problem, lower is better 
         losses.append(loss)
         loss_vals.append(loss_val)
     
@@ -254,11 +254,13 @@ if props.so_mode == SOMode.TRAIN: #train
                 loss_sum += loss_val
                 loss_count += 1
                 loss_avg = loss_sum / loss_count
-                # tepoch.set_postfix(loss=loss_avg)
-                tepoch.set_postfix(loss=loss.cpu().detach().numpy())
-
+                tepoch.set_postfix(loss=loss_avg)
+                # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
+        print('saving...... ' + str(epoch))
+        torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
     #save the model
-    torch.save(model, 'model_dote.pkl')
+    # torch.save(model, 'model_dote.pkl')
+    # torch.save(model, 'model_dote_' + str(n_epochs) + '.pkl')
 
 elif props.so_mode == SOMode.TEST: #test
     # create the dataset
@@ -266,19 +268,23 @@ elif props.so_mode == SOMode.TEST: #test
     # create a data loader for the test set
     test_dl = DataLoader(test_dataset, batch_size=1, shuffle=False)
     #load the model
-    model = torch.load('model_dote.pkl')
+    # model = torch.load('model_dote.pkl').to(device)
+    model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:
             test_losses = []
             for (inputs, targets) in tests:
+                inputs = inputs.to(device)
+                targets = targets.to(device)
+
                 pred = model(inputs)
                 test_loss, test_loss_val = loss_fn(pred, targets, env)
                 test_losses.append(test_loss_val)
             avg_loss = sum(test_losses) / len(test_losses)
             print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
             #print statistics to file
-            with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'so_stats.txt', 'w') as f:
+            with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'so_stats_' + str(n_epochs) + '.txt', 'w') as f:
                 import statistics
                 dists = [float(v) for v in test_losses]
                 dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
