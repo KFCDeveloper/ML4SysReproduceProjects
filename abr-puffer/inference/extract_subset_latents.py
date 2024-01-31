@@ -6,6 +6,10 @@ import os
 import argparse
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--dir", help="root directory")
@@ -57,7 +61,9 @@ def extract(chat_list, chosen_size_list, feature_extractor, chat_mean, chat_std,
 DISCRIMINATOR_EPOCH = 10
 C = args.C
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+
 latent_path = f'{args.dir}{PERIOD_TEXT}_features/inner_loop_{DISCRIMINATOR_EPOCH}/C_{C}/' \
               f'model_{args.model_number}'
 os.makedirs(latent_path, exist_ok=True)
@@ -68,8 +74,8 @@ actions_mean = np.load(f'{data_path}/actions_mean.npy')
 chats_std = np.load(f'{data_path}/chats_std.npy')
 actions_std = np.load(f'{data_path}/actions_std.npy')
 
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),

@@ -15,8 +15,8 @@ target_policies = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
 
 mape_dict = {source: {target: {'diff': 0, 'number': 0, 'average': 0, 'mad': 0} for target in target_policies} for
              source in source_policies}
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),

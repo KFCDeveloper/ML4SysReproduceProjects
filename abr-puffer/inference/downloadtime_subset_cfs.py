@@ -7,6 +7,10 @@ import argparse
 from tqdm import tqdm
 import pickle
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--dir", help="root directory")
@@ -235,7 +239,9 @@ def counterfactual(latent_list, action_list, buffer_list, action_mean, action_st
 
 DISCRIMINATOR_EPOCH = 10
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+
 C = args.C
 with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f:
     b_C = pickle.load(f)[args.left_out_policy][0]
@@ -250,8 +256,8 @@ dt_std = np.load(f'{data_path}/dts_std.npy')
 buff_mean = np.load(f'{data_path}/buffs_mean.npy')
 buff_std = np.load(f'{data_path}/buffs_std.npy')
 
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),

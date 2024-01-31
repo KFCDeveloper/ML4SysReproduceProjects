@@ -5,6 +5,9 @@ import argparse
 import pickle
 from tqdm import tqdm
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="source directory")
@@ -17,7 +20,9 @@ C = args.C
 NUMBER_OF_BINS = 10000
 DISCRIMINATOR_EPOCH = 10
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+
 cf_type = 'buff'
 sim_key_text = '_buffs'
 sl_key_text = '_buffs'
@@ -32,8 +37,8 @@ EMDs = {source: {target: None for target in buffer_based_names} for source in po
 expert_EMDs = {source: {target: None for target in buffer_based_names} for source in policy_names}
 sl_EMDs = {source: {target: None for target in buffer_based_names} for source in policy_names}
 
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),

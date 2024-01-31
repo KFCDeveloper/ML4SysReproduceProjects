@@ -21,8 +21,8 @@ def load_traces(trace_path: str, wid: int, wnum: int) -> Tuple[List[np.ndarray],
     all_p_traces = []
 
     all_so_far = 0
-    start_date = datetime.date(2020, 7, 27)
-    end_date = datetime.date(2021, 6, 1)
+    start_date = Durration_CON.start_date
+    end_date = Durration_CON.end_date
     all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 
     for today in all_days:

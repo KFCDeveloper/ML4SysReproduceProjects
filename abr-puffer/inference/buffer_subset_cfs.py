@@ -7,6 +7,10 @@ import argparse
 
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--dir", help="root directory")
@@ -239,7 +243,9 @@ def counterfactual(latent_list, abr_algo, predictor, buf_mean, buf_std, next_buf
 
 DISCRIMINATOR_EPOCH = 10
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+
 C = args.C
 cf_path = f'{args.dir}{PERIOD_TEXT}_buff_cfs/inner_loop_{DISCRIMINATOR_EPOCH}/C_{C}/cfs/model_{args.model_number}'
 os.makedirs(cf_path, exist_ok=True)
@@ -252,8 +258,8 @@ next_buffer_std = np.load(f'{data_path}/next_buffs_std.npy')
 action_mean = np.load(f'{data_path}/actions_mean.npy')
 action_std = np.load(f'{data_path}/actions_std.npy')
 
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),

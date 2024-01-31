@@ -5,6 +5,9 @@ import argparse
 import pickle
 from tqdm import tqdm
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
 
 MIN_SSIM = 0
 MAX_SSIM = 60
@@ -21,12 +24,14 @@ parser.add_argument("--model_number", type=int, help="saved model epoch number",
 args = parser.parse_args()
 NUMBER_OF_BINS = 10000
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+
 policy_names = ['bola_basic_v2', 'bola_basic_v1', 'puffer_ttp_cl', 'puffer_ttp_20190202', 'linear_bba']
 buffer_based_names = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
 
-start_date = datetime.date(2020, 7, 27)
-end_date = datetime.date(2021, 6, 1)
+start_date = Durration_CON.start_date
+end_date = Durration_CON.end_date
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),
