@@ -5,10 +5,12 @@ import torch.nn as nn
 import os
 import argparse
 from tqdm import tqdm
+import time
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
 from data_preparation.common_var import Durration_CON
+import data_preparation.common_var
 
 parser = argparse.ArgumentParser()
 
@@ -42,22 +44,34 @@ class MLP(nn.Module):
 
 
 def extract(chat_list, chosen_size_list, feature_extractor, chat_mean, chat_std, size_mean, size_std):
-    extracted_latents = []
-    for step in range(len(chat_list)):
-        chat = chat_list[step]
-        orig_chosen_size = chosen_size_list[step]
-        chat_white = (chat - chat_mean) / chat_std
-        orig_chosen_size_white = (orig_chosen_size - size_mean) / size_std
-        input_numpy = np.array([chat_white, orig_chosen_size_white])
-        input_numpy = np.expand_dims(input_numpy, axis=0)
-        input_tensor = torch.as_tensor(input_numpy, dtype=torch.float32, device=torch.device('cpu'))
-        with torch.no_grad():
+    # extracted_latents = []
+    # for step in range(len(chat_list)):
+    #     chat = chat_list[step]
+    #     orig_chosen_size = chosen_size_list[step]
+    #     chat_white = (chat - chat_mean) / chat_std
+    #     orig_chosen_size_white = (orig_chosen_size - size_mean) / size_std
+    #     input_numpy = np.array([chat_white, orig_chosen_size_white])
+    #     input_numpy = np.expand_dims(input_numpy, axis=0)
+    #     input_tensor = torch.as_tensor(input_numpy, dtype=torch.float32, device=torch.device('cpu'))
+    #     # input_tensor = torch.as_tensor(input_numpy, dtype=torch.float32, device=device)
+    #     with torch.no_grad():
+    #         feature_tensor = feature_extractor(input_tensor)
+    #     extracted_feature = feature_tensor.cpu().numpy()
+    #     extracted_latents.append(extracted_feature)
+    
+    # ydy: change to matrix process; even not using gpu, it is fast enough
+    chat_list = torch.tensor(chat_list)
+    orig_chosen_size_list = torch.tensor(chosen_size_list)
+    chat_white_list = (chat_list - chat_mean) / chat_std
+    orig_chosen_size_white_list = (orig_chosen_size_list - size_mean) / size_std
+    input_tensor = torch.stack([chat_white_list, orig_chosen_size_white_list], dim=1).to(torch.float32)
+    # input_tensor = torch.unsqueeze(input_numpy, dim=0)
+    with torch.no_grad():
             feature_tensor = feature_extractor(input_tensor)
-        extracted_feature = feature_tensor.cpu().numpy()
-        extracted_latents.append(extracted_feature)
+    extracted_latents = torch.unsqueeze(feature_tensor, dim=1).cpu().numpy()
     return extracted_latents
 
-
+device = data_preparation.common_var.device
 DISCRIMINATOR_EPOCH = 10
 C = args.C
 left_out_text = f'_{args.left_out_policy}'
@@ -97,13 +111,15 @@ if args.month is not None and args.year is not None:
 model_path = f'{args.dir}{PERIOD_TEXT}_trained_models/inner_loop_{DISCRIMINATOR_EPOCH}/C_{C}'
 feature_extractor = torch.load(f"{model_path}/{args.model_number}_feature_extractor.pth",
                                map_location=torch.device('cpu')).cpu()
+# feature_extractor = torch.load(f"{model_path}/{args.model_number}_feature_extractor.pth",
+#                                map_location=device)
 cooked_path = f'{args.dir}cooked'
 
 for today in tqdm(all_days):
     date_string = "%d-%02d-%02d" % (today.year, today.month, today.day)
     trajs = np.load(f"{cooked_path}/{date_string}_trajs.npy", allow_pickle=True)
     latents = []
-    for traj in trajs:
+    for traj in tqdm(trajs):
         features = extract(np.divide(traj[:-1, 7], traj[:-1, 6]), traj[:-1, 7], feature_extractor, chats_mean,
                            chats_std, actions_mean, actions_std)
         latents.append(features)

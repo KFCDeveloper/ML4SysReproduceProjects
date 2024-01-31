@@ -7,6 +7,10 @@ import numpy as np
 from argparse import ArgumentParser
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 from env.abr import ssim_db
 
 parser = ArgumentParser(description='Puffer RL dataset parameters')
