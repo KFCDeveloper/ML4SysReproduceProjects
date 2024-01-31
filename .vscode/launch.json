@@ -11,8 +11,16 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
+            // "args": [
+            //     "--dir","CAUSALSIM_DIR",
+            // ]
+            
+            // training/train_subset.py
+            "cwd": "/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--dir","CAUSALSIM_DIR",
+                "--dir","CAUSALSIM_DIR-20-9-27/",
+                "--left_out_policy", "linear_bba",
+                "--C", "0.05",
             ]
         }
     ]

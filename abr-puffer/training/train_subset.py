@@ -7,6 +7,10 @@ import os
 import argparse
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 parser.add_argument("--C", type=float, help="discriminator loss coefficient")
@@ -23,7 +27,8 @@ DISCRIMINATOR_EPOCH = 10
 C = args.C
 device = torch.device(args.device)
 left_out_text = f'_{args.left_out_policy}'
-PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+# PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
+PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
 
 
 def mlp(sizes, activation, output_activation=nn.Identity):
