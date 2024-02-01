@@ -21,7 +21,8 @@ NUMBER_OF_BINS = 10000
 DISCRIMINATOR_EPOCH = 10
 left_out_text = f'_{args.left_out_policy}'
 # PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
-PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
+PERIOD_TEXT = f'{DATE_DURATION}{left_out_text}'
 
 cf_type = 'buff'
 sim_key_text = '_buffs'
@@ -59,7 +60,8 @@ plt.figure(figsize=(24, 15))
 orig_dict = {source_policy: [] for source_policy in policy_names}
 expert_dict = {source_policy: {target_policy: [] for target_policy in buffer_based_names} for source_policy in
                policy_names}
-sl_dict = {source_policy: {target_policy: [] for target_policy in buffer_based_names} for source_policy in policy_names}
+# ydy
+# sl_dict = {source_policy: {target_policy: [] for target_policy in buffer_based_names} for source_policy in policy_names}
 sim_dict = {source_policy: {target_policy: [] for target_policy in buffer_based_names} for source_policy in
             policy_names}
 cooked_path = f'{args.dir}cooked'
@@ -72,21 +74,24 @@ for today in tqdm(all_days):
     bola1_preds = np.load(f'{sim_path}/{date_string}_bola1{sim_key_text}.npy', allow_pickle=True)
     bola2_preds = np.load(f'{sim_path}/{date_string}_bola2{sim_key_text}.npy', allow_pickle=True)
     orig_trajs = np.load(f'{cooked_path}/{date_string}_trajs.npy', allow_pickle=True)
-    expert_path = f'{args.dir}2020-07-27to2021-06-01_expert_predictions'
+    # expert_path = f'{args.dir}2020-07-27to2021-06-01_expert_predictions'
+    expert_path = f'{args.dir}{DATE_DURATION}_expert_predictions'
     expert_bba_preds = np.load(f'{expert_path}/{date_string}_linear_bba{expert_key_text}.npy', allow_pickle=True)
     expert_bola1_preds = np.load(f'{expert_path}/{date_string}_bola1{expert_key_text}.npy', allow_pickle=True)
     expert_bola2_preds = np.load(f'{expert_path}/{date_string}_bola2{expert_key_text}.npy', allow_pickle=True)
     sl_path = f'{args.dir}{PERIOD_TEXT}_sl_cfs/cfs/model_{args.slsim_model_number}'
-    sl_bba_preds = np.load(f'{sl_path}/{date_string}_linear_bba{sl_key_text}.npy', allow_pickle=True)
-    sl_bola1_preds = np.load(f'{sl_path}/{date_string}_bola1{sl_key_text}.npy', allow_pickle=True)
-    sl_bola2_preds = np.load(f'{sl_path}/{date_string}_bola2{sl_key_text}.npy', allow_pickle=True)
+    # ydy
+    # sl_bba_preds = np.load(f'{sl_path}/{date_string}_linear_bba{sl_key_text}.npy', allow_pickle=True)
+    # sl_bola1_preds = np.load(f'{sl_path}/{date_string}_bola1{sl_key_text}.npy', allow_pickle=True)
+    # sl_bola2_preds = np.load(f'{sl_path}/{date_string}_bola2{sl_key_text}.npy', allow_pickle=True)
     for idx, policy_name in enumerate(ids):
         sim_dict[policy_name]['bola_basic_v1'].append(bola1_preds[idx])
         sim_dict[policy_name]['bola_basic_v2'].append(bola2_preds[idx])
         sim_dict[policy_name]['linear_bba'].append(bba_preds[idx])
-        sl_dict[policy_name]['bola_basic_v1'].append(sl_bola1_preds[idx])
-        sl_dict[policy_name]['bola_basic_v2'].append(sl_bola2_preds[idx])
-        sl_dict[policy_name]['linear_bba'].append(sl_bba_preds[idx])
+        # ydy
+        # sl_dict[policy_name]['bola_basic_v1'].append(sl_bola1_preds[idx])
+        # sl_dict[policy_name]['bola_basic_v2'].append(sl_bola2_preds[idx])
+        # sl_dict[policy_name]['linear_bba'].append(sl_bba_preds[idx])
         expert_dict[policy_name]['bola_basic_v1'].append(expert_bola1_preds[idx])
         expert_dict[policy_name]['bola_basic_v2'].append(expert_bola2_preds[idx])
         expert_dict[policy_name]['linear_bba'].append(expert_bba_preds[idx])
@@ -96,17 +101,19 @@ for source in policy_names:
     for target in buffer_based_names:
         sim_dict[source][target] = np.concatenate(sim_dict[source][target])
         expert_dict[source][target] = np.concatenate(expert_dict[source][target])
-        sl_dict[source][target] = np.concatenate(sl_dict[source][target])
+        # ydy
+        # sl_dict[source][target] = np.concatenate(sl_dict[source][target])
 for source_policy in policy_names:
     for target_policy in buffer_based_names:
         source = orig_dict[source_policy]
         target = orig_dict[target_policy]
         simulated = sim_dict[source_policy][target_policy]
         expert = expert_dict[source_policy][target_policy]
-        sl = sl_dict[source_policy][target_policy]
+        # ydy
+        # sl = sl_dict[source_policy][target_policy]
         simulated = simulated[~np.isinf(simulated)]
-        min_range = min([min(source), min(target), min(simulated), min(expert), min(sl)])
-        max_range = max([max(source), max(target), max(simulated), max(expert), max(sl)])
+        min_range = min([min(source), min(target), min(simulated), min(expert)])    # ydy: , min(sl)
+        max_range = max([max(source), max(target), max(simulated), max(expert)]) # ydy: , max(sl)
         n_target, bin_target, _ = plt.hist(
             target, bins=NUMBER_OF_BINS, density=True, histtype='step',
             cumulative=True, label=f'Target ({target_policy})', range=(min_range, max_range))
@@ -116,23 +123,28 @@ for source_policy in policy_names:
         n_expert, bin_expert, _ = plt.hist(
             expert, bins=NUMBER_OF_BINS, density=True, histtype='step',
             cumulative=True, label=f'ExpertSim (Simulated {target_policy})', range=(min_range, max_range))
-        n_sl, bin_sl, _ = plt.hist(
-            sl, bins=NUMBER_OF_BINS, density=True, histtype='step',
-            cumulative=True, label=f'SLSim (Simulated {target_policy})', range=(min_range, max_range))
+        # ydy: 
+        # n_sl, bin_sl, _ = plt.hist(
+        #     sl, bins=NUMBER_OF_BINS, density=True, histtype='step',
+        #     cumulative=True, label=f'SLSim (Simulated {target_policy})', range=(min_range, max_range))
         n_source, bin_source, _ = plt.hist(
             source, bins=NUMBER_OF_BINS, density=True, histtype='step',
             cumulative=True, label=f'Source ({source_policy})', range=(min_range, max_range))
+        
         simulation_EMD = np.sum(np.abs(n_pred - n_target) * (bin_target[1:] - bin_target[:-1]))
         expert_EMD = np.sum(np.abs(n_expert - n_target) * (bin_target[1:] - bin_target[:-1]))
-        sl_EMD = np.sum(np.abs(n_sl - n_target) * (bin_target[1:] - bin_target[:-1]))
+        # ydy
+        # sl_EMD = np.sum(np.abs(n_sl - n_target) * (bin_target[1:] - bin_target[:-1]))
+        
         EMDs[source_policy][target_policy] = simulation_EMD
         expert_EMDs[source_policy][target_policy] = expert_EMD
-        sl_EMDs[source_policy][target_policy] = sl_EMD
+        # ydy
+        # sl_EMDs[source_policy][target_policy] = sl_EMD
 
 with open(f'{EMD_dir}/expert_buff_{C}.pkl', 'wb') as f:
     pickle.dump(expert_EMDs, f)
-with open(f'{EMD_dir}/sl_buff_{C}.pkl', 'wb') as f:
-    pickle.dump(sl_EMDs, f)
+# with open(f'{EMD_dir}/sl_buff_{C}.pkl', 'wb') as f:
+#     pickle.dump(sl_EMDs, f)
 with open(f'{EMD_dir}/sim_buff_{C}.pkl', 'wb') as f:
     pickle.dump(EMDs, f)
 plt.close()

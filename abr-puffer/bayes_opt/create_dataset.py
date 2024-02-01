@@ -38,6 +38,7 @@ def main():
     # 235298 traces
     start_date = Durration_CON.start_date
     end_date = Durration_CON.end_date
+    DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
     all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 
     for today in tqdm(all_days):
@@ -75,7 +76,8 @@ def main():
     np.save(f"{config.dir}/gp_cooked/wts.npy", np.array(all_wts))
     print(f"There were {all_ts} traces!!!")
 
-    src_stats = f"{config.dir}/2020-07-27to2021-06-01_no_filter_data/"
+    # src_stats = f"{config.dir}/2020-07-27to2021-06-01_no_filter_data/"
+    src_stats = f"{config.dir}/{DATE_DURATION}_no_filter_data/"
     stats = ['mean', 'std']
     tags = [
         ('buffs', 'buffer'),

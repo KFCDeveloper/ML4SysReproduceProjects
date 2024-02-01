@@ -6,6 +6,10 @@ import os
 import datetime
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 args = parser.parse_args()
@@ -40,7 +44,9 @@ for target in target_policies:
         name = 'bola1'
     elif target == 'bola_basic_v2':
         name = 'bola2'
-    PERIOD_TEXT = f'2020-07-27to2021-06-01_{target}'
+    # PERIOD_TEXT = f'2020-07-27to2021-06-01_{target}'
+    DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
+    PERIOD_TEXT = f'{DATE_DURATION}_{target}'
     sl_path = f'{args.dir}{PERIOD_TEXT}_sl_cfs/cfs/model_10000'
     for today in tqdm(all_days):
         date_string = "%d-%02d-%02d" % (today.year, today.month, today.day)

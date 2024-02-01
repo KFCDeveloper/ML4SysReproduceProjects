@@ -243,8 +243,9 @@ left_out_text = f'_{args.left_out_policy}'
 PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
 
 C = args.C
-with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f:
-    b_C = pickle.load(f)[args.left_out_policy][0]
+b_C = 0.05
+# with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f: # ydy: do not need tune
+#     b_C = pickle.load(f)[args.left_out_policy][0]
 cf_path = f'{args.dir}{PERIOD_TEXT}_dt_cfs/inner_loop_{DISCRIMINATOR_EPOCH}/C_{C}/cfs/model_{args.model_number}'
 os.makedirs(cf_path, exist_ok=True)
 
@@ -300,7 +301,7 @@ for today in tqdm(all_days):
     bba_rebuffs = []
     bola1_rebuffs = []
     bola2_rebuffs = []
-    for idx, traj in enumerate(trajs):
+    for idx, traj in tqdm(enumerate(trajs)):
         latents = latent_list[idx]
         bba_buffs = bba_buff_list[idx]
         bola1_buffs = bola1_buff_list[idx]
@@ -320,9 +321,9 @@ for today in tqdm(all_days):
                                                                 action_std, dt_mean, dt_std, predictor, buff_mean, buff_std)
         bola2_rebuffs.append(bola2_rebuff_history)
         bola2_dts.append(bola2_dt_history)
-    np.save(f'{cf_path}/{date_string}_linear_bba_rebuffs.npy', bba_rebuffs)
-    np.save(f'{cf_path}/{date_string}_bola1_rebuffs.npy', bola1_rebuffs)
-    np.save(f'{cf_path}/{date_string}_bola2_rebuffs.npy', bola2_rebuffs)
-    np.save(f'{cf_path}/{date_string}_linear_bba_dts.npy', bba_dts)
-    np.save(f'{cf_path}/{date_string}_bola1_dts.npy', bola1_dts)
-    np.save(f'{cf_path}/{date_string}_bola2_dts.npy', bola2_dts)
+    np.save(f'{cf_path}/{date_string}_linear_bba_rebuffs.npy', np.array(bba_rebuffs,dtype=object))
+    np.save(f'{cf_path}/{date_string}_bola1_rebuffs.npy', np.array(bola1_rebuffs,dtype=object))
+    np.save(f'{cf_path}/{date_string}_bola2_rebuffs.npy', np.array(bola2_rebuffs,dtype=object))
+    np.save(f'{cf_path}/{date_string}_linear_bba_dts.npy', np.array(bba_dts,dtype=object))
+    np.save(f'{cf_path}/{date_string}_bola1_dts.npy', np.array(bola1_dts,dtype=object))
+    np.save(f'{cf_path}/{date_string}_bola2_dts.npy', np.array(bola2_dts,dtype=object))

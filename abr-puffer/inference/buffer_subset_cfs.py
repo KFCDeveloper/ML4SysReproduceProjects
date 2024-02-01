@@ -297,7 +297,7 @@ for today in tqdm(all_days):
     bba_ssims = []
     bola1_ssims = []
     bola2_ssims = []
-    for idx, traj in enumerate(trajs):
+    for idx, traj in tqdm(enumerate(trajs)):
         latents = latent_list[idx]
         linear_bba = LinearBBA(ssim_table=traj[:, 28:40], size_table=traj[:, 16:28])
         bola1 = BolaBasic(1, ssim_table=traj[:, 28:40], size_table=traj[:, 16:28])

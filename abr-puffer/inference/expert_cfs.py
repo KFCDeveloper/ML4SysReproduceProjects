@@ -4,6 +4,10 @@ import os
 import argparse
 from tqdm import tqdm
 
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
+from data_preparation.common_var import Durration_CON
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 parser.add_argument("--month", type=int, default=None)
@@ -253,7 +257,9 @@ def counterfactual(chat_list, time_list, abr_algo):
     assert len(buf_history) == len(rebuffer_history) - 1 == len(download_time_history) == len(size_history)
     return buf_history, size_history, rebuffer_history, download_time_history, ssim_history
 
-PERIOD_TEXT = '2020-07-27to2021-06-01'
+# PERIOD_TEXT = '2020-07-27to2021-06-01'
+DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
+PERIOD_TEXT = f'{DATE_DURATION}'
 new_path = f'{args.dir}{PERIOD_TEXT}_expert_predictions'
 os.makedirs(new_path, exist_ok=True)
 
@@ -297,7 +303,7 @@ for today in tqdm(all_days):
     bola1_download_times = []
     bola2_download_times = []
 
-    for traj_idx, traj in enumerate(trajs):
+    for traj_idx, traj in tqdm(enumerate(trajs)):
         linear_bba = LinearBBA(traj[:, 28:40], traj[:, 16:28])
         bola1 = BolaBasic(1, traj[:, 28:40], traj[:, 16:28])
         bola2 = BolaBasic(2, traj[:, 28:40], traj[:, 16:28])

@@ -24,7 +24,8 @@ args = parser.parse_args()
 NUMBER_OF_BINS = 10000
 left_out_text = f'_{args.left_out_policy}'
 # PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
-PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
+DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
+PERIOD_TEXT = f'{DATE_DURATION}{left_out_text}'
 
 policy_names = ['bola_basic_v2', 'bola_basic_v1', 'puffer_ttp_cl', 'puffer_ttp_20190202', 'linear_bba']
 buffer_based_names = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
@@ -49,7 +50,8 @@ plt.figure()
 orig_ssims = {target_policy: [] for target_policy in buffer_based_names}
 expert_ssims = {target_policy: [] for target_policy in buffer_based_names}
 cooked_path = f'{args.dir}cooked'
-expert_path = f'{args.dir}2020-07-27to2021-06-01_expert_predictions'
+# expert_path = f'{args.dir}2020-07-27to2021-06-01_expert_predictions'
+expert_path = f'{args.dir}{DATE_DURATION}_expert_predictions'
 for today in tqdm(all_days):
     date_string = "%d-%02d-%02d" % (today.year, today.month, today.day)
     ids = np.load(f'{cooked_path}/{date_string}_ids_translated.npy', allow_pickle=True)
