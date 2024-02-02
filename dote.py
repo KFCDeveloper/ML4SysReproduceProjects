@@ -256,11 +256,11 @@ if props.so_mode == SOMode.TRAIN: #train
                 loss_avg = loss_sum / loss_count
                 tepoch.set_postfix(loss=loss_avg)
                 # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
-        print('saving...... ' + str(epoch))
-        torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
+        # print('saving...... ' + str(epoch))
+        # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
     #save the model
     # torch.save(model, 'model_dote.pkl')
-    # torch.save(model, 'model_dote_' + str(n_epochs) + '.pkl')
+    torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
 
 elif props.so_mode == SOMode.TEST: #test
     # create the dataset
@@ -269,7 +269,9 @@ elif props.so_mode == SOMode.TEST: #test
     test_dl = DataLoader(test_dataset, batch_size=1, shuffle=False)
     #load the model
     # model = torch.load('model_dote.pkl').to(device)
-    model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
+    # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
+    model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
+    # model = torch.load('model_dote_Abilene.pkl').to(device)
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:

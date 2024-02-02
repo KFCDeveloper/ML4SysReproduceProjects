@@ -6,7 +6,7 @@ from numpy import random
 
 src_dir = "zoo_topologies"
 network_name = "Abilene"
-dest_dir = network_name # + "-diff-node"
+dest_dir = network_name + "-cut-node"
 
 #additional configuration variables
 default_capacity = "10000.0"
@@ -53,7 +53,16 @@ with open(input_file_name) as f:
             assert edge_src != None and edge_dst != None
             edges[(edge_src, edge_dst)] = capacity
             continue
-        
+
+# change topo, cut some links  Cap (4,5) Cap(7,10)      
+# del edges[('4','5')]
+# del edges[('7','10')]
+# change topo, cut a node  cut node '3'
+# del edges[('1','10')]
+# del edges[('7','10')]
+# del edges[('9','10')]
+# nodes.remove('10')
+
 #verification:
 #1. nodes are numbered 0 to len(nodes)
 #2. edges src and targets are existing nodes
