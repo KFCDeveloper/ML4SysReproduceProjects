@@ -5,8 +5,8 @@ import numpy as np
 from numpy import random
 
 src_dir = "zoo_topologies"
-network_name = "Cogentco"
-dest_dir = network_name
+network_name = "Abilene"
+dest_dir = network_name # + "-diff-node"
 
 #additional configuration variables
 default_capacity = "10000.0"
@@ -123,6 +123,6 @@ for m_idx in range(1, n_train_matrices + n_test_martices + 1):
                 if u == v: continue
                 frac = frac_dict[(u,v)]
                 # sample from gaussian with mean = frac, stddev = frac / 4   # ydy: to just use half of bandwidth  * 0.5
-                demands[u*len(nodes) + v] = f"{(total_demands *max(np.random.normal(frac, frac / 4), 0.0)):.6g}"
+                demands[u*len(nodes) + v] = f"{(total_demands * 0.5 *max(np.random.normal(frac, frac / 4), 0.0)):.6g}"
         f.write(' '.join(demands) + '\n')
     f.close()

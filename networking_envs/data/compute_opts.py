@@ -3,7 +3,7 @@ import glob
 import subprocess
 
 opts_dir_prefix = 'opts_'
-topology_name = 'Cogentco'
+topology_name = 'Abilene-diff-node'
 paths_from = 'sp'
 
 test_opts_dir = opts_dir_prefix + 'test'
