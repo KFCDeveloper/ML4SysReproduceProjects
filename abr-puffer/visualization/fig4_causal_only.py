@@ -18,16 +18,20 @@ plt.rcParams.update({
     'font.family': 'serif',
     'font.serif': ['Times']
 })
-buffer_based_names = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
+buffer_based_names = ['linear_bba']
 color_dict = {'linear_bba': 'C2', 'bola_basic_v1': 'C1', 'bola_basic_v2': 'C3'}
-marker_dict = {'expert': 'v', 'orig': 'o', 'sl': 's', 'causal': '*'}
-with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f:
-    f = pickle.load(f)
-    bf_C = {policy: f[policy][0] for policy in buffer_based_names}
-with open(f'{args.dir}tuned_hyperparams/downloadtime.pkl', 'rb') as f:
-    f = pickle.load(f)
-    dt_C = {policy: f[policy][0] for policy in buffer_based_names}
+marker_dict = {'expert': 'v', 'orig': 'o',  'causal': '*'} # 'sl': 's',
+# with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f:
+#     f = pickle.load(f)
+#     # bf_C = {policy: f[policy][0] for policy in buffer_based_names}
+#     bf_C = 0.05
+# with open(f'{args.dir}tuned_hyperparams/downloadtime.pkl', 'rb') as f:
+#     f = pickle.load(f)
+#     # dt_C = {policy: f[policy][0] for policy in buffer_based_names}
+#     dt_C = 0.05
 
+bf_C = {'linear_bba':'0.05'}
+dt_C = {'linear_bba':'0.05'}
 plt.figure(figsize=(3.25, 2.25))
 #Original
 for policy in buffer_based_names:
@@ -46,13 +50,7 @@ for policy in buffer_based_names:
     plt.scatter(100 * np.sum(expert_stall[policy]['rebuffs']) / np.sum(expert_stall[policy]['lens']), expert_ssim[policy], color=color_dict[policy], marker=marker_dict['expert'], label=f'expert_{policy}', s=25, zorder=500)
     print(f'expert_{policy}', 100 * np.sum(expert_stall[policy]['rebuffs']) / np.sum(expert_stall[policy]['lens']), expert_ssim[policy])
 #SL
-for policy in buffer_based_names:
-    with open(f'{args.dir}subset_sl_stall_dicts/{policy}/stalls.pkl', 'rb') as f:
-        sl_stall = pickle.load(f)
-    with open(f'{args.dir}subset_sl_ssim_dicts/{policy}/ssims.pkl', 'rb') as f:
-        sl_ssim = pickle.load(f)
-    plt.scatter(100 * np.sum(sl_stall[policy]['rebuffs']) / np.sum(sl_stall[policy]['lens']), sl_ssim[policy], color=color_dict[policy], marker=marker_dict['sl'], label=f'sl_{policy}', s=25, zorder=500)
-    print(f'sl_{policy}', 100 * np.sum(sl_stall[policy]['rebuffs']) / np.sum(sl_stall[policy]['lens']), sl_ssim[policy])
+
 #Causal
 for policy in buffer_based_names:
     with open(f'{args.dir}subset_stall_dicts/{policy}/stalls_{dt_C[policy]}.pkl', 'rb') as f:
@@ -79,4 +77,5 @@ plt.grid(zorder=550)
 
 fig_path = f'{args.dir}plots'
 os.makedirs(fig_path, exist_ok=True)
-plt.savefig(f'{fig_path}/fig4.pdf', format='pdf')
+# plt.savefig(f'{fig_path}/fig4.pdf', format='pdf')
+plt.savefig(f'{fig_path}/fig4.png')
