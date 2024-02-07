@@ -6,7 +6,7 @@ from numpy import random
 
 src_dir = "zoo_topologies"
 network_name = "Abilene"
-dest_dir = network_name + "-cut-node"
+dest_dir = network_name + "-0.75"   # remember to modify three places
 
 #additional configuration variables
 default_capacity = "10000.0"
@@ -57,11 +57,13 @@ with open(input_file_name) as f:
 # change topo, cut some links  Cap (4,5) Cap(7,10)      
 # del edges[('4','5')]
 # del edges[('7','10')]
+# edges[('4','5')] = edges[('7','10')] = '1.0'
 # change topo, cut a node  cut node '3'
 # del edges[('1','10')]
 # del edges[('7','10')]
 # del edges[('9','10')]
 # nodes.remove('10')
+# edges[('1','10')] = edges[('7','10')] = edges[('9','10')] = '1.0'
 
 #verification:
 #1. nodes are numbered 0 to len(nodes)
@@ -98,8 +100,10 @@ node_to_n_edges = {}
 total_edges_cap = 0.0
 for n in nodes: node_to_n_edges[n] = 0
 for e in edges:
-    node_to_n_edges[e[0]] += 1
     total_edges_cap += float(edges[e])
+    if edges[e] == '1.0':   # if edge cap is 0.0
+        continue
+    node_to_n_edges[e[0]] += 1
     if (e[1], e[0]) not in edges:
         node_to_n_edges[e[1]] += 1
         total_edges_cap += float(edges[e])
@@ -111,14 +115,32 @@ total_edges = sum(node_to_n_edges.values())
 
 total_demands = total_edges_cap / demands_factor
 frac_dict = {}
-for u in range(len(nodes)):
-    for v in range(len(nodes)):
+# for u in range(len(nodes)):
+#     for v in range(len(nodes)):
+#         if nodes[u]=='10' or nodes[v]=='10':
+#             frac_dict[(u, v)] = 0.0
+
+#         if u == v:
+#             frac_dict[(u, v)] = 0.0
+#         else:
+#             u_str = str(u)
+#             v_str = str(v)
+#             frac_dict[(u, v)] = (node_to_n_edges[u_str] * node_to_n_edges[v_str]) / (total_edges * (total_edges - node_to_n_edges[u_str]))
+
+node_list = list(nodes)
+for u in range(len(node_list)):
+    for v in range(len(node_list)):
         if u == v:
             frac_dict[(u, v)] = 0.0
         else:
             u_str = str(u)
             v_str = str(v)
             frac_dict[(u, v)] = (node_to_n_edges[u_str] * node_to_n_edges[v_str]) / (total_edges * (total_edges - node_to_n_edges[u_str]))
+        
+        # if node_list[u]=='10' or node_list[v]=='10':    # remove node 10
+        #     frac_dict[(u, v)] = 0.0
+        # if (node_list[u],node_list[v])==('4','5') or (node_list[u],node_list[v])==('5','4') or (node_list[u],node_list[v])==('7','10') or (node_list[u],node_list[v])==('10','7'):
+        #     frac_dict[(u, v)] = 0.0
             
 #gen train and test DMs
 for m_idx in range(1, n_train_matrices + n_test_martices + 1):
@@ -131,7 +153,8 @@ for m_idx in range(1, n_train_matrices + n_test_martices + 1):
             for v in range(len(nodes)):
                 if u == v: continue
                 frac = frac_dict[(u,v)]
-                # sample from gaussian with mean = frac, stddev = frac / 4   # ydy: to just use half of bandwidth  * 0.5
+                if frac  == 0.0: continue   # remove links
+                # sample from gaussian with mean = frac, stddev = frac / 4   # ydy: to just use half of bandwidth  * 0.5; frac / 2
                 demands[u*len(nodes) + v] = f"{(total_demands *max(np.random.normal(frac, frac / 4), 0.0)):.6g}"
         f.write(' '.join(demands) + '\n')
     f.close()
