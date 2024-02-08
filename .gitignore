@@ -11,3 +11,4 @@ load-balancing/directory/*
 abr-puffer/*CAUSALSIM_DIR*/*
 abr-puffer/assets/*
 **/__pycache__/
+abr-puffer/log/*
