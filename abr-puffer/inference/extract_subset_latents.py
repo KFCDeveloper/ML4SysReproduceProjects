@@ -9,7 +9,7 @@ import time
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 import data_preparation.common_var
 
 parser = argparse.ArgumentParser()
@@ -21,6 +21,7 @@ parser.add_argument("--month", type=int, default=None)
 parser.add_argument("--year", type=int, default=None)
 parser.add_argument("--model_number", type=int, help="saved model epoch number", default=5000)
 args = parser.parse_args()
+match_date(args)
 
 
 def mlp(sizes, activation, output_activation=nn.Identity):

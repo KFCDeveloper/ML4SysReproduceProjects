@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
@@ -18,6 +18,7 @@ parser.add_argument("--left_out_policy", type=str, help="left out policy")
 parser.add_argument("--device", type=str, help="Compute device", default='cuda:0')
 parser.add_argument("--batch_size", type=int, default=17)
 args = parser.parse_args()
+match_date(args)
 
 torch.manual_seed(10)
 np.random.seed(10)

@@ -6,13 +6,14 @@ from tqdm import tqdm
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="source directory")
 parser.add_argument("--left_out_policy", type=str, help="left out policy")
 parser.add_argument("--model_number", type=int, help="saved model epoch number", default=10000)
 args = parser.parse_args()
+match_date(args)
 left_out_text = f'_{args.left_out_policy}'
 # PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
 PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'

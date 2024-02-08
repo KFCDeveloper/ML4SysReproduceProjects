@@ -7,7 +7,7 @@ from tqdm import tqdm
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="source directory")
@@ -16,6 +16,7 @@ parser.add_argument("--left_out_policy", type=str, help="left out policy")
 parser.add_argument("--causalsim_model_number", type=int, help="CausalSim's saved model epoch number", default=5000)
 parser.add_argument("--slsim_model_number", type=int, help="SLSim's saved model epoch number", default=10000)
 args = parser.parse_args()
+match_date(args)
 C = args.C
 NUMBER_OF_BINS = 10000
 DISCRIMINATOR_EPOCH = 10

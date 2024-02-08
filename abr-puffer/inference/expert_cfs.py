@@ -6,13 +6,14 @@ from tqdm import tqdm
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 parser.add_argument("--month", type=int, default=None)
 parser.add_argument("--year", type=int, default=None)
 args = parser.parse_args()
+match_date(args)
 
 
 class LinearBBA(object):

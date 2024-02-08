@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON
+from data_preparation.common_var import Durration_CON, match_date
 
 from env.abr import ssim_db
 
@@ -18,6 +18,7 @@ parser.add_argument('--dir', type=str, required=True, help='Puffer trace path')
 parser.add_argument('--buf_latent_dir', type=str, required=True, help='Path to load latent buffers from')
 parser.add_argument('--dt_latent_dir', type=str, required=True, help='Path to load download time latents from')
 config = parser.parse_args()
+match_date(args)
 
 
 def main():
