@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             // "args": [
             //     "--ecmp_topo","Cogentco",
             //     "--paths_from", "sp",
@@ -20,6 +20,7 @@
             //     "--so_batch_size","32",
             //     "--opt_function","MAXUTIL"
             // ]
+            "cwd": "/mydata/DOTE/networking_envs",
         }
     ]
 }

@@ -6,7 +6,7 @@ from numpy import random
 
 src_dir = "zoo_topologies"
 network_name = "Abilene"
-dest_dir = network_name + "-0.75"   # remember to modify three places
+dest_dir = network_name + "-squeeze-links-more1"   # remember to modify three places
 
 #additional configuration variables
 default_capacity = "10000.0"
@@ -78,26 +78,27 @@ os.mkdir(dest_dir + "/opts")
 os.mkdir(dest_dir + "/test")
 os.mkdir(dest_dir + "/train")
 
-edges_list = [(int(e[0]), int(e[1]), edges[e]) for e in edges]
-edges_list.sort()
+# **** save the cap and link ****
+# edges_list = [(int(e[0]), int(e[1]), edges[e]) for e in edges]
+# edges_list.sort()
 
-with open(dest_dir + '/' + dest_dir + "_int.pickle.nnet", "w", newline='\n') as f:
-    for e in edges_list:
-        f.write(str(e[0]) + ',' + str(e[1]) + ',' + e[2] + '\n')
+# with open(dest_dir + '/' + dest_dir + "_int.pickle.nnet", "w", newline='\n') as f:
+#     for e in edges_list:
+#         f.write(str(e[0]) + ',' + str(e[1]) + ',' + e[2] + '\n')
 
-with open(dest_dir + '/' + dest_dir + "_int.txt", "w", newline='\n') as f:
-    capacities = [["0.0"]*len(nodes) for x in range(len(nodes))]
-    for e in edges_list:
-        capacities[e[0]][e[1]] = e[2]
-        if (str(e[1]), str(e[0])) not in edges:
-            capacities[e[1]][e[0]] = e[2]
+# with open(dest_dir + '/' + dest_dir + "_int.txt", "w", newline='\n') as f:
+#     capacities = [["0.0"]*len(nodes) for x in range(len(nodes))]
+#     for e in edges_list:
+#         capacities[e[0]][e[1]] = e[2]
+#         if (str(e[1]), str(e[0])) not in edges:
+#             capacities[e[1]][e[0]] = e[2]
     
-    for i in range(len(nodes)):
-        f.write(','.join(capacities[i]) + '\n')
+#     for i in range(len(nodes)):
+#         f.write(','.join(capacities[i]) + '\n')
 
 #generate random traffic matrices
 node_to_n_edges = {}
-total_edges_cap = 0.0
+total_edges_cap = 0.0   # just use it to gen proper traffic matrix
 for n in nodes: node_to_n_edges[n] = 0
 for e in edges:
     total_edges_cap += float(edges[e])
@@ -141,7 +142,10 @@ for u in range(len(node_list)):
         #     frac_dict[(u, v)] = 0.0
         # if (node_list[u],node_list[v])==('4','5') or (node_list[u],node_list[v])==('5','4') or (node_list[u],node_list[v])==('7','10') or (node_list[u],node_list[v])==('10','7'):
         #     frac_dict[(u, v)] = 0.0
-            
+
+# i'd like to change bandwidth of some paths
+# double_bw_path = {('4','3'),('5','6'),('8','9')}
+# double_bw_path = {('8', '5'), ('9', '12'), ('9', '11'), ('10', '9'), ('10', '12'), ('8', '6'), ('0', '12'), ('0', '11'), ('6', '7'), ('1', '9'), ('1', '7'), ('6', '9'), ('12', '7'), ('1', '12'), ('2', '8'), ('1', '3'), ('5', '8'), ('7', '10'), ('4', '12'), ('6', '10'), ('11', '10'), ('9', '8'), ('10', '5'), ('0', '8'), ('0', '1'), ('0', '5'), ('3', '4'), ('8', '10'), ('2', '9'), ('2', '7'), ('6', '5'), ('7', '6'), ('5', '9'), ('11', '1'), ('11', '5'), ('2', '11'), ('3', '5'), ('5', '11'), ('5', '3'), ('6', '0'), ('0', '2'), ('4', '1'), ('12', '6')}
 #gen train and test DMs
 for m_idx in range(1, n_train_matrices + n_test_martices + 1):
     if m_idx <= n_train_matrices: fname = dest_dir + '/train/' + str(m_idx) + '.hist'
@@ -156,5 +160,33 @@ for m_idx in range(1, n_train_matrices + n_test_martices + 1):
                 if frac  == 0.0: continue   # remove links
                 # sample from gaussian with mean = frac, stddev = frac / 4   # ydy: to just use half of bandwidth  * 0.5; frac / 2
                 demands[u*len(nodes) + v] = f"{(total_demands *max(np.random.normal(frac, frac / 4), 0.0)):.6g}"
+                # change bandwidth of some paths
+                # if (list(nodes)[u],list(nodes)[v]) in double_bw_path:
+                #     demands[u*len(nodes) + v] = f"{(total_demands *2 *max(np.random.normal(frac, frac / 4), 0.0)):.6g}"
         f.write(' '.join(demands) + '\n')
     f.close()
+
+
+
+
+# save the cap and link
+# change the cap
+# edges[('1','10')]
+edges[('1','10')] = edges[('7','10')] = edges[('9','10')] = '5000.0'
+
+edges_list = [(int(e[0]), int(e[1]), edges[e]) for e in edges]
+edges_list.sort()
+
+with open(dest_dir + '/' + dest_dir + "_int.pickle.nnet", "w", newline='\n') as f:
+    for e in edges_list:
+        f.write(str(e[0]) + ',' + str(e[1]) + ',' + e[2] + '\n')
+
+with open(dest_dir + '/' + dest_dir + "_int.txt", "w", newline='\n') as f:
+    capacities = [["0.0"]*len(nodes) for x in range(len(nodes))]
+    for e in edges_list:
+        capacities[e[0]][e[1]] = e[2]
+        if (str(e[1]), str(e[0])) not in edges:
+            capacities[e[1]][e[0]] = e[2]
+    
+    for i in range(len(nodes)):
+        f.write(','.join(capacities[i]) + '\n')
