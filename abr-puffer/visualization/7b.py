@@ -6,22 +6,17 @@ import os
 import datetime
 from tqdm import tqdm
 
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
-from data_preparation.common_var import Durration_CON, match_date
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 args = parser.parse_args()
-match_date(args)
 
 source_policies = ['bola_basic_v2', 'bola_basic_v1', 'puffer_ttp_cl', 'puffer_ttp_20190202', 'linear_bba']
 target_policies = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
 
 mape_dict = {source: {target: {'diff': 0, 'number': 0, 'average': 0, 'mad': 0} for target in target_policies} for
              source in source_policies}
-start_date = Durration_CON.start_date
-end_date = Durration_CON.end_date
+start_date = datetime.date(2020, 7, 27)
+end_date = datetime.date(2021, 6, 1)
 all_days = [start_date + datetime.timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 all_days = [day for day in all_days if day not in [datetime.date(2019, 5, 12), datetime.date(2019, 5, 13),
                                                    datetime.date(2019, 5, 15), datetime.date(2019, 5, 17),
@@ -45,9 +40,7 @@ for target in target_policies:
         name = 'bola1'
     elif target == 'bola_basic_v2':
         name = 'bola2'
-    # PERIOD_TEXT = f'2020-07-27to2021-06-01_{target}'
-    DATE_DURATION = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d")
-    PERIOD_TEXT = f'{DATE_DURATION}_{target}'
+    PERIOD_TEXT = f'2020-07-27to2021-06-01_{target}'
     sl_path = f'{args.dir}{PERIOD_TEXT}_sl_cfs/cfs/model_10000'
     for today in tqdm(all_days):
         date_string = "%d-%02d-%02d" % (today.year, today.month, today.day)

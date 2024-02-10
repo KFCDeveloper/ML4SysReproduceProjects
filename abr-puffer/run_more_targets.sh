@@ -2,7 +2,7 @@
 
 cd /mydata/Unbiased-Trace-Driven-Simulation/abr-puffer
 targets=("bola_basic_v1" "bola_basic_v2")  # "linear_bba"
-# root_dirs=("CAUSALSIM_DIR/" "CAUSALSIM_DIR-20-9-27/" "CAUSALSIM_DIR-20-11-27/" "CAUSALSIM_DIR-21-1-27/" "CAUSALSIM_DIR-21-3-27/")
+# root_dirs=("CAUSALSIM_DIR-20-7-27/" "CAUSALSIM_DIR-20-9-27/" "CAUSALSIM_DIR-20-11-27/" "CAUSALSIM_DIR-21-1-27/" "CAUSALSIM_DIR-21-3-27/")
 root_dir="CAUSALSIM_DIR-21-3-27/"
 
 for target in "${targets[@]}"

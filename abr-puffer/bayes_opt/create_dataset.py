@@ -18,7 +18,7 @@ parser.add_argument('--dir', type=str, required=True, help='Puffer trace path')
 parser.add_argument('--buf_latent_dir', type=str, required=True, help='Path to load latent buffers from')
 parser.add_argument('--dt_latent_dir', type=str, required=True, help='Path to load download time latents from')
 config = parser.parse_args()
-match_date(args)
+match_date(config)
 
 
 def main():
