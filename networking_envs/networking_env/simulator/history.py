@@ -81,13 +81,13 @@ class Histories(object):
         with open(fname) as f:
             for line in tqdm.tqdm(f.readlines()):
                 try:
-                    tm = self._parse_tm_line(line, self._time)
+                    tm = self._parse_tm_line(line, self._time) # to parse the string
                 except:
                     import pdb;
                     pdb.set_trace()
 
                 tm_time = tm_length_func()
-                tm = SizeConsts.BPS_TO_GBPS(tm)
+                tm = SizeConsts.BPS_TO_GBPS(tm) # tm is traffic matrix. len() is num_node*num_node - num_node
                 self._tms.append(tm)
                 self._tm_times.append(tm_time)
 

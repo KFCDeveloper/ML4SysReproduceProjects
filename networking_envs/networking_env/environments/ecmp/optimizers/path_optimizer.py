@@ -217,7 +217,7 @@ class PathOptimizer(Optimizer):
 
         all_paths, _ = self._nodes_to_edges(pij)
         self._paths_to_edges = csr_matrix(all_paths)
-        self._num_paths = all_paths.shape[0]
+        self._num_paths = all_paths.shape[0]    # all_paths 这里是(218 ,28); 28是所有的边（双向,14*2); 然后218是所有的路径, 0代表不走 1代表走
         self._pij = pij
         self._make_paths_params()
         

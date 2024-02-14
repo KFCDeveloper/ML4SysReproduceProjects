@@ -35,7 +35,7 @@ class DmDataset(Dataset):
         X_ = []
         for histid in range(len(tms) - props.hist_len):
             start_idx = histid * num_nodes * (num_nodes - 1)
-            end_idx = start_idx + props.hist_len * num_nodes * (num_nodes - 1)
+            end_idx = start_idx + props.hist_len * num_nodes * (num_nodes - 1) # hist_len default=12, this assumes that we sample 12 TMs per hour (1 per 5min) 
             X_.append(np_tms_flat[start_idx:end_idx])
 
         self.X = np.asarray(X_)
@@ -89,12 +89,12 @@ def loss_fn_maxutil(y_pred_batch, y_true_batch, env):
     
         y_pred = y_pred + 1e-16 #eps
         paths_weight = torch.transpose(y_pred, 0, 1)
-        commodity_total_weight = commodities_to_paths.matmul(paths_weight)
+        commodity_total_weight = commodities_to_paths.matmul(paths_weight)  # 这个 [110,218] * [218,1] 就是把每个path上的flow的bw 转为 两两节点之间的 bw
         commodity_total_weight = 1.0 / (commodity_total_weight)
-        paths_over_total = commodities_to_paths.transpose(0,1).matmul(commodity_total_weight)
-        paths_split = paths_weight.mul(paths_over_total)
-        tmp_demand_on_paths = commodities_to_paths.transpose(0,1).matmul(y_true.transpose(0,1))
-        demand_on_paths = tmp_demand_on_paths.mul(paths_split)
+        paths_over_total = commodities_to_paths.transpose(0,1).matmul(commodity_total_weight)   # commodities_to_paths.transpose(0,1) 每行相当于 每个path是属于哪个两个node之间的
+        paths_split = paths_weight.mul(paths_over_total)    # 相当于 bw_a_path/bw_path_corresponding_two_node  [218, 1]
+        tmp_demand_on_paths = commodities_to_paths.transpose(0,1).matmul(y_true.transpose(0,1)) # 这里真的没写错吗？？？？这个所谓的y_true实际上也不是ytrue把；噢不，这个就是y_true,两个node之间的traffic是固定的，要变动的是split这个flow到别的link上去
+        demand_on_paths = tmp_demand_on_paths.mul(paths_split) # bw_a_path_pre * bw_two_nodes_true/bw_two_nodes_pre;
         flow_on_edges = paths_to_edges.transpose(0,1).matmul(demand_on_paths)
         congestion = flow_on_edges.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1))
         max_cong = torch.max(congestion)
@@ -230,7 +230,7 @@ if props.so_mode == SOMode.TRAIN: #train
     # create a data loader for the train set
     train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     #create the model
-    model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths)
+    model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
     model.double()
     model.to(device)
     # optimizer
@@ -240,8 +240,11 @@ if props.so_mode == SOMode.TRAIN: #train
         with tqdm(train_dl) as tepoch:
             epoch_train_loss = []
             loss_sum = loss_count = 0
-            for (inputs, targets) in tepoch:
-                # put data on the graphics memory 
+            for (inputs, targets) in tepoch:        
+                # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                # 
+                # put data on the graphics memory   
                 inputs = inputs.to(device)
                 targets = targets.to(device)
                 tepoch.set_description(f"Epoch {epoch}")
