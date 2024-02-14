@@ -95,12 +95,12 @@ def loss_fn_maxutil(y_pred_batch, y_true_batch, env):
         paths_split = paths_weight.mul(paths_over_total)    # 相当于 bw_a_path/bw_path_corresponding_two_node  [218, 1]
         tmp_demand_on_paths = commodities_to_paths.transpose(0,1).matmul(y_true.transpose(0,1)) # 这里真的没写错吗？？？？这个所谓的y_true实际上也不是ytrue把；噢不，这个就是y_true,两个node之间的traffic是固定的，要变动的是split这个flow到别的link上去
         demand_on_paths = tmp_demand_on_paths.mul(paths_split) # bw_a_path_pre * bw_two_nodes_true/bw_two_nodes_pre;
-        flow_on_edges = paths_to_edges.transpose(0,1).matmul(demand_on_paths)
+        flow_on_edges = paths_to_edges.transpose(0,1).matmul(demand_on_paths) # 噢噢，这么理解，pre出来的是权重，然后已知了两个node之间的流量带宽，然后根据各个path的权重来分割两个node之间的带宽，最后去计算每个edge的带宽来算MLU
         congestion = flow_on_edges.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1))
         max_cong = torch.max(congestion)
         
         # loss = 1.0 - max_cong if max_cong.item() == 0.0 else max_cong/max_cong.item() # this equation identically equals to 1
-        loss = max_cong # ydy: i do not think the above loss func is right
+        loss = max_cong # ydy: i do not think the above loss func is right;; 现在我觉得，可能是对的了，反正loss就一直在，一直梯度下降就行了
         loss_val = 1.0 if opt == 0.0 else max_cong.item() / opt # no problem, lower is better 
         losses.append(loss)
         loss_vals.append(loss_val)
