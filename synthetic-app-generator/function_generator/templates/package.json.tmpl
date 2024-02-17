@@ -1,0 +1,15 @@
+{
+  "name": "{{.FunctionName}}",
+  "version": "1.0.0",
+  "description": "Auto generated function",
+  "main": "function.js",
+  "author": "Haoran",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "4.11.0"{{if .Packages}},{{end}}
+    {{ range $index, $value := .Packages }}
+      {{if $index}},{{end}}
+      {{$value}}
+    {{ end }}
+  }
+}
