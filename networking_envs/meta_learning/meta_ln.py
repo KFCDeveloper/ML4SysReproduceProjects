@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import heapq
 
 from util import *
-from ppo.rnn import RNNEmbedding
+from meta_learning.rnn import RNNEmbedding
 
 PLOT_FIG = False
 SAVE_FIG = True
@@ -81,95 +81,30 @@ class MetaPPO:
 
         # store recent episode rewards
         self.recent_rewards = []
+        
+    def train():
+        for iteration in range(TOTAL_ITERATIONS):
+            print(1)
 
-class MetaCriticNetwork(nn.Module):
+
+# 结合embedding一起做 allocation 策略推理
+class MetaNetwork(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, env_dim, agent, verbose=True):
-        super(MetaCriticNetwork, self).__init__()
+        super(MetaNetwork, self).__init__()
 
         self.env_dim = env_dim
         self.agent = agent
 
         # rnn embedding
-        num_features_per_sample = env_dim['state'] + env_dim['action'] + env_dim['reward']
         self.rnn = RNNEmbedding(1, BUFFER_SIZE, 'wa', num_channels=MAX_TIMESTEPS_PER_EPISODE, verbose=verbose)
 
+        # 输入是 embedding_len + traffic_matrix + MLU? 还是什么忘记了
         self.fc1 = nn.Linear(input_size + self.rnn.embedding_dim, hidden_size)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
-        self.relu = nn.ReLU()
+        # 如果要加 transformer 要在这里加，然后再往后，要在这里把 embedding 和 traffic matrix 进行综合
+        # 这里和dote的一样
+    
 
     def forward(self, input_):
-        padded_states, padded_actions, padded_rewards = get_padded_trajectories(self.agent.episode_buffer, state_dim=self.env_dim['state'], action_dim=self.env_dim['action'])
-
-        # encode RL trajectories with the RNN and generate the embedding
-        rnn_input = torch.cat((padded_states, padded_actions, padded_rewards), dim=-2)
-        num_sequences = rnn_input.shape[0]
-        hidden = self.rnn.init_hidden(num_sequences=num_sequences)
-        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding
-        rnn_output = rnn_output[:, -1, :]
-        hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
-        hidden_state = hidden_state.view((1, 1, -1))
-        embedding = self.rnn.embedding_layer(hidden_state[0][0])
-        embedding = self.rnn.relu(embedding)
-
-        input_ = torch.FloatTensor(input_)
-        # concat input + embedding
-        embedding = embedding.reshape(1, -1)
-        embedding = embedding.repeat(input_.size(0), 1)
-        input_ = torch.cat((input_, embedding), dim=1)
-        output = self.relu(self.fc1(input_))
-        output = self.relu(self.fc2(output))
-        output = self.fc3(output)
-
-        return output
-
-
-class MetaActorNetwork(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, env_dim, agent, verbose=True):
-        super(MetaActorNetwork, self).__init__()
-
-        self.env_dim = env_dim
-        self.agent = agent
-
-        # rnn embedding
-        num_features_per_sample = env_dim['state'] + env_dim['action'] + env_dim['reward']
-        self.rnn = RNNEmbedding(1, BUFFER_SIZE, 'wa', num_channels=MAX_TIMESTEPS_PER_EPISODE, verbose=verbose)
-
-        self.fc1 = nn.Linear(input_size + self.rnn.embedding_dim, hidden_size)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
-        self.relu = nn.ReLU()
-        self.softmax = nn.Softmax(dim=-1)
-
-    def forward(self, input_):
-        padded_states, padded_actions, padded_rewards = get_padded_trajectories(self.agent.episode_buffer, state_dim=self.env_dim['state'], action_dim=self.env_dim['action'])
-
-        # encode RL trajectories with the RNN and generate the embedding
-        rnn_input = torch.cat((padded_states, padded_actions, padded_rewards), dim=-2)
-        num_sequences = rnn_input.shape[0]
-        hidden = self.rnn.init_hidden(num_sequences=num_sequences)
-        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding
-        rnn_output = rnn_output[:, -1, :]
-        hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
-        hidden_state = hidden_state.view((1, 1, -1))
-        # embedding = self.rnn.embedding_layer(torch.cat((rnn_output[:, :self.rnn.hidden_size], rnn_output[:, self.rnn.hidden_size:]), dim=-1))
-        embedding = self.rnn.embedding_layer(hidden_state[0][0])
-        embedding = self.rnn.relu(embedding)
-        # print('Generated embedding:', type(embedding), embedding.shape)
-
-        input_ = torch.FloatTensor(input_)
-        if len(input_.shape) > 1:
-            # concat input + embedding for batched inputs
-            embedding = embedding.reshape(1, -1)
-            embedding = embedding.repeat(input_.size(0), 1)
-            input_ = torch.cat((input_, embedding), dim=1)
-        else:
-            # concat input + embedding
-            input_ = torch.cat((input_, embedding), dim=-1)
-        output = self.relu(self.fc1(input_))
-        output = self.relu(self.fc2(output))
-        output = self.fc3(output)
-        if not FLAG_CONTINUOUS_ACTION:
-            output = self.softmax(output)
+        
 
         return output
