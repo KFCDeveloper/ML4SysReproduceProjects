@@ -378,6 +378,7 @@ class MetaPPO:
             all_cpu_utils = []
             all_slo_preservations = []
 
+            # 这个for里面没有train # ppo中一场游戏(一个trace) 是一个episode; 大概是因为offline所以先生成了5个episode然后去更新actor critics
             for episode in range(EPISODES_PER_ITERATION):
                 state = self.env.reset(self.function_name)[:NUM_STATES]
                 episode_rewards = []
@@ -504,6 +505,7 @@ class MetaPPO:
             advantage = returns - values.detach()
             advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
 
+            # 这个for里面才train了
             for epoch in range(SGD_EPOCHS):
                 batch_size = states.size(0)  # whole batch of size 4000 (= 20 * 200)
                 # use mini-batch instead of the whole batch
