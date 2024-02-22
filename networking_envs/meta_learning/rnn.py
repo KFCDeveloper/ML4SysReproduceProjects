@@ -13,19 +13,11 @@ RNN_HIDDEN_SIZE = 256  # equal to the max steps of each episode
 RNN_NUM_LAYERS = 2
 EMBEDDING_DIM = 32
 
-
+# ydy: 实际上并不用继承自 nn.Module，这个 forward() 函数并没有用上
 class RNNEmbedding(nn.Module):
-    def __init__(self, N, K, task, num_channels=NUM_FEATURES_PER_SHOT, embedding_dim=EMBEDDING_DIM, use_cuda=False, verbose=True):
+    def __init__(self, num_channels, embedding_dim=EMBEDDING_DIM, use_cuda=False):
         # N-way (N classes, N = 1 for non-classification tasks), K-shot (K samples used to generate per embedding)
         super(RNNEmbedding, self).__init__()
-        if task == 'wa':
-            # num_channels is the dimension of x which is equal to the number of features per shot/sample
-            # num_channels = NUM_FEATURES_PER_SHOT
-            if verbose:
-                print('Task:', task)
-                print('Number of features per sample:', num_channels)
-        else:
-            raise ValueError('Not recognized task!')
 
         # configs for a 2-layer bi-directional RNN
         self.hidden_size = RNN_HIDDEN_SIZE
@@ -38,13 +30,15 @@ class RNNEmbedding(nn.Module):
         # self.embedding_layer = nn.ReLU(nn.Linear(self.hidden_size * self.num_layers * self.directions, embedding_dim))
         self.embedding_layer = nn.Linear(self.hidden_size * self.num_layers * self.directions, embedding_dim)
         self.relu = nn.ReLU()
-        self.embedding_dim = embedding_dim
+        # FC layer for input size adapting
+        self.input_layer = nn.Linear(self.hidden_size * self.num_layers * self.directions, embedding_dim)
 
-        self.N = N
-        self.K = K
+        self.N = 0
+        self.K = 0
         self.use_cuda = use_cuda
+        
 
-    # forward with embedding
+    # forward with embedding # ydy: 这个应该是没有用上的
     def forward(self, input):
         # input to the embedding layer is the features to the samples
         x = np.array([input[0].numpy()[i * num_channels : (i+1) * num_channels] for i in range(self.K)])

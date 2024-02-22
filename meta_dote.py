@@ -18,6 +18,9 @@ from tqdm import tqdm
 from networking_envs.meta_learning.rnn import RNNEmbedding
 
 
+# super parameters
+NUM_FEATURES_GRU = 10  # input dimension of GRU after adapting input by FC
+
 # dataset definition
 class DmDataset(Dataset):
     def __init__(self, props=None, env=None, is_test=None):
@@ -61,7 +64,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(MetaNeuralNetworkMaxUtil, self).__init__()
         # rnn embedding
-        self.rnn = RNNEmbedding(1, BUFFER_SIZE, 'wa', num_channels=MAX_TIMESTEPS_PER_EPISODE, verbose=verbose)
+        self.rnn = RNNEmbedding(num_channels=NUM_FEATURES_GRU)
         self.flatten = nn.Flatten()
         # TODO 这里的input_dim 是原本的input_dim + embedding_len
         self.net = nn.Sequential(
@@ -77,13 +80,12 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             nn.Sigmoid(),
         )
 
-    def forward(self, x):
-        
+    def forward(self, input_):
+        rnn_input = self.rnn.input_layer(input_)  # use full connection to adapt variable len input.
         # TODO encode data points with the RNN and generate the embedding
-        rnn_input = torch.cat((padded_states, padded_actions, padded_rewards), dim=-2)
         num_sequences = rnn_input.shape[0]
         hidden = self.rnn.init_hidden(num_sequences=num_sequences)
-        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding
+        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size, seq_len, feature_size)
         rnn_output = rnn_output[:, -1, :]
         hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
         hidden_state = hidden_state.view((1, 1, -1))
@@ -274,7 +276,7 @@ if __name__ == "__main__":
                     tepoch.set_description(f"Epoch {epoch}")
                     optimizer.zero_grad()
                     yhat = model(inputs)
-                    loss, loss_val = loss_fn(yhat, targets, env)
+                    loss, loss_val = loss_fn(yhat, targets, env)    # 这个target并不是说就是label了，这个target里面包含 traffic allocation + 最优值；
                     loss.backward()
                     optimizer.step()
                     epoch_train_loss.append(loss_val)
@@ -287,7 +289,7 @@ if __name__ == "__main__":
             # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
         #save the model
         # torch.save(model, 'model_dote.pkl')
-        torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
+        torch.save(model, 'meta_models/model_dote_' + props.ecmp_topo + '.pkl')
 
     elif props.so_mode == SOMode.TEST: #test
         # create the dataset
@@ -297,7 +299,7 @@ if __name__ == "__main__":
         #load the model
         # model = torch.load('model_dote.pkl').to(device)
         # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-        model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
+        model = torch.load('meta_models/model_dote_' + props.ecmp_topo + '.pkl').to(device)
         # model = torch.load('model_dote_Abilene.pkl').to(device)
         model.eval()
         with torch.no_grad():
