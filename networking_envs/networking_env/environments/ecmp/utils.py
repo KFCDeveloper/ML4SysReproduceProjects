@@ -1,5 +1,5 @@
 import numpy as np
-from networking_env.environments.consts import EdgeConsts, HistoryConsts, ActionPostProcess
+from networking_envs.networking_env.environments.consts import EdgeConsts, HistoryConsts, ActionPostProcess
 import networkx
 from collections import OrderedDict
 

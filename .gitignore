@@ -8,4 +8,5 @@ networking_envs/tunnels.txt
 networking_envs/tunnels.txt
 **/__pycache__/
 networking_envs/data/*Abilene*/
+.idea/*
 
