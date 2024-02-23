@@ -3,25 +3,21 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from meta_learning.blocks import *
+from meta_learning.meta_const import RNN_Cons
 
 
 BUFFER_UPDATE_MODE = 'best'
 BUFFER_SIZE = 32
 
-NUM_FEATURES_PER_SHOT = 13  # 11 (obs) + 1 (action) + 1 (reward)
-RNN_HIDDEN_SIZE = 256  # equal to the max steps of each episode
-RNN_NUM_LAYERS = 2
-EMBEDDING_DIM = 32
-
 # ydy: 实际上并不用继承自 nn.Module，这个 forward() 函数并没有用上
 class RNNEmbedding(nn.Module):
-    def __init__(self, num_channels, embedding_dim=EMBEDDING_DIM, use_cuda=False):
+    def __init__(self, num_channels, embedding_dim=RNN_Cons.EMBEDDING_DIM, use_cuda=False):
         # N-way (N classes, N = 1 for non-classification tasks), K-shot (K samples used to generate per embedding)
         super(RNNEmbedding, self).__init__()
 
         # configs for a 2-layer bi-directional RNN
-        self.hidden_size = RNN_HIDDEN_SIZE
-        self.num_layers = RNN_NUM_LAYERS
+        self.hidden_size = RNN_Cons.RNN_HIDDEN_SIZE
+        self.num_layers = RNN_Cons.RNN_NUM_LAYERS
         self.bidirectional = True
         self.directions = 2 if self.bidirectional else 1
         self.gru = nn.GRU(num_channels, self.hidden_size, num_layers=self.num_layers, batch_first=True, bidirectional=self.bidirectional)
@@ -70,7 +66,7 @@ class SnailEmbedding(nn.Module):
         super(RNNEmbedding, self).__init__()
         if task == 'wa':
             # num_channels is the dimension of x which is equal to the number of features per shot/sample
-            num_channels = NUM_FEATURES_PER_SHOT
+            num_channels = RNN_Cons.NUM_FEATURES_PER_SHOT
         else:
             raise ValueError('Not recognized task!')
 
@@ -87,7 +83,7 @@ class SnailEmbedding(nn.Module):
         num_channels += 256
 
         self.fc = nn.Linear(num_channels, N)
-        self.fc1 = nn.Linear(num_channels * K + NUM_FEATURES_PER_SHOT * K + NUM_CONFIG_PARAMS, 256)
+        self.fc1 = nn.Linear(num_channels * K + RNN_Cons.NUM_FEATURES_PER_SHOT * K + RNN_Cons.NUM_CONFIG_PARAMS, 256)
         self.fc2 = nn.Linear(256, 64)
         self.fc3 = nn.Linear(64, N)
         self.relu = nn.ReLU()
@@ -99,7 +95,7 @@ class SnailEmbedding(nn.Module):
     # forward with embedding
     def forward(self, input):
         # input to the embedding layer is the features to the samples (excluding the config to predict for)
-        x = np.array([input[0].numpy()[i * NUM_FEATURES_PER_SHOT : (i+1) * NUM_FEATURES_PER_SHOT] for i in range(self.K)])
+        x = np.array([input[0].numpy()[i * RNN_Cons.NUM_FEATURES_PER_SHOT : (i+1) * RNN_Cons.NUM_FEATURES_PER_SHOT] for i in range(self.K)])
         # # creating a tensor from a list of numpy.ndarrays is extremely slow -> convert the list to a single numpy.ndarray first
         x = torch.FloatTensor(x)
         x = x.view((1, self.K, -1))
@@ -115,7 +111,7 @@ class SnailEmbedding(nn.Module):
 
         # attach the generated embedding with the input
         x = x.view((1, 1, -1))
-        x = torch.cat((x, torch.tensor(np.array([[input[0].numpy()[-NUM_CONFIG_PARAMS:]]]))), 2)
+        x = torch.cat((x, torch.tensor(np.array([[input[0].numpy()[-RNN_Cons.NUM_CONFIG_PARAMS:]]]))), 2)
 
         # append a fully connected neural network
         x = self.relu(self.fc1(x.float()))

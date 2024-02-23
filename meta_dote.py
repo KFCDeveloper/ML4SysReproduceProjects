@@ -85,7 +85,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         # TODO encode data points with the RNN and generate the embedding
         num_sequences = rnn_input.shape[0]
         hidden = self.rnn.init_hidden(num_sequences=num_sequences)
-        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size, seq_len, feature_size)
+        rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size|num_seq, seq_len, input_size|feature_size)
         rnn_output = rnn_output[:, -1, :]
         hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
         hidden_state = hidden_state.view((1, 1, -1))
