@@ -3,7 +3,7 @@ import torch
 from torch import nn
 import matplotlib.pyplot as plt
 
-from util import *
+from testing.util import *
 
 
 PLOT_FIG = True

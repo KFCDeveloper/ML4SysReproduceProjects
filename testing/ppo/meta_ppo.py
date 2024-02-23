@@ -137,8 +137,8 @@ class MetaActorNetwork(nn.Module):
 
         # encode RL trajectories with the RNN and generate the embedding
         rnn_input = torch.cat((padded_states, padded_actions, padded_rewards), dim=-2)
-        num_sequences = rnn_input.shape[0]
-        hidden = self.rnn.init_hidden(num_sequences=num_sequences)
+        num_sequences = rnn_input.shape[0]  
+        hidden = self.rnn.init_hidden(num_sequences=num_sequences)  # ydy: init a h0, but I find don't need to do it
         rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding
         rnn_output = rnn_output[:, -1, :]
         hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
