@@ -16,6 +16,7 @@ from networking_envs.networking_env.environments.consts import SOMode
 from networking_envs.networking_env.utils.shared_consts import SizeConsts
 from tqdm import tqdm
 from networking_envs.meta_learning.rnn import RNNEmbedding
+from networking_envs.meta_learning.meta_const import RNN_Cons
 
 
 # super parameters
@@ -64,11 +65,11 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(MetaNeuralNetworkMaxUtil, self).__init__()
         # rnn embedding
-        self.rnn = RNNEmbedding(num_channels=NUM_FEATURES_GRU)
+        self.rnn = RNNEmbedding(num_channels=NUM_FEATURES_GRU, input_dim=input_dim)
         self.flatten = nn.Flatten()
         # TODO 这里的input_dim 是原本的input_dim + embedding_len
         self.net = nn.Sequential(
-            nn.Linear(input_dim, 128),
+            nn.Linear(input_dim + RNN_Cons.EMBEDDING_DIM, 128),
             nn.ReLU(),
             nn.Linear(128, 128),
             nn.ReLU(),
@@ -81,8 +82,10 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         )
 
     def forward(self, input_):
+        # input_ [32,1320] [batch_size, 12*(110{edge*(edge-1)})], reshape to [32, 12, 110]
+        input_ = input_.view(32, 12, 110)
+        # encode data points with the RNN and generate the embedding
         rnn_input = self.rnn.input_layer(input_)  # use full connection to adapt variable len input.
-        # TODO encode data points with the RNN and generate the embedding
         num_sequences = rnn_input.shape[0]
         hidden = self.rnn.init_hidden(num_sequences=num_sequences)
         rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size|num_seq, seq_len, input_size|feature_size)
@@ -93,6 +96,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         embedding = self.rnn.embedding_layer(hidden_state[0][0])
         embedding = self.rnn.relu(embedding)
 
+        # concatenate 
         x = torch.concat(embedding, x)
         x = self.flatten(x)
         logits = self.net(x)

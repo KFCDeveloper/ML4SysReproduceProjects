@@ -10,10 +10,10 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
-from networking_env.environments.ecmp.env_args_parse import parse_args
-from networking_env.environments.ecmp import history_env
-from networking_env.environments.consts import SOMode
-from networking_env.utils.shared_consts import SizeConsts
+from networking_envs.networking_env.environments.ecmp.env_args_parse import parse_args
+from networking_envs.networking_env.environments.ecmp import history_env
+from networking_envs.networking_env.environments.consts import SOMode
+from networking_envs.networking_env.utils.shared_consts import SizeConsts
 from tqdm import tqdm
 
 # dataset definition

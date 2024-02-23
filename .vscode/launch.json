@@ -13,7 +13,7 @@
             "justMyCode": true,
             "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--ecmp_topo","Abilene-0.25",
+                "--ecmp_topo","Abilene-half",
                 "--paths_from", "sp",
                 "--so_mode", "train",
                 "--so_epochs","20",
