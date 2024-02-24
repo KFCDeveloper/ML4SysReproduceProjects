@@ -1,7 +1,11 @@
 import numpy as np
-from networking_envs.networking_env.environments.consts import EdgeConsts, HistoryConsts, ActionPostProcess
+from networking_env.environments.consts import EdgeConsts, HistoryConsts, ActionPostProcess
 import networkx
 from collections import OrderedDict
+
+# import os
+# import sys
+# sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/..")
 
 def get_as(adj):
     num_edges = np.int32(np.sum(adj))
@@ -44,7 +48,7 @@ def load_graph_from_file(g_name):
             if not line: continue
             u, v, cap = map(float, line.strip().split(","))
             links[(u,v)] = cap
-        
+
         nodes = set()
         edges = []
         for (u, v), cap in links.items():
@@ -76,4 +80,4 @@ def transform_action(env, ac):
     elif env.props.action_postprocess == ActionPostProcess.CEIL_TO_ENV:
         return np.ceil(
             np.clip(env.action_space.low + (ac + 1.) * 0.5 * (env.action_space.high - env.action_space.low), env.action_space.low, env.action_space.high)
-            ) 
+            )

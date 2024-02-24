@@ -11,15 +11,20 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--ecmp_topo","Abilene-half",
+            //     "--paths_from", "sp",
+            //     "--so_mode", "train",
+            //     "--so_epochs","20",
+            //     "--so_batch_size","32",
+            //     "--opt_function","MAXUTIL"
+            // ]
+            "cwd": "/data/ydy/myproject/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--ecmp_topo","Abilene-half",
-                "--paths_from", "sp",
-                "--so_mode", "train",
-                "--so_epochs","20",
-                "--so_batch_size","32",
-                "--opt_function","MAXUTIL"
+                "Abilene", "('1', '10')","('2', '9')",
             ]
+
             // "cwd": "/mydata/DOTE/networking_envs",
         }
     ]
