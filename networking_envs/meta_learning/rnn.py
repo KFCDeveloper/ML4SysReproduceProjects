@@ -11,7 +11,7 @@ BUFFER_SIZE = 32
 
 # ydy: 实际上并不用继承自 nn.Module，这个 forward() 函数并没有用上
 class RNNEmbedding(nn.Module):
-    def __init__(self, num_channels, input_dim, embedding_dim=RNN_Cons.EMBEDDING_DIM,  use_cuda=False):
+    def __init__(self, num_fea_gru, embedding_dim=RNN_Cons.EMBEDDING_DIM,  use_cuda=False):
         # N-way (N classes, N = 1 for non-classification tasks), K-shot (K samples used to generate per embedding)
         super(RNNEmbedding, self).__init__()
 
@@ -20,14 +20,12 @@ class RNNEmbedding(nn.Module):
         self.num_layers = RNN_Cons.RNN_NUM_LAYERS
         self.bidirectional = True
         self.directions = 2 if self.bidirectional else 1
-        self.gru = nn.GRU(num_channels, self.hidden_size, num_layers=self.num_layers, batch_first=True, bidirectional=self.bidirectional)
+        self.gru = nn.GRU(num_fea_gru, self.hidden_size, num_layers=self.num_layers, batch_first=True, bidirectional=self.bidirectional)
 
         # FC layer for embedding
         # self.embedding_layer = nn.ReLU(nn.Linear(self.hidden_size * self.num_layers * self.directions, embedding_dim))
         self.embedding_layer = nn.Linear(self.hidden_size * self.num_layers * self.directions, embedding_dim)
         self.relu = nn.ReLU()
-        # FC layer for input size adapting
-        self.input_layer = nn.Linear(input_dim, embedding_dim)
 
         self.N = 0
         self.K = 0

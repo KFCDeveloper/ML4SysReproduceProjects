@@ -16,11 +16,10 @@ from networking_envs.networking_env.environments.consts import SOMode
 from networking_envs.networking_env.utils.shared_consts import SizeConsts
 from tqdm import tqdm
 from networking_envs.meta_learning.rnn import RNNEmbedding
-from networking_envs.meta_learning.meta_const import RNN_Cons
+from networking_envs.meta_learning.meta_const import RNN_Cons, DOTE_Cons
 
 
 # super parameters
-NUM_FEATURES_GRU = 10  # input dimension of GRU after adapting input by FC
 
 # dataset definition
 class DmDataset(Dataset):
@@ -62,10 +61,12 @@ class DmDataset(Dataset):
 
 # model definition
 class MetaNeuralNetworkMaxUtil(nn.Module):
-    def __init__(self, input_dim, output_dim):
+    def __init__(self, input_dim, output_dim, node_num):
         super(MetaNeuralNetworkMaxUtil, self).__init__()
+        # FC layer for input size adapting
+        self.input_layer = nn.Linear(node_num*(node_num-1) * DOTE_Cons.HIST_LEN, RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
         # rnn embedding
-        self.rnn = RNNEmbedding(num_channels=NUM_FEATURES_GRU, input_dim=input_dim)
+        self.rnn = RNNEmbedding(num_fea_gru=RNN_Cons.NUM_FEATURES_GRU)
         self.flatten = nn.Flatten()
         # TODO 这里的input_dim 是原本的input_dim + embedding_len
         self.net = nn.Sequential(
@@ -80,14 +81,17 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             nn.Linear(128, output_dim),
             nn.Sigmoid(),
         )
+        
 
     def forward(self, input_):
         # input_ [32,1320] [batch_size, 12*(110{edge*(edge-1)})], reshape to [32, 12, 110]
-        input_ = input_.view(32, 12, 110)
+        # input_ = input_.view(DOTE_Cons.BATCH_SIZE, DOTE_Cons.HIST_LEN, -1)
+        rnn_input = self.input_layer(input_) # use full connection to adapt variable len input.
+        rnn_input = rnn_input.view(DOTE_Cons.BATCH_SIZE, DOTE_Cons.HIST_LEN, -1)
         # encode data points with the RNN and generate the embedding
-        rnn_input = self.rnn.input_layer(input_)  # use full connection to adapt variable len input.
+          
         num_sequences = rnn_input.shape[0]
-        hidden = self.rnn.init_hidden(num_sequences=num_sequences)
+        hidden = self.rnn.init_hidden(num_sequences=num_sequences).to(torch.float64)
         rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size|num_seq, seq_len, input_size|feature_size)
         rnn_output = rnn_output[:, -1, :]
         hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
@@ -96,9 +100,17 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         embedding = self.rnn.embedding_layer(hidden_state[0][0])
         embedding = self.rnn.relu(embedding)
 
-        # concatenate 
-        x = torch.concat(embedding, x)
-        x = self.flatten(x)
+        # concatenate ** 小心 loss_fn(yhat, targets, env)里面（但其实应该是没有的）
+        if len(input_.shape) > 1:
+            # concat input + embedding for batched inputs
+            embedding = embedding.reshape(1, -1)
+            embedding = embedding.repeat(input_.size(0), 1)
+            input_ = torch.cat((input_, embedding), dim=1)
+        else:
+            # concat input + embedding
+            input_ = torch.cat((input_, embedding), dim=-1)
+
+        x = self.flatten(input_)
         logits = self.net(x)
         return logits
 
@@ -260,7 +272,7 @@ if __name__ == "__main__":
         # create a data loader for the train set
         train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
         #create the model
-        model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
+        model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes()) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
         model.double()
         model.to(device)
         # optimizer
