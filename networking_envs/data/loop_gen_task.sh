@@ -4,7 +4,7 @@
 edges=("('0', '1')" "('0', '2')" "('1', '10')" "('2', '9')" "('3', '4')" "('3', '6')" "('4', '5')" "('4', '6')" "('5', '8')" "('6', '7')" "('7', '8')" "('7', '10')" "('8', '9')" "('9', '10')")
 for ((i=9; i<13; i++)); # i=0; i<${#edges[@]};  0 2; 2 5;5 9;9 13
 do
-    for ((j=i+1; j<${#edges[@]}; i++));
+    for ((j=i+1; j<${#edges[@]}; j++));
     do  
         cd /data/ydy/myproject/DOTE/networking_envs/data/
         /home/amax/.conda/envs/ydy-dote/bin/python loop_gml_to_dote.py "Abilene" "${edges[i]}" "${edges[j]}"
