@@ -317,6 +317,8 @@ if __name__ == "__main__":
         # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
         model = torch.load('meta_models/model_dote_' + props.ecmp_topo + '.pkl').to(device)
         # model = torch.load('model_dote_Abilene.pkl').to(device)
+        model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
+        model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
         model.eval()
         with torch.no_grad():
             with tqdm(test_dl) as tests:
