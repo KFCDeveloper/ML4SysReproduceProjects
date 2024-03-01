@@ -9,6 +9,7 @@ sys.path.append(cwd[: cwd.find("networking_envs")] + "openai_baselines")
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
+from torch.utils.data.sampler import SubsetRandomSampler
 import numpy as np
 from networking_envs.networking_env.environments.ecmp.env_args_parse import parse_args
 from networking_envs.networking_env.environments.ecmp import history_env
@@ -89,7 +90,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         # input_ [32,1320] [batch_size, 12*(110{edge*(edge-1)})], reshape to [32, 12, 110]
         # input_ = input_.view(DOTE_Cons.BATCH_SIZE, DOTE_Cons.HIST_LEN, -1)
         rnn_input = self.input_layer(input_) # use full connection to adapt variable len input.
-        rnn_input = rnn_input.view(DOTE_Cons.BATCH_SIZE, DOTE_Cons.HIST_LEN, -1)
+        rnn_input = rnn_input.view(rnn_input.shape[0], DOTE_Cons.HIST_LEN, -1)
         # encode data points with the RNN and generate the embedding
           
         num_sequences = rnn_input.shape[0]
@@ -237,6 +238,22 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
     
     return ret, ret_val
     
+# 收集所有的 Abilene- + 一个数字开头的  文件夹
+def find_folders(root_folder):
+    # 用于存放满足条件的文件夹名的列表
+    folder_list = []
+    
+    # 遍历根文件夹下的所有文件和文件夹
+    for root, dirs, files in os.walk(root_folder):
+        # 遍历所有文件夹
+        for folder in dirs:
+            # 检查文件夹名是否以 "Abilene-" 加一个数字 开头
+            if folder.startswith("Abilene-") and folder.split("-")[1].isdigit():
+                # 将满足条件的文件夹名添加到列表中
+                folder_list.append(folder)
+    
+    return folder_list
+
 if __name__ == "__main__":
     props = parse_args(sys.argv[1:])
     env = history_env.ECMPHistoryEnv(props)
@@ -268,12 +285,9 @@ if __name__ == "__main__":
         print("Unsupported optimization function. Supported functions: MAXUTIL, MAXFLOW, MAXCOLC")
         assert False
 
-    if props.so_mode == SOMode.TRAIN: #train
+    if props.so_mode == "meta-train": #train
         # TODO epoch 1 create model; other epoch replace two nn.linear
-        # create the dataset
-        train_dataset = DmDataset(props, env, False)
-        # create a data loader for the train set
-        train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        
         #create the model
         model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes()) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
         model.double()
@@ -281,36 +295,81 @@ if __name__ == "__main__":
         # optimizer
         optimizer = torch.optim.Adam(model.parameters())
 
-        for epoch in range(n_epochs):
-            with tqdm(train_dl) as tepoch:
-                epoch_train_loss = []
-                loss_sum = loss_count = 0
-                for (inputs, targets) in tepoch:        
-                    # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
-                    # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
-                    # 
-                    # put data on the graphics memory   
-                    inputs = inputs.to(device)
-                    targets = targets.to(device)
-                    tepoch.set_description(f"Epoch {epoch}")
-                    optimizer.zero_grad()
-                    yhat = model(inputs)
-                    loss, loss_val = loss_fn(yhat, targets, env)    # 这个target并不是说就是label了，这个target里面包含 traffic allocation + 最优值；
-                    loss.backward()
-                    optimizer.step()
-                    epoch_train_loss.append(loss_val)
-                    loss_sum += loss_val
-                    loss_count += 1
-                    loss_avg = loss_sum / loss_count
-                    tepoch.set_postfix(loss=loss_avg)
-                    # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
-            # print('saving...... ' + str(epoch))
-            # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
-        #save the model
-        # torch.save(model, 'model_dote.pkl')
-        torch.save(model, 'meta_models/model_dote_' + props.ecmp_topo + '.pkl')
+        # 用来在文件夹下面，去分割一下 训练集 和 测试集
+        myarg = sys.argv[1:]
+        # 获取 "Abilene- + 数字" 开头的 所有文件夹
+        matching_folders = find_folders("/data/ydy/myproject/DOTE/networking_envs/data")
+        matching_folders.sort() # 排下序，防止每次find出来顺序不一样，因为我要在后50%的task里面去找一个出来做 迁移
+        # 取前 50% 用作 training tasks
+        training_task = matching_folders[0:len(matching_folders)//2]
 
-    elif props.so_mode == SOMode.TEST: #test
+        # 先处理这些 tasks，然后存到一个大的 dic 里面去
+        all_task_data = {}
+        num_control = 1 # for debug
+        # for etask_dir in training_task:
+        for i in range(len(training_task)):
+            if i > num_control: 
+                break
+            # 每次都修改一次 arg
+            myarg[1] = training_task[i]
+            props = parse_args(myarg)
+            env = history_env.ECMPHistoryEnv(props)
+            ctp_coo = env._optimizer._commodities_to_paths.tocoo()
+            commodities_to_paths = torch.sparse_coo_tensor(np.vstack((ctp_coo.row, ctp_coo.col)), torch.DoubleTensor(ctp_coo.data), torch.Size(ctp_coo.shape)).to(device)
+            pte_coo = env._optimizer._paths_to_edges.tocoo()
+            paths_to_edges = torch.sparse_coo_tensor(np.vstack((pte_coo.row, pte_coo.col)), torch.DoubleTensor(pte_coo.data), torch.Size(pte_coo.shape)).to(device)
+            # create the dataset
+            train_dataset = DmDataset(props, env, False)
+            # TODO 这里注意，只选取一小部分数据集来训
+            # 创建采样器，从数据集中随机抽取1/3的数据 TODO 是否要每个epoch 对应的 数据都要是一样的呢？
+            subset_size = len(train_dataset) // 3
+            sampler = SubsetRandomSampler(range(subset_size))
+            # create a data loader for the train set
+            train_dl = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler)
+            # 存入 all_task_data
+            all_task_data[training_task[i]] = train_dl
+
+        # each epoch will train
+        for epoch in range(n_epochs):
+            for i in range(len(training_task)):
+                if i > num_control: 
+                    break
+                train_dl = all_task_data[training_task[i]]
+                # 替换掉 model 的那两层 nn.Linear()，要在 args 解析之后，这里的env才会变成新的env
+                model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+                model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
+                model.double()
+                optimizer = torch.optim.Adam(model.parameters())
+                # begin to train
+                with tqdm(train_dl) as tepoch:
+                    epoch_train_loss = []
+                    loss_sum = loss_count = 0
+                    for (inputs, targets) in tepoch:        
+                        # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                        # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                        # 
+                        # put data on the graphics memory   
+                        inputs = inputs.to(device)
+                        targets = targets.to(device)
+                        tepoch.set_description(f"Epoch {epoch}")
+                        optimizer.zero_grad()
+                        yhat = model(inputs)
+                        loss, loss_val = loss_fn(yhat, targets, env)    # 这个target并不是说就是label了，这个target里面包含 traffic allocation + 最优值；
+                        loss.backward()
+                        optimizer.step()
+                        epoch_train_loss.append(loss_val)
+                        loss_sum += loss_val
+                        loss_count += 1
+                        loss_avg = loss_sum / loss_count
+                        tepoch.set_postfix(loss=loss_avg)
+                        # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
+                # print('saving...... ' + str(epoch))
+                # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
+            #save the model
+            # torch.save(model, 'model_dote.pkl')
+            torch.save(model, 'meta_model_dote_' + props.ecmp_topo + '.pkl') # 每次都保存一次模型
+
+    elif props.so_mode == "meta-test": #test
         # create the dataset
         test_dataset = DmDataset(props, env, True)
         # create a data loader for the test set
@@ -318,14 +377,15 @@ if __name__ == "__main__":
         #load the model
         # model = torch.load('model_dote.pkl').to(device)
         # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-        model = torch.load('meta_models/model_dote_' + props.ecmp_topo + '.pkl').to(device)
+        model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
         # model = torch.load('model_dote_Abilene.pkl').to(device)
         # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
         # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
         # 替换那两层 nn.linear
         model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
         model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
-
+        model.double()
+        optimizer = torch.optim.Adam(model.parameters())
         # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
         for epoch in range(n_epochs):
             with tqdm(test_dl) as tests:

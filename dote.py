@@ -273,8 +273,8 @@ elif props.so_mode == SOMode.TEST: #test
     #load the model
     # model = torch.load('model_dote.pkl').to(device)
     # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-    model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
-    # model = torch.load('model_dote_Abilene.pkl').to(device)
+    # model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
+    model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:
@@ -306,3 +306,45 @@ elif props.so_mode == SOMode.TEST: #test
                 with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
                     for v in concurrent_flow_cdf:
                         f.write(str(v / len(dists)) + '\n')
+
+# ydy: not original code
+elif props.so_mode == "train_diff_env": #test
+    # create the dataset
+    train_dataset = DmDataset(props, env, False)
+    # create a data loader for the train set
+    train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    #create the model
+    model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
+    model.to(device)
+    # optimizer
+    optimizer = torch.optim.Adam(model.parameters())
+
+    for epoch in range(n_epochs):
+        with tqdm(train_dl) as tepoch:
+            epoch_train_loss = []
+            loss_sum = loss_count = 0
+            for (inputs, targets) in tepoch:        
+                # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                # 
+                # put data on the graphics memory   
+                inputs = inputs.to(device)
+                targets = targets.to(device)
+                tepoch.set_description(f"Epoch {epoch}")
+                optimizer.zero_grad()
+                yhat = model(inputs)
+                loss, loss_val = loss_fn(yhat, targets, env)
+                loss.backward()
+                optimizer.step()
+                epoch_train_loss.append(loss_val)
+                loss_sum += loss_val
+                loss_count += 1
+                loss_avg = loss_sum / loss_count
+                tepoch.set_postfix(loss=loss_avg)
+                # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
+        # print('saving...... ' + str(epoch))
+        # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
+    #save the model
+    # torch.save(model, 'model_dote.pkl')
+    torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
+
