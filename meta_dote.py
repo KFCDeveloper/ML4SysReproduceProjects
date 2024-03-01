@@ -308,8 +308,8 @@ if __name__ == "__main__":
         num_control = 1 # for debug
         # for etask_dir in training_task:
         for i in range(len(training_task)):
-            if i > num_control: 
-                break
+            # if i > num_control: 
+            #     break
             # 每次都修改一次 arg
             myarg[1] = training_task[i]
             props = parse_args(myarg)
@@ -332,8 +332,8 @@ if __name__ == "__main__":
         # each epoch will train
         for epoch in range(n_epochs):
             for i in range(len(training_task)):
-                if i > num_control: 
-                    break
+                # if i > num_control: 
+                #     break
                 train_dl = all_task_data[training_task[i]]
                 # 替换掉 model 的那两层 nn.Linear()，要在 args 解析之后，这里的env才会变成新的env
                 model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
@@ -367,7 +367,7 @@ if __name__ == "__main__":
                 # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
             #save the model
             # torch.save(model, 'model_dote.pkl')
-            torch.save(model, 'meta_model_dote_' + props.ecmp_topo + '.pkl') # 每次都保存一次模型
+            torch.save(model, 'meta_model_dote.pkl') # 每次都保存一次模型
 
     elif props.so_mode == "meta-test": #test
         # create the dataset
