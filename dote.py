@@ -65,7 +65,7 @@ class NeuralNetworkMaxUtil(nn.Module):
             nn.Linear(128, 128),
             nn.ReLU(),
             nn.Linear(128, output_dim),
-            nn.Sigmoid()
+            nn.Sigmoid()    # 这里用sigmod是因为，比如输出 a b的所有path上的百分比，因为已知了a到b的demand，就能算每个path上面flow的bw了
         )
 
     def forward(self, x):

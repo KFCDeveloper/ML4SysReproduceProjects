@@ -78,8 +78,10 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             nn.ReLU(),
             nn.Linear(128, 128),
             nn.ReLU(),
+            nn.Linear(128, 128),    # 我隔着儿多加了一层 (包含nn.ReLu)
+            nn.ReLU(),
             nn.Linear(128, output_dim),
-            nn.Sigmoid(),
+            nn.Sigmoid(),   # 这里用sigmod是因为，比如输出 a b的所有path上的百分比，因为已知了a到b的demand，就能算每个path上面flow的bw了
         )
         
 
@@ -267,6 +269,7 @@ if __name__ == "__main__":
         assert False
 
     if props.so_mode == SOMode.TRAIN: #train
+        # TODO epoch 1 create model; other epoch replace two nn.linear
         # create the dataset
         train_dataset = DmDataset(props, env, False)
         # create a data loader for the train set
@@ -317,10 +320,14 @@ if __name__ == "__main__":
         # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
         model = torch.load('meta_models/model_dote_' + props.ecmp_topo + '.pkl').to(device)
         # model = torch.load('model_dote_Abilene.pkl').to(device)
-        model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
-        model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
-        model.eval()
-        with torch.no_grad():
+        # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
+        # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
+        # 替换那两层 nn.linear
+        model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+        model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
+
+        # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
+        for epoch in range(n_epochs):
             with tqdm(test_dl) as tests:
                 test_losses = []
                 for (inputs, targets) in tests:
