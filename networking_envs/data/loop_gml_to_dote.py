@@ -177,7 +177,7 @@ for m_idx in range(1, n_train_matrices + n_test_martices + 1):
 # edges[('1','10')]
 first_edge_tuple = tuple(first_edge_str.strip("()").replace("'", "").split(", "))
 # second_edge_tuple = tuple(second_edge_str.strip("()").replace("'", "").split(", "))  edges[second_edge_tuple] = 
-edges[first_edge_tuple] = '5000.0'
+edges[first_edge_tuple] = str(float(edges[first_edge_tuple])/2) # '5000.0'
 
 edges_list = [(int(e[0]), int(e[1]), edges[e]) for e in edges]
 edges_list.sort()

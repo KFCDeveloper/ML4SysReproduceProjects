@@ -319,32 +319,53 @@ elif props.so_mode == "train_diff_env": #test
     # optimizer
     optimizer = torch.optim.Adam(model.parameters())
 
-    for epoch in range(n_epochs):
-        with tqdm(train_dl) as tepoch:
-            epoch_train_loss = []
-            loss_sum = loss_count = 0
-            for (inputs, targets) in tepoch:        
-                # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
-                # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
-                # 
-                # put data on the graphics memory   
-                inputs = inputs.to(device)
-                targets = targets.to(device)
-                tepoch.set_description(f"Epoch {epoch}")
-                optimizer.zero_grad()
-                yhat = model(inputs)
-                loss, loss_val = loss_fn(yhat, targets, env)
-                loss.backward()
-                optimizer.step()
-                epoch_train_loss.append(loss_val)
-                loss_sum += loss_val
-                loss_count += 1
-                loss_avg = loss_sum / loss_count
-                tepoch.set_postfix(loss=loss_avg)
-                # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
-        # print('saving...... ' + str(epoch))
-        # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
-    #save the model
-    # torch.save(model, 'model_dote.pkl')
-    torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
+    with open("direct_test.txt", "a+") as file:
+        for epoch in range(n_epochs):
+            with tqdm(train_dl) as tepoch:
+                epoch_train_loss = []
+                # test_losses = []
+                loss_sum = loss_count = 0
+                for (inputs, targets) in tepoch:        
+                    # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                    # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                    # 
+                    # put data on the graphics memory   
+                    inputs = inputs.to(device)
+                    targets = targets.to(device)
+                    tepoch.set_description(f"Epoch {epoch}")
+                    optimizer.zero_grad()
+                    yhat = model(inputs)
+                    loss, loss_val = loss_fn(yhat, targets, env)
+                    loss.backward()
+                    optimizer.step()
+                    epoch_train_loss.append(loss_val)
+                    loss_sum += loss_val
+                    loss_count += 1
+                    loss_avg = loss_sum / loss_count
+                    tepoch.set_postfix(loss=loss_avg)
+                    
+                    file.write(str(loss_avg)+"\n")
+                    file.flush()
+
+                    # test_losses.append(loss_val)
+                    # avg_loss = sum(test_losses) / len(test_losses)
+                    # # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
+                    # #print statistics to file
+                    # with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
+                    #     import statistics
+                    #     dists = [float(v) for v in test_losses]
+                    #     dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
+                    #     f.write('Average: ' + str(statistics.mean(dists)) + '\n')
+                    #     f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
+                    #     f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
+                    #     f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
+                    #     f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
+                    #     f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
+                    #     f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
+                    # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
+            # print('saving...... ' + str(epoch))
+            # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
+        #save the model
+        # torch.save(model, 'model_dote.pkl')
+        # torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
 

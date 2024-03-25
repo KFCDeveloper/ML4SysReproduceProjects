@@ -66,6 +66,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         super(MetaNeuralNetworkMaxUtil, self).__init__()
         # FC layer for input size adapting
         self.input_layer = nn.Linear(node_num*(node_num-1) * DOTE_Cons.HIST_LEN, RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+        self.input_main_layer = nn.Linear(node_num*(node_num-1) * DOTE_Cons.HIST_LEN, 1320)
         # rnn embedding
         self.rnn = RNNEmbedding(num_fea_gru=RNN_Cons.NUM_FEATURES_GRU)
         self.flatten = nn.Flatten()
@@ -90,6 +91,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         # input_ [32,1320] [batch_size, 12*(110{edge*(edge-1)})], reshape to [32, 12, 110]
         # input_ = input_.view(DOTE_Cons.BATCH_SIZE, DOTE_Cons.HIST_LEN, -1)
         rnn_input = self.input_layer(input_) # use full connection to adapt variable len input.
+        main_model_input = self.input_main_layer(input_)
         rnn_input = rnn_input.view(rnn_input.shape[0], DOTE_Cons.HIST_LEN, -1)
         # encode data points with the RNN and generate the embedding
           
@@ -103,17 +105,17 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         embedding = self.rnn.embedding_layer(hidden_state[0][0])
         embedding = self.rnn.relu(embedding)
 
-        # concatenate ** 小心 loss_fn(yhat, targets, env)里面（但其实应该是没有的）
-        if len(input_.shape) > 1:
+        # concatenate ** 小心 loss_fn(yhat, targets, env)里面（但其实应该是没有的）# 之前这里的 rnn_input 是 input_ 是有问题的，这个过了线性层过后，应该作为rnn和主模型的输入
+        if len(main_model_input.shape) > 1:
             # concat input + embedding for batched inputs
             embedding = embedding.reshape(1, -1)
-            embedding = embedding.repeat(input_.size(0), 1)
-            input_ = torch.cat((input_, embedding), dim=1)
+            embedding = embedding.repeat(main_model_input.size(0), 1)
+            main_model_input = torch.cat((main_model_input, embedding), dim=1)
         else:
             # concat input + embedding
-            input_ = torch.cat((input_, embedding), dim=-1)
+            main_model_input = torch.cat((main_model_input, embedding), dim=-1)
 
-        x = self.flatten(input_)
+        x = self.flatten(main_model_input)
         logits = self.net(x)
         return logits
 
@@ -371,49 +373,63 @@ if __name__ == "__main__":
 
     elif props.so_mode == "meta-test": #test
         # create the dataset
-        test_dataset = DmDataset(props, env, True)
-        # create a data loader for the test set
-        test_dl = DataLoader(test_dataset, batch_size=1, shuffle=False)
+        train_dataset = DmDataset(props, env, False)
+        # create a data loader for the train set
+        test_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)   
         #load the model
         # model = torch.load('model_dote.pkl').to(device)
         # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-        model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
+        # model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
+        model = torch.load('meta_model_dote.pkl').to(device)
         # model = torch.load('model_dote_Abilene.pkl').to(device)
         # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
         # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
         # 替换那两层 nn.linear
         model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+        model.input_main_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), 1320)
         model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
         model.double()
         optimizer = torch.optim.Adam(model.parameters())
         # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
-        for epoch in range(n_epochs):
-            with tqdm(test_dl) as tests:
-                test_losses = []
-                for (inputs, targets) in tests:
-                    inputs = inputs.to(device)
-                    targets = targets.to(device)
+        with open("meta_test_"+props.ecmp_topo+".txt", "a+") as file:
+            for epoch in range(n_epochs):
+                with tqdm(test_dl) as tests:
+                    test_losses = []
+                    loss_count = 0
+                    for (inputs, targets) in tests:
+                        inputs = inputs.to(device)
+                        targets = targets.to(device)
 
-                    pred = model(inputs)
-                    test_loss, test_loss_val = loss_fn(pred, targets, env)
-                    test_losses.append(test_loss_val)
-                avg_loss = sum(test_losses) / len(test_losses)
-                print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
-                #print statistics to file
-                with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'so_stats_' + str(n_epochs) + '.txt', 'w') as f:
-                    import statistics
-                    dists = [float(v) for v in test_losses]
-                    dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
-                    f.write('Average: ' + str(statistics.mean(dists)) + '\n')
-                    f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
-                    f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
-                    f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
-                    f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
-                    f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
-                    f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
+                        optimizer.zero_grad()
+                        pred = model(inputs)
+                        test_loss, test_loss_val = loss_fn(pred, targets, env)
+                        test_loss.backward()
+                        optimizer.step()
+                        test_losses.append(test_loss_val)
+                        tests.set_postfix(loss=test_loss_val)
+                        
+                        loss_count += 1
+                        avg_val_loss = sum(test_losses) / loss_count
+                        file.write(str(test_loss_val)+"\n")
+                        file.flush()
+
+                        avg_loss = sum(test_losses) / len(test_losses)
+                        # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
+                        # print statistics to file
+                    with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
+                        import statistics
+                        dists = [float(v) for v in test_losses]
+                        dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
+                        f.write('Average: ' + str(statistics.mean(dists)) + '\n')
+                        f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
+                        f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
+                        f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
+                        f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
+                        f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
+                        f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
                 
-                if concurrent_flow_cdf != None:
-                    concurrent_flow_cdf.sort()
-                    with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
-                        for v in concurrent_flow_cdf:
-                            f.write(str(v / len(dists)) + '\n')
+                    if concurrent_flow_cdf != None:
+                        concurrent_flow_cdf.sort()
+                        with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+                            for v in concurrent_flow_cdf:
+                                f.write(str(v / len(dists)) + '\n')
