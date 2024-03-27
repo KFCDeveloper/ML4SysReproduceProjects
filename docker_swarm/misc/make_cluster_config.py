@@ -38,13 +38,13 @@ replica_cpus = args.replica_cpus
 # cpu_percent = args.cpu_percent
 
 IP_ADDR = {}
-IP_ADDR["ath-1"]     = "128.253.128.64"
-IP_ADDR["ath-2"]     = "128.253.128.65"
-IP_ADDR["ath-3"]     = "128.253.128.66"
-IP_ADDR["ath-4"]     = "128.253.128.67"
-IP_ADDR["ath-5"]     = "128.253.128.68"
-IP_ADDR["ath-8"]     = "ath-8-ip"
-IP_ADDR["ath-9"]     = "ath-9-ip"
+# IP_ADDR["ath-1"]     = "128.105.145.147"
+# IP_ADDR["ath-2"]     = "128.253.128.65"
+# IP_ADDR["ath-3"]     = "128.253.128.66"
+# IP_ADDR["ath-4"]     = "128.253.128.67"
+IP_ADDR["ath-5"]     = "128.105.145.147"
+IP_ADDR["ath-8"]     = "128.105.144.47" # computing node
+IP_ADDR["ath-9"]     = "128.105.145.142"
 
 service_config = {
     "nginx-thrift":         {'max_replica': 4},
@@ -111,10 +111,10 @@ for node in nodes:
     node_config[node] = {}
     node_config[node]['ip_addr'] = IP_ADDR[node]
     if node == 'ath-8':
-        node_config[node]['cpus'] = 88
+        node_config[node]['cpus'] = 40 # 88
         node_config[node]['label'] = 'type=compute'
     elif node == 'ath-9':
-        node_config[node]['cpus'] = 88
+        node_config[node]['cpus'] = 40 # 88
         node_config[node]['label'] = 'type=data'
     else:
         node_config[node]['cpus'] = 40
