@@ -28,10 +28,10 @@ args = parser.parse_args()
 gpu_config_path = Path('..') / 'config' / args.gpu_config.strip()
 
 gpu_config = {}
-gpu_config['gpus'] = [0, 1]
-gpu_config['ip_addr'] = 'gpu-server-ip'
-gpu_config['host'] = 'tsg-gpu1.ece.cornell.edu'
-gpu_config['working_dir'] = '/home/yz2297/sinan-local/ml_docker_swarm'
+gpu_config['gpus'] = [0] # [0, 1]
+gpu_config['ip_addr'] =  '128.105.144.47' 	# 'gpu-server-ip'
+gpu_config['host'] = 'node0.ydy-dote.gaea-pg0.wisc.cloudlab.us' 	# 'tsg-gpu1.ece.cornell.edu'
+gpu_config['working_dir'] = '/mydata/sinan-local/ml_docker_swarm'	# '/home/yz2297/sinan-local/ml_docker_swarm'
 gpu_config['script'] = 'social_media_predictor.py'
 
 with open(str(gpu_config_path), 'w+') as f:

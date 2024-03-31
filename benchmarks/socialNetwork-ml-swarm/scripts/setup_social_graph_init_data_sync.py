@@ -121,7 +121,7 @@ charset = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's',
   '6', '7', '8', '9', '0']
 
 #----------------- media data -----------------#
-benchmark_dir = "/home/yz2297/Software/deathstar_suite/socialNetwork-ml-swarm/DeathStarBench/socialNetwork-ml-swarm"
+benchmark_dir = "/mydata/sinan-local/benchmarks/socialNetwork-ml-swarm"# "/home/yz2297/Software/deathstar_suite/socialNetwork-ml-swarm/DeathStarBench/socialNetwork-ml-swarm"
 media_dir = benchmark_dir + "/wrk2/scripts/social-network/images/"
 media_jpg = {}
 media_jpg_num = 17
@@ -204,7 +204,11 @@ def upload_follow(session, addr, user_0, user_1):
 def upload_register(session, addr, user):
   payload = {'first_name': 'first_name_' + user, 'last_name': 'last_name_' + user,
              'username': 'username_' + user, 'password': 'password_' + user, 'user_id': user}
+  print("——————————————————————————————————————————————")
+  print(payload)
+  print("——————————————————————————————————————————————")
   r = session.post(addr + "/wrk2-api/user/register", data=payload)
+
   print(r.status_code)
   # print(r.text)
 
@@ -416,7 +420,7 @@ if __name__ == '__main__':
     edges = getEdges(file)
 
   # nginx is on ath-3
-  addr = "http://0.0.0.0:8080"
+  addr = "http://localhost:8080"
   # addr = "http://ath-9-ip:8080" # ath-9
   # addr = "http://ath-8-ip:8080" # ath-8
 

@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  nginx-thrift:
+    image: yg397/openresty-thrift:xenial
+    hostname: nginx-web-server
+    ports:
+      - 8080:8080
+      # - target: 8080
+      #   published: 8080
+      #   protocol: tcp
+      #   mode: host
+    volumes:
+      - ./nginx-web-server/lua-scripts:/usr/local/openresty/nginx/lua-scripts
+      - ./nginx-web-server/pages:/usr/local/openresty/nginx/pages
+      - ./nginx-web-server/conf/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./nginx-web-server/jaeger-config.json:/usr/local/openresty/nginx/jaeger-config.json
+      - ./gen-lua:/gen-lua
+      # - ./docker/openresty-thrift/lua-thrift:/usr/local/openresty/lualib/thrift
+    depends_on:
+      - jaeger
+    deploy:
+      mode: replicated
+      # endpoint_mode: dnsrr
+      replicas: 4
+      placement:
+        max_replicas_per_node: 4
+        constraints:
+          - node.labels.type == compute
+    depends_on:
+      - user-service
+      - user-mention-service
+      - media-service
+      - text-service
+      - unique-id-service
+      - url-shorten-service
+      - home-timeline-service
+      - write-user-timeline-service
+      - write-home-timeline-service
+    sysctls:
+      net.ipv4.tcp_keepalive_time: 600
+      net.ipv4.tcp_keepalive_intvl: 60
+      net.ipv4.tcp_keepalive_probes: 3

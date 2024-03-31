@@ -3,7 +3,7 @@
   "diabled": false,
   "reporter": {
     "logSpans": true,
-    "localAgentHostPort": "ath-9-ip:6831"
+    "localAgentHostPort": "128.105.145.147:6831"
   },
   "sampler": {
     "type": "const",

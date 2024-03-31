@@ -1,0 +1,50 @@
+2024-03-31 03:20:13 INFO: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no DylanYu@node0.ydy-dote.gaea-pg0.wisc.cloudlab.us "cd /mydata/sinan-local/docker_swarm;python3 /mydata/sinan-local/docker_swarm/slave_data_collect_ath_social.py --stack-name sinan-socialnet --cpus 40 --server-port 40011 --service-config /mydata/sinan-local/docker_swarm/config/slave_config.json"
+2024-03-31 03:20:14 INFO: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no DylanYu@node0.dylan-sinan.gaea-pg0.wisc.cloudlab.us "cd /mydata/sinan-local/docker_swarm;python3 /mydata/sinan-local/docker_swarm/slave_data_collect_ath_social.py --stack-name sinan-socialnet --cpus 40 --server-port 40011 --service-config /mydata/sinan-local/docker_swarm/config/slave_config.json"
+2024-03-31 03:20:14 INFO: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no DylanYu@node1.dylan-sinan.gaea-pg0.wisc.cloudlab.us "cd /mydata/sinan-local/docker_swarm;python3 /mydata/sinan-local/docker_swarm/slave_data_collect_ath_social.py --stack-name sinan-socialnet --cpus 40 --server-port 40011 --service-config /mydata/sinan-local/docker_swarm/config/slave_config.json"
+2024-03-31 03:20:19 INFO: node0.ydy-dote.gaea-pg0.wisc.cloudlab.us connected
+2024-03-31 03:20:19 INFO: node0.dylan-sinan.gaea-pg0.wisc.cloudlab.us connected
+2024-03-31 03:20:19 INFO: node1.dylan-sinan.gaea-pg0.wisc.cloudlab.us connected
+2024-03-31 03:20:43 INFO: wait for services to converge
+2024-03-31 03:23:49 INFO: services failed to converge
+2024-03-31 03:24:28 INFO: wait for services to converge
+2024-03-31 03:27:33 INFO: services failed to converge
+2024-03-31 03:28:12 INFO: wait for services to converge
+2024-03-31 03:31:29 INFO: services failed to converge
+2024-03-31 03:32:08 INFO: wait for services to converge
+2024-03-31 03:34:54 INFO: services failed to converge
+2024-03-31 03:35:34 INFO: wait for services to converge
+2024-03-31 03:38:24 INFO: services failed to converge
+2024-03-31 03:39:04 INFO: wait for services to converge
+2024-03-31 03:42:07 INFO: services failed to converge
+2024-03-31 03:42:48 INFO: wait for services to converge
+2024-03-31 03:45:25 INFO: services failed to converge
+2024-03-31 03:46:06 INFO: wait for services to converge
+2024-03-31 03:49:28 INFO: services failed to converge
+2024-03-31 03:50:08 INFO: wait for services to converge
+2024-03-31 03:53:18 INFO: services failed to converge
+2024-03-31 03:53:58 INFO: wait for services to converge
+2024-03-31 03:57:16 INFO: services failed to converge
+2024-03-31 03:57:55 INFO: wait for services to converge
+2024-03-31 04:00:43 INFO: services failed to converge
+2024-03-31 04:01:23 INFO: wait for services to converge
+2024-03-31 04:04:18 INFO: services failed to converge
+2024-03-31 04:04:57 INFO: wait for services to converge
+2024-03-31 04:08:09 INFO: services failed to converge
+2024-03-31 04:08:48 INFO: wait for services to converge
+2024-03-31 04:11:43 INFO: services failed to converge
+2024-03-31 04:12:23 INFO: wait for services to converge
+2024-03-31 04:15:29 INFO: services failed to converge
+2024-03-31 04:16:08 INFO: wait for services to converge
+2024-03-31 04:19:23 INFO: services failed to converge
+2024-03-31 04:20:03 INFO: wait for services to converge
+2024-03-31 04:23:22 INFO: services failed to converge
+2024-03-31 04:24:01 INFO: wait for services to converge
+2024-03-31 04:27:03 INFO: services failed to converge
+2024-03-31 04:27:42 INFO: wait for services to converge
+2024-03-31 04:30:20 INFO: services failed to converge
+2024-03-31 04:31:00 INFO: wait for services to converge
+2024-03-31 04:33:47 INFO: services failed to converge
+2024-03-31 04:34:27 INFO: wait for services to converge
+2024-03-31 04:37:47 INFO: services failed to converge
+2024-03-31 04:38:26 INFO: wait for services to converge
+2024-03-31 04:39:40 INFO: services converged

@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+
+            // // setup_swarm_cluster.py
+            // "cwd": "/mydata/sinan-local/docker_swarm", 
+            // "args": [
+            //     "--user-name","yz2297",   
+            //     "--deploy-config", "test_cluster.json"
+            // ]
+
+            // master_data_collect_ath_social.py
+            "cwd": "/mydata/sinan-local/docker_swarm/",
+            "args": [
+                "--user-name","DylanYu",
+                "--stack-name","sinan-socialnet",
+                "--min-users","4" ,"--max-users", "48", "--users-step" ,"2" ,
+                "--exp-time" ,"1200", "--measure-interval", "1", "--slave-port", "40011", "--deploy-config","swarm_ath.json" ,
+                "--mab-config","social_mab.json", "--deploy"
+            ]
+
+        }
+    ]
+}

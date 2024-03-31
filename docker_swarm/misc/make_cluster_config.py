@@ -42,10 +42,14 @@ IP_ADDR = {}
 # IP_ADDR["ath-2"]     = "128.253.128.65"
 # IP_ADDR["ath-3"]     = "128.253.128.66"
 # IP_ADDR["ath-4"]     = "128.253.128.67"
-IP_ADDR["ath-5"]     = "128.105.145.147"
-IP_ADDR["ath-8"]     = "128.105.144.47" # computing node
-IP_ADDR["ath-9"]     = "128.105.145.142"
+# IP_ADDR["ath-5"]     = "128.105.145.147"
+# IP_ADDR["ath-8"]     = "128.105.144.47" # computing node
+# IP_ADDR["ath-9"]     = "128.105.145.142"
+IP_ADDR["node0.ydy-dote.gaea-pg0.wisc.cloudlab.us"]     = "128.105.144.47" # computing node
+IP_ADDR["node0.dylan-sinan.gaea-pg0.wisc.cloudlab.us"]     = "128.105.145.147"
+IP_ADDR["node1.dylan-sinan.gaea-pg0.wisc.cloudlab.us"]     = "128.105.145.142"
 
+nodes = list(IP_ADDR.keys())
 service_config = {
     "nginx-thrift":         {'max_replica': 4},
     "compose-post-service": {'max_replica': 1},
@@ -110,12 +114,12 @@ for node in nodes:
     assert node in IP_ADDR
     node_config[node] = {}
     node_config[node]['ip_addr'] = IP_ADDR[node]
-    if node == 'ath-8':
+    if node == 'node0.ydy-dote.gaea-pg0.wisc.cloudlab.us':
         node_config[node]['cpus'] = 40 # 88
         node_config[node]['label'] = 'type=compute'
-    elif node == 'ath-9':
-        node_config[node]['cpus'] = 40 # 88
-        node_config[node]['label'] = 'type=data'
+    # elif node == 'ath-9':
+    #     node_config[node]['cpus'] = 40 # 88
+    #     node_config[node]['label'] = 'type=data'
     else:
         node_config[node]['cpus'] = 40
         node_config[node]['label'] = 'type=data'

@@ -1247,4 +1247,10 @@ def main():
 					SatSamples, ViolSamples, NonRoiSamples))
 
 if __name__ == '__main__':
-	main()
+	start_time = time.time()  # 记录开始时间
+	main()  # 执行处理函数
+	end_time = time.time()  # 记录结束时间
+
+	execution_time = end_time - start_time  # 计算执行时间
+
+	print(f"Process took {execution_time} seconds to execute.")

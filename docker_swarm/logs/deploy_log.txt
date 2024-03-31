@@ -1,0 +1,3 @@
+{
+    "graph": "/mydata/docker-image/storage"
+}

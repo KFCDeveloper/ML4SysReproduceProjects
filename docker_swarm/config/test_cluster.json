@@ -1,14 +1,14 @@
 {
     "nodes": {
-        "node0.ydy-dote.gaea-pg0.wisc.cloudlab.us": {
-            "cpus": 40,
-            "ip_addr": "128.105.144.47",
-            "label": "type=compute"
-        },
         "node0.dylan-sinan.gaea-pg0.wisc.cloudlab.us": {
             "cpus": 40,
             "ip_addr": "128.105.145.147",
             "label": "type=data"
+        },
+        "node0.ydy-dote.gaea-pg0.wisc.cloudlab.us": {
+            "cpus": 40,
+            "ip_addr": "128.105.144.47",
+            "label": "type=compute"
         },
         "node1.dylan-sinan.gaea-pg0.wisc.cloudlab.us": {
             "cpus": 40,
@@ -68,8 +68,8 @@
             "replica": 16
         },
         "media-service": {
-            "cpus": 2,
-            "max_cpus": 2,
+            "cpus": 4,
+            "max_cpus": 4,
             "max_replica": 4,
             "replica": 4
         },
