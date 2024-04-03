@@ -11,3 +11,4 @@ networking_envs/data/*Abilene*/
 networking_envs/data/*Arnes*/
 .idea/*
 *.log
+*.pyc

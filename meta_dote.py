@@ -300,7 +300,7 @@ if __name__ == "__main__":
         # 用来在文件夹下面，去分割一下 训练集 和 测试集
         myarg = sys.argv[1:]
         # 获取 "Abilene- + 数字" 开头的 所有文件夹
-        matching_folders = find_folders("/data/ydy/myproject/DOTE/networking_envs/data")
+        matching_folders = find_folders("/mydata/DOTE/networking_envs/data")
         matching_folders.sort() # 排下序，防止每次find出来顺序不一样，因为我要在后50%的task里面去找一个出来做 迁移
         # 取前 50% 用作 training tasks
         training_task = matching_folders[0:len(matching_folders)//2]

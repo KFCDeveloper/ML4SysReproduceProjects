@@ -1,7 +1,7 @@
 import os
 
 # 指定目标文件夹路径
-folder_path = "/data/ydy/myproject/DOTE/networking_envs/data"
+folder_path = "/mydata/DOTE/networking_envs/data"
 
 # 遍历目标文件夹下的所有子文件夹
 for root, dirs, files in os.walk(folder_path):
