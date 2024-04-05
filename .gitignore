@@ -12,3 +12,4 @@ networking_envs/data/*Arnes*/
 .idea/*
 *.log
 *.pyc
+*.pkl

@@ -4,7 +4,8 @@ import math
 import urllib.request
 
 
-topology_file = "http://informatique.umons.ac.be/networks/igen/downloads/geant-20041125.gml"
+# topology_file = "http://informatique.umons.ac.be/networks/igen/downloads/geant-20041125.gml"
+topology_file = "/mydata/DOTE/networking_envs/data/zoo_topologies/geant-20041125.gml"
 demand_matrices_dir = "/mydata/software/GEANT/directed-geant-uhlig-15min-over-4months-ALL-native"
 output_dir = "GEANT"
 

@@ -27,15 +27,15 @@
 
             // "cwd": "/mydata/DOTE/networking_envs",   
             // meta train
-            // "cwd": "/mydata/DOTE/networking_envs/save_models", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
-            // "args": [
-            //     "--ecmp_topo","Abilene-squeeze-links-more1",   // 这个好像是随便填
-            //     "--paths_from", "sp",
-            //     "--so_mode", "meta-train",
-            //     "--so_epochs","20",
-            //     "--so_batch_size","32",
-            //     "--opt_function","MAXUTIL"
-            // ]
+            "cwd": "/mydata/DOTE/networking_envs/save_models", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            "args": [
+                "--ecmp_topo","Abilene-squeeze-links-more1",   // 这个好像是随便填
+                "--paths_from", "sp",
+                "--so_mode", "meta-train",
+                "--so_epochs","20",
+                "--so_batch_size","32",
+                "--opt_function","MAXUTIL"
+            ]
 
             // meta test
             // "cwd": "/mydata/DOTE/networking_envs/save_models", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
@@ -55,15 +55,15 @@
             // ]
 
             // meta test
-            "cwd": "/mydata/DOTE/networking_envs/save_models", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
-            "args": [
-                "--ecmp_topo","Abilene0-1-('1', '10')",   // 这个好像是随便填  Abilene0-1-('1', '10')  Arnes-1-('7', '23')
-                "--paths_from", "sp",
-                "--so_mode", "meta-test",
-                "--so_epochs","20",
-                "--so_batch_size","16",
-                "--opt_function","MAXUTIL"
-            ]
+            // "cwd": "/mydata/DOTE/networking_envs/save_models", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--ecmp_topo","Abilene0-1-('1', '10')",   // 这个好像是随便填  Abilene0-1-('1', '10')  Arnes-1-('7', '23')
+            //     "--paths_from", "sp",
+            //     "--so_mode", "meta-test",
+            //     "--so_epochs","20",
+            //     "--so_batch_size","16",
+            //     "--opt_function","MAXUTIL"
+            // ]
 
         }
     ]
