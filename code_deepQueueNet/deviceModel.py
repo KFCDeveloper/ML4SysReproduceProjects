@@ -93,7 +93,9 @@ class deepQueueNet(trace2Samples):
 
     def tfrecords_input_fn(self, shuffle_buf=1000000):
         """return a generator to fetch a batch size dataset from the training database"""
-        file_list = glob.glob('./data/{}/_tfrecords/*.tfrecords'.format(
+        # file_list = glob.glob('./data/{}/_tfrecords/*.tfrecords'.format(
+        #     self.config.modelname))
+        file_list = glob.glob('./data/{}/_traces/_train/4port4link1/*.csv'.format(
             self.config.modelname))
         files = tf.data.Dataset.from_tensor_slices(file_list)
         files = files.shuffle(len(file_list))
@@ -135,18 +137,14 @@ class deepQueueNet(trace2Samples):
         lstm_graph = tf.Graph()
         with lstm_graph.as_default():
             X, y = self.tfrecords_input_fn()
-            tf.add_to_collection('X', X)
+            tf.add_to_collection('X', X)    # zhuang'jing
 
             #encoder
             #BLSTM is more accuracy than LSTM, but will also take more time to train.
             with tf.variable_scope('lstm1',
                                    initializer=tf.orthogonal_initializer(),
                                    reuse=None):
-                multi_cell = tf.contrib.rnn.MultiRNNCell([
-                    self._create_one_cell(_)
-                    for _ in range(self.config.lstm_params['layer'])
-                ],
-                                                         state_is_tuple=True)
+                multi_cell = tf.contrib.rnn.MultiRNNCell([self._create_one_cell(_)for _ in range(self.config.lstm_params['layer'])] ,state_is_tuple=True)
                 val, _ = tf.nn.dynamic_rnn(multi_cell, X, dtype=tf.float32)
 #                 multi_cell_bw=tf.contrib.rnn.MultiRNNCell([self._create_one_cell(_)
 #                                                            for _ in range(self.config.lstm_params['layer'])],
