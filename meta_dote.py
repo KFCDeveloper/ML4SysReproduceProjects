@@ -97,7 +97,8 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
         # encode data points with the RNN and generate the embedding
           
         num_sequences = rnn_input.shape[0]
-        hidden = self.rnn.init_hidden(num_sequences=num_sequences).to(torch.float64)
+        hidden = self.rnn.init_hidden(num_sequences=num_sequences).to(device,torch.float64)
+
         rnn_output, hidden_state = self.rnn.gru(rnn_input, hidden)  # use the last hidden state to generate the embedding # 输入GRU的是 (batch_size|num_seq, seq_len, input_size|feature_size)
         rnn_output = rnn_output[:, -1, :]
         hidden_state = torch.mean(hidden_state, dim=1, keepdim=True)
@@ -118,7 +119,7 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             main_model_input = self.merge_vectors(main_model_input,embedding,-1)
             # main_model_input = torch.cat((main_model_input, embedding), dim=-1)
 
-        x = self.flatten(main_model_input)
+        x = self.flatten(main_model_input).to(torch.double)
         logits = self.net(x)
         return logits
     
@@ -144,7 +145,9 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             return torch.cat((main_vector, meta_vector), dim=dimension)
         elif self.merge_approach == "bilinear":  # https://blog.csdn.net/nihate/article/details/90480459 解释的很好
             output_dim = self.net[0].in_features    # 获取 self.net 的输入维度，
-            self.bilinear = nn.Bilinear(n1, n2, output_dim)
+            self.bilinear = nn.Bilinear(n1, n2, output_dim).to(device,torch.float32)
+            main_vector = main_vector.to(device,torch.float32)
+            meta_vector = meta_vector.to(device,torch.float32)
             output = self.bilinear(main_vector, meta_vector)
             return output
             # return torch.cat((main_vector, meta_vector), dim=dimension)
@@ -153,8 +156,9 @@ class MetaNeuralNetworkMaxUtil(nn.Module):
             input_dim = n1 + n2
             num_heads = 2   # 多头的个数
             self.attention = nn.MultiheadAttention(input_dim, num_heads)
+            self.attention.to(device)
             # 将 main_vector 和 meta_vector 拼接起来作为输入
-            combined_vector = torch.cat([main_vector.unsqueeze(0), meta_vector.unsqueeze(0)], dim=0)
+            combined_vector = torch.cat([main_vector.unsqueeze(0), meta_vector.unsqueeze(0)], dim=2).to(torch.float32)
             # 使用自注意力机制进行合并
             output, _ = self.attention(combined_vector, combined_vector, combined_vector)   # 输出应该和Q K V的维度一样
             # 返回合并后的向量
@@ -329,11 +333,162 @@ if __name__ == "__main__":
         assert False
 
     if props.so_mode == "meta-train": #train
-        merge_approach = "attention" # "concatenate" "bilinear" "attention"
+        merge_approach = "bilinear" # "concatenate" "bilinear" "attention"
         # TODO epoch 1 create model; other epoch replace two nn.linear
         
         #create the model
         model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes(),merge_approach) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
+        model.double()
+        model.to(device)
+        # optimizer
+        optimizer = torch.optim.Adam(model.parameters())
+
+        # 用来在文件夹下面，去分割一下 训练集 和 测试集
+        myarg = sys.argv[1:]
+        # 获取 "Abilene- + 数字" 开头的 所有文件夹
+        matching_folders = find_folders("/mydata/DOTE/networking_envs/data")
+        matching_folders.sort() # 排下序，防止每次find出来顺序不一样，因为我要在后50%的task里面去找一个出来做 迁移
+        # 取前 50% 用作 training tasks
+        training_task = matching_folders[0:len(matching_folders)//2]
+        # training_task = matching_folders[0:1] # !! to debug
+
+        # 先处理这些 tasks，然后存到一个大的 dic 里面去
+        all_task_data = {}
+        num_control = 1 # for debug
+        # for etask_dir in training_task:
+        for i in range(len(training_task)):
+            # if i > num_control: 
+            #     break
+            # 每次都修改一次 arg
+            myarg[1] = training_task[i]
+            props = parse_args(myarg)
+            env = history_env.ECMPHistoryEnv(props)
+            ctp_coo = env._optimizer._commodities_to_paths.tocoo()
+            commodities_to_paths = torch.sparse_coo_tensor(np.vstack((ctp_coo.row, ctp_coo.col)), torch.DoubleTensor(ctp_coo.data), torch.Size(ctp_coo.shape)).to(device)
+            pte_coo = env._optimizer._paths_to_edges.tocoo()
+            paths_to_edges = torch.sparse_coo_tensor(np.vstack((pte_coo.row, pte_coo.col)), torch.DoubleTensor(pte_coo.data), torch.Size(pte_coo.shape)).to(device)
+            # create the dataset
+            train_dataset = DmDataset(props, env, False)
+            # TODO 这里注意，只选取一小部分数据集来训
+            # 创建采样器，从数据集中随机抽取1/3的数据 TODO 是否要每个epoch 对应的 数据都要是一样的呢？
+            subset_size = len(train_dataset) // 3
+            sampler = SubsetRandomSampler(range(subset_size))
+            # create a data loader for the train set
+            train_dl = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler)
+            # 存入 all_task_data
+            all_task_data[training_task[i]] = train_dl
+
+        # each epoch will train
+        for epoch in range(n_epochs):
+            for i in range(len(training_task)):
+                # if i > num_control: 
+                #     break
+                train_dl = all_task_data[training_task[i]]
+                # 替换掉 model 的那两层 nn.Linear()，要在 args 解析之后，这里的env才会变成新的env
+                model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+                model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
+                model.double()
+                model.to(device)
+                optimizer = torch.optim.Adam(model.parameters())
+                # begin to train
+                with tqdm(train_dl) as tepoch:
+                    epoch_train_loss = []
+                    loss_sum = loss_count = 0
+                    for (inputs, targets) in tepoch:        
+                        # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                        # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                        # 
+                        # put data on the graphics memory   
+                        inputs = inputs.to(device)
+                        targets = targets.to(device)
+                        tepoch.set_description(f"Epoch {epoch}")
+                        optimizer.zero_grad()
+                        yhat = model(inputs)
+                        loss, loss_val = loss_fn(yhat, targets, env)    # 这个target并不是说就是label了，这个target里面包含 traffic allocation + 最优值；
+                        loss.backward()
+                        optimizer.step()
+                        epoch_train_loss.append(loss_val)
+                        loss_sum += loss_val
+                        loss_count += 1
+                        loss_avg = loss_sum / loss_count
+                        tepoch.set_postfix(loss=loss_avg)
+                        # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
+                # print('saving...... ' + str(epoch))
+                # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
+            #save the model
+            # torch.save(model, 'model_dote.pkl')
+            torch.save(model, 'meta_model_dote_' + merge_approach + '.pkl') # 每次都保存一次模型
+
+    elif props.so_mode == "meta-test": #test
+        merge_approach = "bilinear" # "concatenate" "bilinear" "attention"
+        # create the dataset
+        train_dataset = DmDataset(props, env, False)
+        # create a data loader for the train set
+        test_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)   
+        #load the model
+        # model = torch.load('model_dote.pkl').to(device)
+        # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
+        # model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
+        model = torch.load('meta_model_dote_' + merge_approach + '.pkl').to(device)
+        # model = torch.load('model_dote_Abilene.pkl').to(device)
+        # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
+        # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
+        # 替换那两层 nn.linear
+        model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
+        model.input_main_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), 1320)
+        model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
+        model.to(device)
+        model.double()
+        optimizer = torch.optim.Adam(model.parameters())
+        # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
+        with open("meta_test_" + props.ecmp_topo + "_" +  merge_approach + ".txt", "a+") as file:
+            for epoch in range(n_epochs):
+                with tqdm(test_dl) as tests:
+                    test_losses = []
+                    loss_count = 0
+                    for (inputs, targets) in tests:
+                        inputs = inputs.to(device)
+                        targets = targets.to(device)
+
+                        optimizer.zero_grad()
+                        pred = model(inputs)
+                        test_loss, test_loss_val = loss_fn(pred, targets, env)
+                        test_loss.backward()
+                        optimizer.step()
+                        test_losses.append(test_loss_val)
+                        tests.set_postfix(loss=test_loss_val)
+                        
+                        loss_count += 1
+                        avg_val_loss = sum(test_losses) / loss_count
+                        file.write(str(test_loss_val)+"\n")
+                        file.flush()
+
+                        avg_loss = sum(test_losses) / len(test_losses)
+                        # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
+                        # print statistics to file
+                    # with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
+                    #     import statistics
+                    #     dists = [float(v) for v in test_losses]
+                    #     dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
+                    #     f.write('Average: ' + str(statistics.mean(dists)) + '\n')
+                    #     f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
+                    #     f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
+                    #     f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
+                    #     f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
+                    #     f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
+                    #     f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
+                
+                    # if concurrent_flow_cdf != None:
+                    #     concurrent_flow_cdf.sort()
+                    #     with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+                    #         for v in concurrent_flow_cdf:
+                    #             f.write(str(v / len(dists)) + '\n')
+
+    elif props.so_mode == "diff-merge-meta-train": #train
+        # TODO epoch 1 create model; other epoch replace two nn.linear
+        
+        #create the model
+        model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes()) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
         model.double()
         model.to(device)
         # optimizer
@@ -411,125 +566,70 @@ if __name__ == "__main__":
                 # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
             #save the model
             # torch.save(model, 'model_dote.pkl')
-            torch.save(model, 'meta_model_dote_' + merge_approach + '.pkl') # 每次都保存一次模型
-
-    elif props.so_mode == "meta-test": #test
-        # create the dataset
-        train_dataset = DmDataset(props, env, False)
-        # create a data loader for the train set
-        test_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)   
-        #load the model
-        # model = torch.load('model_dote.pkl').to(device)
-        # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-        # model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
-        model = torch.load('meta_model_dote.pkl').to(device)
-        # model = torch.load('model_dote_Abilene.pkl').to(device)
-        # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
-        # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
-        # 替换那两层 nn.linear
-        model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
-        model.input_main_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), 1320)
-        model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
-        model.double()
-        optimizer = torch.optim.Adam(model.parameters())
-        # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
-        with open("meta_test_"+props.ecmp_topo+".txt", "a+") as file:
-            for epoch in range(n_epochs):
-                with tqdm(test_dl) as tests:
-                    test_losses = []
-                    loss_count = 0
-                    for (inputs, targets) in tests:
-                        inputs = inputs.to(device)
-                        targets = targets.to(device)
-
-                        optimizer.zero_grad()
-                        pred = model(inputs)
-                        test_loss, test_loss_val = loss_fn(pred, targets, env)
-                        test_loss.backward()
-                        optimizer.step()
-                        test_losses.append(test_loss_val)
-                        tests.set_postfix(loss=test_loss_val)
-                        
-                        loss_count += 1
-                        avg_val_loss = sum(test_losses) / loss_count
-                        file.write(str(test_loss_val)+"\n")
-                        file.flush()
-
-                        avg_loss = sum(test_losses) / len(test_losses)
-                        # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
-                        # print statistics to file
-                    with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
-                        import statistics
-                        dists = [float(v) for v in test_losses]
-                        dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
-                        f.write('Average: ' + str(statistics.mean(dists)) + '\n')
-                        f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
-                        f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
-                        f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
-                        f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
-                        f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
-                        f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
-                
-                    if concurrent_flow_cdf != None:
-                        concurrent_flow_cdf.sort()
-                        with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
-                            for v in concurrent_flow_cdf:
-                                f.write(str(v / len(dists)) + '\n')
-
-    elif props.so_mode == "diff-merge-meta-train": #train
-            # TODO epoch 1 create model; other epoch replace two nn.linear
-            
-            #create the model
-            model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes()) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
+            torch.save(model, 'meta_model_dote.pkl') # 每次都保存一次模型
+    
+    if props.so_mode == "multi-meta-train": #train
+        merge_approaches = ["bilinear","attention"] # "concatenate" "bilinear" "attention"
+        # TODO epoch 1 create model; other epoch replace two nn.linear
+        models = []
+        #create the model
+        for each_approach in merge_approaches:
+            model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes(),each_approach) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
             model.double()
             model.to(device)
             # optimizer
             optimizer = torch.optim.Adam(model.parameters())
+            models.append(model)
 
-            # 用来在文件夹下面，去分割一下 训练集 和 测试集
-            myarg = sys.argv[1:]
-            # 获取 "Abilene- + 数字" 开头的 所有文件夹
-            matching_folders = find_folders("/mydata/DOTE/networking_envs/data")
-            matching_folders.sort() # 排下序，防止每次find出来顺序不一样，因为我要在后50%的task里面去找一个出来做 迁移
-            # 取前 50% 用作 training tasks
-            training_task = matching_folders[0:len(matching_folders)//2]
+        # 用来在文件夹下面，去分割一下 训练集 和 测试集
+        myarg = sys.argv[1:]
+        # 获取 "Abilene- + 数字" 开头的 所有文件夹
+        matching_folders = find_folders("/mydata/DOTE/networking_envs/data")
+        matching_folders.sort() # 排下序，防止每次find出来顺序不一样，因为我要在后50%的task里面去找一个出来做 迁移
+        # 取前 50% 用作 training tasks
+        training_task = matching_folders[0:len(matching_folders)//2]
+        # training_task = matching_folders[0:1] # !! to debug
 
-            # 先处理这些 tasks，然后存到一个大的 dic 里面去
-            all_task_data = {}
-            num_control = 1 # for debug
-            # for etask_dir in training_task:
+        # 先处理这些 tasks，然后存到一个大的 dic 里面去
+        all_task_data = {}
+        num_control = 1 # for debug
+        # for etask_dir in training_task:
+        for i in range(len(training_task)):
+            # if i > num_control: 
+            #     break
+            # 每次都修改一次 arg
+            myarg[1] = training_task[i]
+            props = parse_args(myarg)
+            env = history_env.ECMPHistoryEnv(props)
+            ctp_coo = env._optimizer._commodities_to_paths.tocoo()
+            commodities_to_paths = torch.sparse_coo_tensor(np.vstack((ctp_coo.row, ctp_coo.col)), torch.DoubleTensor(ctp_coo.data), torch.Size(ctp_coo.shape)).to(device)
+            pte_coo = env._optimizer._paths_to_edges.tocoo()
+            paths_to_edges = torch.sparse_coo_tensor(np.vstack((pte_coo.row, pte_coo.col)), torch.DoubleTensor(pte_coo.data), torch.Size(pte_coo.shape)).to(device)
+            # create the dataset
+            train_dataset = DmDataset(props, env, False)
+            # TODO 这里注意，只选取一小部分数据集来训
+            # 创建采样器，从数据集中随机抽取1/3的数据 TODO 是否要每个epoch 对应的 数据都要是一样的呢？
+            subset_size = len(train_dataset) // 3
+            sampler = SubsetRandomSampler(range(subset_size))
+            # create a data loader for the train set
+            train_dl = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler)
+            # 存入 all_task_data
+            all_task_data[training_task[i]] = train_dl
+
+        # each epoch will train
+        
+        for epoch in range(n_epochs):
             for i in range(len(training_task)):
-                # if i > num_control: 
-                #     break
-                # 每次都修改一次 arg
-                myarg[1] = training_task[i]
-                props = parse_args(myarg)
-                env = history_env.ECMPHistoryEnv(props)
-                ctp_coo = env._optimizer._commodities_to_paths.tocoo()
-                commodities_to_paths = torch.sparse_coo_tensor(np.vstack((ctp_coo.row, ctp_coo.col)), torch.DoubleTensor(ctp_coo.data), torch.Size(ctp_coo.shape)).to(device)
-                pte_coo = env._optimizer._paths_to_edges.tocoo()
-                paths_to_edges = torch.sparse_coo_tensor(np.vstack((pte_coo.row, pte_coo.col)), torch.DoubleTensor(pte_coo.data), torch.Size(pte_coo.shape)).to(device)
-                # create the dataset
-                train_dataset = DmDataset(props, env, False)
-                # TODO 这里注意，只选取一小部分数据集来训
-                # 创建采样器，从数据集中随机抽取1/3的数据 TODO 是否要每个epoch 对应的 数据都要是一样的呢？
-                subset_size = len(train_dataset) // 3
-                sampler = SubsetRandomSampler(range(subset_size))
-                # create a data loader for the train set
-                train_dl = DataLoader(train_dataset, batch_size=batch_size, sampler=sampler)
-                # 存入 all_task_data
-                all_task_data[training_task[i]] = train_dl
-
-            # each epoch will train
-            for epoch in range(n_epochs):
-                for i in range(len(training_task)):
+                for model_index in range(len(models)):
                     # if i > num_control: 
                     #     break
                     train_dl = all_task_data[training_task[i]]
+                    model = models[model_index]
                     # 替换掉 model 的那两层 nn.Linear()，要在 args 解析之后，这里的env才会变成新的env
                     model.input_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), RNN_Cons.NUM_FEATURES_GRU * DOTE_Cons.HIST_LEN)
                     model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
                     model.double()
+                    model.to(device)
                     optimizer = torch.optim.Adam(model.parameters())
                     # begin to train
                     with tqdm(train_dl) as tepoch:
@@ -556,7 +656,7 @@ if __name__ == "__main__":
                             # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
                     # print('saving...... ' + str(epoch))
                     # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
-                #save the model
+            #save the model
+            for model_index in range(len(models)):
                 # torch.save(model, 'model_dote.pkl')
-                torch.save(model, 'meta_model_dote.pkl') # 每次都保存一次模型
-    
+                torch.save(model, 'meta_model_dote_' + merge_approaches[model_index] + '.pkl') # 每次都保存一次模型
