@@ -420,7 +420,7 @@ if __name__ == "__main__":
             torch.save(model, 'meta_model_dote_' + merge_approach + '.pkl') # 每次都保存一次模型
 
     elif props.so_mode == "meta-test": #test
-        merge_approach = "bilinear" # "concatenate" "bilinear" "attention"
+        merge_approach = "attention" # "concatenate" "bilinear" "attention"
         # create the dataset
         train_dataset = DmDataset(props, env, False)
         # create a data loader for the train set

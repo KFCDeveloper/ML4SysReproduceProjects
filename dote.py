@@ -486,7 +486,7 @@ elif props.so_mode == "test-fixdimen": # test adaptive model on the other datase
     # model = torch.load('model_dote.pkl').to(device)
     # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
     # model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
-    model = torch.load('meta_model_dote.pkl').to(device) # TODO load 
+    model = torch.load("fixed_model_Abilene-2-('7', '8')-('9', '10').pkl").to(device) # TODO load 
     # model = torch.load('model_dote_Abilene.pkl').to(device)
     # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
     # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
@@ -494,9 +494,10 @@ elif props.so_mode == "test-fixdimen": # test adaptive model on the other datase
     model.input_main_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), 1320)    # 1320 是我直接写固定了，就把主要模型的维度弄成1320; meta model 那里我也这么做的
     model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
     model.double()
+    model.to(device)
     optimizer = torch.optim.Adam(model.parameters())
     # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
-    with open("meta_test_"+props.ecmp_topo+".txt", "a+") as file:
+    with open("well_trained_test_" + props.ecmp_topo + ".txt", "a+") as file:
         for epoch in range(n_epochs):
             with tqdm(test_dl) as tests:
                 test_losses = []
@@ -521,20 +522,20 @@ elif props.so_mode == "test-fixdimen": # test adaptive model on the other datase
                     avg_loss = sum(test_losses) / len(test_losses)
                     # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
                     # print statistics to file
-                with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
-                    import statistics
-                    dists = [float(v) for v in test_losses]
-                    dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
-                    f.write('Average: ' + str(statistics.mean(dists)) + '\n')
-                    f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
-                    f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
-                    f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
-                    f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
-                    f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
-                    f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
+                # with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
+                #     import statistics
+                #     dists = [float(v) for v in test_losses]
+                #     dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
+                #     f.write('Average: ' + str(statistics.mean(dists)) + '\n')
+                #     f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
+                #     f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
+                #     f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
+                #     f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
+                #     f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
+                #     f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
             
-                if concurrent_flow_cdf != None:
-                    concurrent_flow_cdf.sort()
-                    with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
-                        for v in concurrent_flow_cdf:
-                            f.write(str(v / len(dists)) + '\n')
+                # if concurrent_flow_cdf != None:
+                #     concurrent_flow_cdf.sort()
+                #     with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+                #         for v in concurrent_flow_cdf:
+                #             f.write(str(v / len(dists)) + '\n')
