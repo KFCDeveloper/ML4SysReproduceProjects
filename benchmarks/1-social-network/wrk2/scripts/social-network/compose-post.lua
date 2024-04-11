@@ -1,4 +1,5 @@
-require "socket"
+-- require "socket"
+local socket = require("socket")
 math.randomseed(socket.gettime()*1000)
 math.random(); math.random(); math.random()
 
@@ -64,7 +65,7 @@ request = function()
   local method = "POST"
   -- Use your cluster-ip here:
   -- original: local path = "http://10.68.39.88:8080/wrk2-api/post/compose"
-  local path = "http://10.108.29.192:8080/wrk2-api/post/compose"
+  local path = "http://10.107.132.35:8080/wrk2-api/post/compose"
   local headers = {}
   local body
   headers["Content-Type"] = "application/x-www-form-urlencoded"
