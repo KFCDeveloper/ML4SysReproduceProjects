@@ -10,9 +10,9 @@ nodes = [
         '10.1.0.200', '10.1.0.201',
         '10.1.0.203', '10.1.0.204', '10.1.0.205', '10.1.0.206'
 ]
-username = 'ubuntu'
+username = 'DylanYu'
 password = ''
-location = '~/firm/src/anomaly-injector/'
+location = '/mydata/firm/src/anomaly-injector/'
 threads = 1
 out = subprocess.Popen(['nproc'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 stdout, stderr = out.communicate()
