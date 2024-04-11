@@ -5,14 +5,12 @@ import time
 
 # configure node IP addresses, username, network dev, and location of the performance anomaly injector here
 nodes = [
-        '10.1.0.11', '10.1.0.12', '10.1.0.13', '10.1.0.14',
-        '10.1.0.21', '10.1.0.22', '10.1.0.23', '10.1.0.24',
-        '10.1.0.200', '10.1.0.201',
-        '10.1.0.203', '10.1.0.204', '10.1.0.205', '10.1.0.206'
+        "clnode251.clemson.cloudlab.us","pc823.emulab.net", 
+        "pc834.emulab.net", "pc712.emulab.net", "pc710.emulab.net"
 ]
 username = 'DylanYu'
 password = ''
-location = '/mydata/firm/src/anomaly-injector/'
+location = '/mydata/firm/anomaly-injector/'
 threads = 1
 out = subprocess.Popen(['nproc'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 stdout, stderr = out.communicate()

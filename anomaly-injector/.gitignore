@@ -1,5 +1,10 @@
-cpu
-cpu-all-cores
-cpu-all-cores-with-affinity
-l3
-mem
+# cpu
+# cpu-all-cores
+# cpu-all-cores-with-affinity
+# l3
+# mem
+anomaly-injector/l3
+anomaly-injector/cpu
+anomaly-injector/cpu-all-cores
+anomaly-injector/cpu-all-cores-with-affinity
+anomaly-injector/mem
