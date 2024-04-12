@@ -2,12 +2,15 @@ import random
 import os
 import subprocess
 import time
+import socket
 
 # configure node IP addresses, username, network dev, and location of the performance anomaly injector here
 nodes = [
         "clnode251.clemson.cloudlab.us","pc823.emulab.net", 
         "pc834.emulab.net", "pc712.emulab.net", "pc710.emulab.net"
 ]
+devices={"clnode251.clemson.cloudlab.us":"enp24s0f0","pc823.emulab.net":"eno1", 
+        "pc834.emulab.net":"eno1", "pc712.emulab.net":"eno1", "pc710.emulab.net":"eno1"}
 username = 'DylanYu'
 password = ''
 location = '/mydata/firm/anomaly-injector/'
@@ -15,7 +18,7 @@ threads = 1
 out = subprocess.Popen(['nproc'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 stdout, stderr = out.communicate()
 threads = int(stdout)
-dev = 'enp24s0f0' #'ib0' # eth0
+dev = devices[socket.getfqdn()] #'enp24s0f0' #'ib0' # eth0
 
 disk = 150   # file size: Gb
 rate = 1024  # bandwidth limit: kbit
