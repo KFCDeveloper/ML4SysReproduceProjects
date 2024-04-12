@@ -1,1 +1,1 @@
-*/1 * * * * cd /path/to/repository/metrics/sender && sh /path/to/repository/metrics/sender/cron/bin/sender.sh 2>&1 | /usr/bin/logger -t sender
+*/1 * * * * cd /mydata/firm/metrics/sender && sh /mydata/firm/metrics/sender/cron/bin/sender.sh 2>&1 | /usr/bin/logger -t sender

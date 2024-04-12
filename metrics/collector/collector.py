@@ -22,7 +22,7 @@ import time
 import json
 import logging
 
-REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', 'redis.local')
+REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', 'localhost') # if you want to change the host of redis, you can change 'redis.local'
 REDIS_PORT=int(os.getenv('COLLECTOR_REDIS_PORT', '6379'))
 PORT=int(os.getenv('COLLECTOR_PORT', '8787'))
 STATS_LEN=int(os.getenv('STATS_LEN', '1440'))
