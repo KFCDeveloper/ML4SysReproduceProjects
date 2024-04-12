@@ -90,10 +90,10 @@ def inject():
                 command += 'cd test-files; ' + commands[anomaly_type] % (disk, duration, threads) + '"' # (duration, threads, intensity)
             elif anomaly_type == 4:
                 # network - tc
-                command += commands[anomaly_type] % ('add', dev, rate, burst) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, rate, burst) + '"'
+                command += commands[anomaly_type] % ('add', devices[nodes[i]], rate, burst) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, rate, burst) + '"'
             elif anomaly_type == 5:
                 # network delay - tc
-                command += commands[anomaly_type] % ('add', dev, latency, latency/10) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, latency, latency/10) + '"'
+                command += commands[anomaly_type] % ('add', devices[nodes[i]], latency, latency/10) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, latency, latency/10) + '"'
             print(command)
             os.system(command)
 

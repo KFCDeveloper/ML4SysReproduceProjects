@@ -22,7 +22,7 @@ import time
 import json
 import logging
 
-REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', 'localhost') # if you want to change the host of redis, you can change 'redis.local'
+REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', '130.127.134.15') # if you want to change the host of redis, you can change 'redis.local'
 REDIS_PORT=int(os.getenv('COLLECTOR_REDIS_PORT', '6379'))
 PORT=int(os.getenv('COLLECTOR_PORT', '8787'))
 STATS_LEN=int(os.getenv('STATS_LEN', '1440'))
@@ -187,6 +187,7 @@ class CollectorApp():
         resource = CadvisorMetricsResource(REDIS_HOST, REDIS_PORT, metadata_fun)
         app.add_route('/cadvisor/metrics/{env_id}', resource)
         app.add_route('/cadvisor/metrics', resource)
+        print("add route done")
         return app
 
     def get_stat(self, id):

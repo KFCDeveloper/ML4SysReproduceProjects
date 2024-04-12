@@ -27,7 +27,8 @@ endpoint = os.getenv('COLLECTOR_URL', 'http://localhost:8787/cadvisor/metrics/')
 # Determine the cadvisor URL. The default cadvisor.local address is used to make running via docker easier.
 # Note that port 8989 is being used below, which is not the standard port given in cadvisor's documentation examples.
 # cadvisor_base = os.getenv('CADVISOR_URL', 'http://cadvisor.local:8989/api/v1.2')
-cadvisor_base = os.getenv('CADVISOR_URL', 'http://localhost:8080/metrics')
+# cadvisor_base = os.getenv('CADVISOR_URL', 'http://localhost:8080/metrics')
+cadvisor_base = os.getenv('CADVISOR_URL', 'http://localhost:8080/api/v2.0')
 # http://localhost:8001/api/v1/nodes/gke-c-plnf4-default-pool-5eb56043-23p5:10255/proxy/pods/
 
 # The following functions are examples of different approaches for detemining which containers to report stats on
@@ -100,7 +101,7 @@ def process_diskio(diskio, field):
     return total
         
 # Connect to cadvisor and get the last minute's worth of stats (should be 60 stats per container)
-r = requests.get('%s/kubernetes' % cadvisor_base)
+r = requests.get('%s/spec?recursive=true' % cadvisor_base) # previous: '%s/kubernetes' /api/v2.0/spec?recursive=true
 entries = []
 for key, value in r.json().items():
 
