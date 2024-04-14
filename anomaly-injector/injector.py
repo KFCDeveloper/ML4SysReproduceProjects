@@ -36,7 +36,7 @@ commands = [
         './l3 %d',
         # 'sysbench --duration=%d --threads=%d --rate=%d',
         'sysbench fileio --file-total-size=%dG --file-test-mode=rndrw --time=%d --threads=%d run',
-        'sudo tc qdisc %s dev %s root tbf rate %dkbit burst %d latency 0ms', # 'loss 1%'
+        'sudo tc qdisc %s dev %s root tbf rate %dkbit burst %d latency 1ms', # 'loss 1%'
         # 'tc qdisc add dev %s root tbf rate %dkbit latency %dms burst %d'
         'sudo tc qdisc %s dev %s root netem delay %dms %dms'
 ]
@@ -90,10 +90,10 @@ def inject():
                 command += 'cd test-files; ' + commands[anomaly_type] % (disk, duration, threads) + '"' # (duration, threads, intensity)
             elif anomaly_type == 4:
                 # network - tc
-                command += commands[anomaly_type] % ('add', devices[nodes[i]], rate, burst) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, rate, burst) + '"'
+                command += commands[anomaly_type] % ('add', devices[nodes[i]], rate, burst) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', devices[nodes[i]], rate, burst) + '"'
             elif anomaly_type == 5:
                 # network delay - tc
-                command += commands[anomaly_type] % ('add', devices[nodes[i]], latency, latency/10) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', dev, latency, latency/10) + '"'
+                command += commands[anomaly_type] % ('add', devices[nodes[i]], latency, latency/10) + '; sleep ' + str(duration) + '; ' + commands[anomaly_type] % ('delete', devices[nodes[i]], latency, latency/10) + '"'
             print(command)
             os.system(command)
 

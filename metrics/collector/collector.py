@@ -185,9 +185,8 @@ class CollectorApp():
 
         app = falcon.API()
         resource = CadvisorMetricsResource(REDIS_HOST, REDIS_PORT, metadata_fun)
-        app.add_route('/cadvisor/metrics/{env_id}', resource)
+        # app.add_route('/cadvisor/metrics/{env_id}', resource) # # TODO comment out
         app.add_route('/cadvisor/metrics', resource)
-        print("add route done")
         return app
 
     def get_stat(self, id):

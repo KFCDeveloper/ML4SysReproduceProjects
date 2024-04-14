@@ -22,13 +22,13 @@ import os
 
 # Determine the collector URL. The default collector.local address is used to make running via docker easier.
 # endpoint = os.getenv('COLLECTOR_URL', 'http://collector.local:8787/cadvisor/metrics/')
-endpoint = os.getenv('COLLECTOR_URL', 'http://localhost:8787/cadvisor/metrics/')
+endpoint = os.getenv('COLLECTOR_URL', 'http://localhost:8787/cadvisor/metrics') # TODO change 'metrics/' to 'metrics'  
 
 # Determine the cadvisor URL. The default cadvisor.local address is used to make running via docker easier.
 # Note that port 8989 is being used below, which is not the standard port given in cadvisor's documentation examples.
 # cadvisor_base = os.getenv('CADVISOR_URL', 'http://cadvisor.local:8989/api/v1.2')
 # cadvisor_base = os.getenv('CADVISOR_URL', 'http://localhost:8080/metrics')
-cadvisor_base = os.getenv('CADVISOR_URL', 'http://localhost:8080/api/v2.0')
+cadvisor_base = os.getenv('CADVISOR_URL', 'http://clnode251.clemson.cloudlab.us:8080/api/v1.3') # http://localhost:8080/api/v2.0 /api/v1/nodes/<node>/proxy/metrics
 # http://localhost:8001/api/v1/nodes/gke-c-plnf4-default-pool-5eb56043-23p5:10255/proxy/pods/
 
 # The following functions are examples of different approaches for detemining which containers to report stats on
@@ -101,16 +101,18 @@ def process_diskio(diskio, field):
     return total
         
 # Connect to cadvisor and get the last minute's worth of stats (should be 60 stats per container)
-r = requests.get('%s/spec?recursive=true' % cadvisor_base) # previous: '%s/kubernetes' /api/v2.0/spec?recursive=true
+r = requests.get('%s/subcontainers?recursive=true' % cadvisor_base) # previous: '%s/kubernetes' /api/v2.0/spec?recursive=true
 entries = []
-for key, value in r.json().items():
+# for key, value in r.json().items():
+for value in r.json():
 
     # Determine if one of the aliases matches (is something we want to collect metrics for)
     container_name = None
-    for name in value['aliases']:
-        if match_container_name(name):
-            container_name = name
-            break
+    if 'aliases' in value:  # TODO: my modification
+        for name in value['aliases']:
+            if match_container_name(name):
+                container_name = name
+                break
 
     # Skip this if the container didn't match
     if container_name == None:
@@ -141,13 +143,15 @@ for key, value in r.json().items():
         cache = memory['cache']
 
         # Get the CPU load. The load value is always 0?
+        cpu = stat['cpu']
         cpu_load = cpu['load_average']
         total_load, min_load, max_load = total_min_max(cpu_load, total_load, min_load, max_load)
 
     # Resource control stats
-    resctrl = stat['resctrl']
-    memory_bandwidth = resctrl['memory_bandwidth']
-    cache_bandwidth = resctrl['cache']
+    if 'resctrl' in stat:   # TODO: my modification
+        resctrl = stat['resctrl']
+        memory_bandwidth = resctrl['memory_bandwidth']
+        cache_bandwidth = resctrl['cache']
 
     # Initialize the entry for this container
     entry = {'name': container_name, 'ts' : ts}
@@ -178,20 +182,30 @@ for key, value in r.json().items():
     end_tx_errors = last['network']['tx_errors']
     start_rx_errors = first['network']['rx_errors']
     end_rx_errors = last['network']['rx_errors']
-    start_tx_drops = first['network']['tx_drops']
-    end_tx_drops = last['network']['tx_drops']
-    start_rx_drops = first['network']['rx_drops']
-    end_rx_drops = last['network']['rx_drops']
+    start_tx_drops = first['network']['tx_dropped'] # TODO change 'tx_drops' to 'tx_dropped'
+    end_tx_drops = last['network']['tx_dropped']
+    start_rx_drops = first['network']['rx_dropped']   # TODO change 'rx_drops' to 'rx_dropped'
+    end_rx_drops = last['network']['rx_dropped']
 
     # Compute Disk IO deltas
-    start_async_bytes = process_diskio(first['diskio'], 'Async')
-    end_async_bytes = process_diskio(last['diskio'], 'Async')
-    start_sync_bytes = process_diskio(first['diskio'], 'Sync')
-    end_sync_bytes = process_diskio(last['diskio'], 'Sync')
-    start_read_bytes = process_diskio(first['diskio'], 'Read')
-    end_read_bytes = process_diskio(last['diskio'], 'Read')
-    start_write_bytes = process_diskio(first['diskio'], 'Write')
-    end_write_bytes = process_diskio(last['diskio'], 'Write')
+    if first['diskio']!={}:
+        start_async_bytes = process_diskio(first['diskio'], 'Async')
+        end_async_bytes = process_diskio(last['diskio'], 'Async')
+        start_sync_bytes = process_diskio(first['diskio'], 'Sync')
+        end_sync_bytes = process_diskio(last['diskio'], 'Sync')
+        start_read_bytes = process_diskio(first['diskio'], 'Read')
+        end_read_bytes = process_diskio(last['diskio'], 'Read')
+        start_write_bytes = process_diskio(first['diskio'], 'Write')
+        end_write_bytes = process_diskio(last['diskio'], 'Write')
+
+        # TODO comment out and mv to here
+        # Add disk IO stats
+        # These stats are currently aggregated across all volumes. May not be desirable.
+        entry['diskio']['async'] = end_async_bytes - start_async_bytes
+        entry['diskio']['sync'] = end_sync_bytes - start_sync_bytes
+        entry['diskio']['read'] = end_read_bytes - start_read_bytes
+        entry['diskio']['write'] = end_write_bytes - start_write_bytes
+        # Note that io_serviced stats are not being included here. Easy to add if needed.
 
     # Add CPU stats
     entry['cpu']['usage'] = end_cpu_usage - start_cpu_usage
@@ -204,10 +218,10 @@ for key, value in r.json().items():
     entry['memory']['ave'] = total_memory/stats_len
     entry['memory']['min'] = min_memory
     entry['memory']['max'] = max_memory
-    entry['memory']['bandwidth'] = memory_bandwidth['mbm_total_bytes']
-    entry['memory']['local_bandwidth'] = memory_bandwidth['mbm_local_bytes']
+    # entry['memory']['bandwidth'] = memory_bandwidth['mbm_total_bytes']    # TODO comment out
+    # entry['memory']['local_bandwidth'] = memory_bandwidth['mbm_local_bytes']  # TODO comment out
     entry['cache']['usage'] = cache
-    entry['cache']['bandwidth'] = cache_bandwidth['llc_occupancy']
+    # entry['cache']['bandwidth'] = cache_bandwidth['llc_occupancy']    # TODO comment out
 
     # Add network stats
     entry['network']['tx_kb'] = (end_tx_bytes - start_tx_bytes)/1024.0
@@ -219,13 +233,14 @@ for key, value in r.json().items():
     entry['network']['tx_drops'] = end_tx_drops - start_tx_drops
     entry['network']['rx_drops'] = end_rx_drops - start_rx_drops
 
-    # Add disk IO stats
-    # These stats are currently aggregated across all volumes. May not be desirable.
-    entry['diskio']['async'] = end_async_bytes - start_async_bytes
-    entry['diskio']['sync'] = end_sync_bytes - start_sync_bytes
-    entry['diskio']['read'] = end_read_bytes - start_read_bytes
-    entry['diskio']['write'] = end_write_bytes - start_write_bytes
-    # Note that io_serviced stats are not being included here. Easy to add if needed.
+    # TODO comment out
+    # # Add disk IO stats
+    # # These stats are currently aggregated across all volumes. May not be desirable.
+    # entry['diskio']['async'] = end_async_bytes - start_async_bytes
+    # entry['diskio']['sync'] = end_sync_bytes - start_sync_bytes
+    # entry['diskio']['read'] = end_read_bytes - start_read_bytes
+    # entry['diskio']['write'] = end_write_bytes - start_write_bytes
+    # # Note that io_serviced stats are not being included here. Easy to add if needed.
 
     entries.append(entry)
 
