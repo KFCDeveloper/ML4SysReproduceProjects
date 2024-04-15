@@ -1,2 +1,3 @@
 anomaly-injector/test-files/test_file.*
 benchmarks/1-social-network/wrk2/*-requests.txt
+__pycache__

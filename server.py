@@ -15,7 +15,7 @@ from metrics.collector import collector
 
 import actions
 
-REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', '192.168.222.5')
+REDIS_HOST=os.getenv('COLLECTOR_REDIS_HOST', 'clnode251.clemson.cloudlab.us')    # 192.168.222.5
 REDIS_PORT=int(os.getenv('COLLECTOR_REDIS_PORT', '6379'))
 PORT=int(os.getenv('COLLECTOR_PORT', '8787'))
 STATS_LEN=int(os.getenv('STATS_LEN', '1440'))
@@ -23,7 +23,7 @@ STATS_LEN=int(os.getenv('STATS_LEN', '1440'))
 NUM_WORKERS = 32
 # METRIC_SERVER = '10.2.2.0'
 # CADVISOR_API = '10.2.2.1'
-DATABASE = 'localhost:7687'
+DATABASE = '10.98.79.134:7687'
 USERNAME = 'neo4j'
 PASSWORD = 'GorgeousPassword'
 

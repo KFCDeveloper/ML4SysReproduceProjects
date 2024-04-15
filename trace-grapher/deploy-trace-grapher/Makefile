@@ -15,7 +15,7 @@ prepare-trace-grapher-namespace:
 
 
 install-components: prepare-trace-grapher-namespace
-	@kubectl apply -k ./overlays/$(OVERLAY)
+	@kubectl apply -k ./overlays/ 	
 
 
 remove-components:
