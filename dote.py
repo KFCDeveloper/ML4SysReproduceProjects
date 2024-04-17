@@ -495,6 +495,9 @@ elif props.so_mode == "test-fixdimen": # test adaptive model on the other datase
     model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
     model.double()
     model.to(device)
+    print("——————————————————————————")
+    print(sum(p.numel() for p in model.parameters() if p.requires_grad))
+    print("——————————————————————————")
     optimizer = torch.optim.Adam(model.parameters())
     # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
     with open("well_trained_test_" + props.ecmp_topo + ".txt", "a+") as file:

@@ -333,7 +333,7 @@ if __name__ == "__main__":
         assert False
 
     if props.so_mode == "meta-train": #train
-        merge_approach = "bilinear" # "concatenate" "bilinear" "attention"
+        merge_approach = "concatenate" # "concatenate" "bilinear" "attention"
         # TODO epoch 1 create model; other epoch replace two nn.linear
         
         #create the model
@@ -420,7 +420,7 @@ if __name__ == "__main__":
             torch.save(model, 'meta_model_dote_' + merge_approach + '.pkl') # 每次都保存一次模型
 
     elif props.so_mode == "meta-test": #test
-        merge_approach = "attention" # "concatenate" "bilinear" "attention"
+        merge_approach = "bilinear" # "concatenate" "bilinear" "attention"
         # create the dataset
         train_dataset = DmDataset(props, env, False)
         # create a data loader for the train set
@@ -439,6 +439,9 @@ if __name__ == "__main__":
         model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
         model.to(device)
         model.double()
+        print("——————————————————————————")
+        print(sum(p.numel() for p in model.parameters() if p.requires_grad))
+        print("——————————————————————————")
         optimizer = torch.optim.Adam(model.parameters())
         # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
         with open("meta_test_" + props.ecmp_topo + "_" +  merge_approach + ".txt", "a+") as file:
