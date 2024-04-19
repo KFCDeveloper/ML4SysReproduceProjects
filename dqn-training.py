@@ -17,4 +17,4 @@ model = deviceModel.deepQueueNet(config,
                                  target=['time_in_sys'],
                                  data_preprocessing=True)  # please turn it on when you run the cell for the first time
 model.build_and_training()
-# 1.30
+# 1.30 ~
