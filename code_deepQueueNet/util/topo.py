@@ -20,6 +20,7 @@ from code_deepQueueNet.tools.MinMaxScaler import  load_scaler
 class Init_TOPO:
     def __init__(self,flow, config, model_config):
         # LINKs 对应的是 20*20 ，这里的PORTS 也对应的是 20*20，todo 为什么这个PORTs 是写死到 拓扑里面的呢？
+        # 一共有20个hub，其中只有8个edge hub，但是还是很奇怪，这里两个hub对应的点表示的什么？port在0~3，这是hub的对应port号
         self.PORTS=[[-1,-1,-1,-1,0,-1,1,-1,2,-1,3,-1,-1,-1,-1,-1,-1,-1,-1,-1],
                     [-1,-1,-1,-1,0,-1,1,-1,2,-1,3,-1,-1,-1,-1,-1,-1,-1,-1,-1],
                     [-1,-1,-1,-1,-1,0,-1,1,-1,2,-1,3,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -57,6 +58,7 @@ class Init_TOPO:
     def flowsToport(self):
         self.IN=dict()
         for i in range(20):     # it seems like preparing the ingress flow of each PC
+            # 看起来，src_hub 一共只有20个；这是把src hub 相同的flow，分别用dataframe存起来
             self.IN['DataFrame{}'.format(i)]=self.flow[self.flow.src_hub==i].copy().sort_values('etime').reset_index(drop=True) 
         
             

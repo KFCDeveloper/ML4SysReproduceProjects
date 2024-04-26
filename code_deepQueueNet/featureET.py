@@ -58,6 +58,8 @@ class trace2Samples:
                     t = Process(target=func, args=tuple(ARGS))
                     threads.append(t)
                     t.start()
+                    # ydy: comment it;
+                    break   
                 for thr in threads:
                     thr.join()
                 it += 1
@@ -67,7 +69,7 @@ class trace2Samples:
     def fet_input(self):
         """feature extraction module"""
 
-        @numba.jit
+        # @numba.jit    # ydy: if you want to debug these code, comment out @numba.jit
         def gettraffic(dst_folder, my_fet, file):
             df = pd.read_csv(file).fillna(self.config.sp_wgt)
 

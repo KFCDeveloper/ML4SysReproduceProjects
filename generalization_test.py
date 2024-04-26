@@ -97,5 +97,5 @@ if __name__ == '__main__':
         ins = inference.INFER('./data/fattree16/{}/rsim{}'.format(traffic_pattern, i + 1),
                               config,
                               model_config)
-        ins.run(gpu_number=4)  # please set the value of gpu_number (1,2,4) accordingly.
+        ins.run(gpu_number=1)  # please set the value of gpu_number (1,2,4) accordingly.
     test_0()

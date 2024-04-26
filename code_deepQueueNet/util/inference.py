@@ -94,8 +94,8 @@ class INFER(Init_TOPO):
 
     def link_info_upd(self, link):
         # forward to another hub/join another Engress port
-        link['status'] += 1
-        link['cur_hub'] = link[['status', 'path']].apply(lambda x: int(x[1].split('-')[x[0]].split('_')[0]), axis=1)
+        link['status'] += 1 #times the packet has been forwarded in the sys.
+        link['cur_hub'] = link[['status', 'path']].apply(lambda x: int(x[1].split('-')[x[0]].split('_')[0]), axis=1)    # ydy: 通过这个status，可以知道update了几次，update一次，通过一个hub；path是固定写死的，并且经过的port也是写死的
         link['cur_port'] = link[['status', 'path']].apply(lambda x: int(x[1].split('-')[x[0]].split('_')[1]), axis=1)
         return link
 
@@ -129,9 +129,9 @@ class INFER(Init_TOPO):
         # upd. my_link
         for _, __ in enumerate(self.PORTS[i]):
             if __ > -1:
-                eport_flow = trace_out[trace_out.cur_port == __]
+                eport_flow = trace_out[trace_out.cur_port == __]    # eport 应该是 egress port # eport_flow.shape[0] 从__这个port出去的packets数量
                 if eport_flow.shape[0] > 0:
-                    my_link[(i, _)] = self.link_info_upd(eport_flow)
+                    my_link[(i, _)] = self.link_info_upd(eport_flow) # 看来是在 更新 每个egress port # 更新这些packet被处理次数，就知道它到哪个hub了
         # upd. my_result
         # todo 这里的更新 没咋看懂
         if layer == 'edge':
@@ -156,7 +156,7 @@ class INFER(Init_TOPO):
                           'etime']
         self.load_scaler()
         self.flowsToport()
-        # 每个link 都初始化了一个 df，应该是拿来放packet？
+        # 每个link 都初始化了一个 df，应该是拿来放packet？每个hub之间初始化了一个 逻辑意义上的link
         LINKS = {(i, j): pd.DataFrame() for i in range(20) for j in range(20)}
 
         with Manager() as MG:
@@ -189,7 +189,7 @@ class INFER(Init_TOPO):
                     saver.restore(sess, '{}/model.ckpt-{}'.format(self.model_config.model, self.model_config.md))
                     X = tf.get_collection('X')[0]
                     outputs = tf.get_collection('outputs')[0]
-                    # IRSA
+                    # IRSA # todo 想想这个的loop 更新和半径的关系是啥？IRSA在论文里写的非常模糊，但在他项目里又很关键
                     for i in range(pc_bg, pc_ed): my_result[i] = pd.DataFrame(columns=self.used_cols)
                     for i in range(edge_bg, edge_ed): self.trace_upd('edge', i, sess, outputs, X, my_result, my_link)
                     for i in range(pc_bg, pc_ed): my_result[i] = pd.DataFrame(columns=self.used_cols)  # clear the unstable results
