@@ -1,0 +1,1002 @@
+TCPPacketGenerator flow 1 sent packet 0 with size 512, flow_id 0 at time 0.1000.
+TCPPacketGenerator flow 1 is setting a timer for packet 0 with an RTO of 1.0000.
+Queue length at port: 0 packets.
+At time 0.55, packet 0 in flow 0 arrived.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 512 at time 0.7695.
+TCPPacketGenerator flow 1 congestion window size = 1024.0, last ack = 512.
+TCPPacketGenerator flow 1 stopped timer 0 at time 0.7695.
+TCPPacketGenerator flow 1 sent packet 512 with size 512, flow_id 0 at time 0.7695.
+TCPPacketGenerator flow 1 is setting a timer for packet 512 with an RTO of 2.0086.
+TCPPacketGenerator flow 1 sent packet 1024 with size 512, flow_id 0 at time 0.7695.
+TCPPacketGenerator flow 1 is setting a timer for packet 1024 with an RTO of 2.0086.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+At time 1.22, packet 512 in flow 0 arrived.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 1024 at time 1.4391.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 1024.
+TCPPacketGenerator flow 1 stopped timer 512 at time 1.4391.
+TCPPacketGenerator flow 1 sent packet 1536 with size 512, flow_id 0 at time 1.4391.
+TCPPacketGenerator flow 1 is setting a timer for packet 1536 with an RTO of 1.6738.
+TCPPacketGenerator flow 1 sent packet 2048 with size 512, flow_id 0 at time 1.4391.
+TCPPacketGenerator flow 1 is setting a timer for packet 2048 with an RTO of 1.6738.
+At time 1.47, packet 1024 in flow 0 arrived.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 1536 at time 1.6891.
+TCPPacketGenerator flow 1 congestion window size = 2048.0, last ack = 1536.
+TCPPacketGenerator flow 1 stopped timer 1024 at time 1.6891.
+TCPPacketGenerator flow 1 sent packet 2560 with size 512, flow_id 0 at time 1.6891.
+TCPPacketGenerator flow 1 is setting a timer for packet 2560 with an RTO of 1.7040.
+TCPPacketGenerator flow 1 sent packet 3072 with size 512, flow_id 0 at time 1.6891.
+TCPPacketGenerator flow 1 is setting a timer for packet 3072 with an RTO of 1.7040.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+At time 1.89, packet 1536 in flow 0 arrived.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 2048 at time 2.1086.
+TCPPacketGenerator flow 1 congestion window size = 2560.0, last ack = 2048.
+TCPPacketGenerator flow 1 stopped timer 1536 at time 2.1086.
+TCPPacketGenerator flow 1 sent packet 3584 with size 512, flow_id 0 at time 2.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 3584 with an RTO of 1.4805.
+TCPPacketGenerator flow 1 sent packet 4096 with size 512, flow_id 0 at time 2.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 4096 with an RTO of 1.4805.
+At time 2.14, packet 2048 in flow 0 arrived.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 2560 at time 2.3586.
+TCPPacketGenerator flow 1 congestion window size = 3072.0, last ack = 2560.
+TCPPacketGenerator flow 1 stopped timer 2048 at time 2.3586.
+TCPPacketGenerator flow 1 sent packet 4608 with size 512, flow_id 0 at time 2.3586.
+TCPPacketGenerator flow 1 is setting a timer for packet 4608 with an RTO of 1.5351.
+TCPPacketGenerator flow 1 sent packet 5120 with size 512, flow_id 0 at time 2.3586.
+TCPPacketGenerator flow 1 is setting a timer for packet 5120 with an RTO of 1.5351.
+At time 2.39, packet 2560 in flow 0 arrived.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 3072 at time 2.6086.
+TCPPacketGenerator flow 1 congestion window size = 3584.0, last ack = 3072.
+TCPPacketGenerator flow 1 stopped timer 2560 at time 2.6086.
+TCPPacketGenerator flow 1 sent packet 5632 with size 512, flow_id 0 at time 2.6086.
+TCPPacketGenerator flow 1 is setting a timer for packet 5632 with an RTO of 1.5517.
+TCPPacketGenerator flow 1 sent packet 6144 with size 512, flow_id 0 at time 2.6086.
+TCPPacketGenerator flow 1 is setting a timer for packet 6144 with an RTO of 1.5517.
+At time 2.64, packet 3072 in flow 0 arrived.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 6144
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 3584 at time 2.8586.
+TCPPacketGenerator flow 1 congestion window size = 4096.0, last ack = 3584.
+TCPPacketGenerator flow 1 stopped timer 3072 at time 2.8586.
+TCPPacketGenerator flow 1 sent packet 6656 with size 512, flow_id 0 at time 2.8586.
+TCPPacketGenerator flow 1 is setting a timer for packet 6656 with an RTO of 1.8241.
+TCPPacketGenerator flow 1 sent packet 7168 with size 512, flow_id 0 at time 2.8586.
+TCPPacketGenerator flow 1 is setting a timer for packet 7168 with an RTO of 1.8241.
+At time 2.89, packet 3584 in flow 0 arrived.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 7168
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 4096 at time 3.1086.
+TCPPacketGenerator flow 1 congestion window size = 4608.0, last ack = 4096.
+TCPPacketGenerator flow 1 stopped timer 3584 at time 3.1086.
+TCPPacketGenerator flow 1 sent packet 7680 with size 512, flow_id 0 at time 3.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 7680 with an RTO of 1.7916.
+TCPPacketGenerator flow 1 sent packet 8192 with size 512, flow_id 0 at time 3.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 8192 with an RTO of 1.7916.
+At time 3.14, packet 4096 in flow 0 arrived.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 8192
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 4608 at time 3.3586.
+TCPPacketGenerator flow 1 congestion window size = 5120.0, last ack = 4608.
+TCPPacketGenerator flow 1 stopped timer 4096 at time 3.3586.
+TCPPacketGenerator flow 1 sent packet 8704 with size 512, flow_id 0 at time 3.3586.
+TCPPacketGenerator flow 1 is setting a timer for packet 8704 with an RTO of 2.0269.
+TCPPacketGenerator flow 1 sent packet 9216 with size 512, flow_id 0 at time 3.3586.
+TCPPacketGenerator flow 1 is setting a timer for packet 9216 with an RTO of 2.0269.
+At time 3.39, packet 4608 in flow 0 arrived.
+Average throughput (last 10 packets): 1623.07 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 9216
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 5120 at time 3.6086.
+TCPPacketGenerator flow 1 congestion window size = 5632.0, last ack = 5120.
+TCPPacketGenerator flow 1 stopped timer 4608 at time 3.6086.
+TCPPacketGenerator flow 1 sent packet 9728 with size 512, flow_id 0 at time 3.6086.
+TCPPacketGenerator flow 1 is setting a timer for packet 9728 with an RTO of 2.1569.
+TCPPacketGenerator flow 1 sent packet 10240 with size 512, flow_id 0 at time 3.6086.
+TCPPacketGenerator flow 1 is setting a timer for packet 10240 with an RTO of 2.1569.
+At time 3.64, packet 5120 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 10240
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 5632 at time 3.8586.
+TCPPacketGenerator flow 1 congestion window size = 6144.0, last ack = 5632.
+TCPPacketGenerator flow 1 stopped timer 5120 at time 3.8586.
+TCPPacketGenerator flow 1 sent packet 10752 with size 512, flow_id 0 at time 3.8586.
+TCPPacketGenerator flow 1 is setting a timer for packet 10752 with an RTO of 2.4952.
+TCPPacketGenerator flow 1 sent packet 11264 with size 512, flow_id 0 at time 3.8586.
+TCPPacketGenerator flow 1 is setting a timer for packet 11264 with an RTO of 2.4952.
+At time 3.89, packet 5632 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 11264
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 6144 at time 4.1086.
+TCPPacketGenerator flow 1 congestion window size = 6656.0, last ack = 6144.
+TCPPacketGenerator flow 1 stopped timer 5632 at time 4.1086.
+TCPPacketGenerator flow 1 sent packet 11776 with size 512, flow_id 0 at time 4.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 11776 with an RTO of 2.6861.
+TCPPacketGenerator flow 1 sent packet 12288 with size 512, flow_id 0 at time 4.1086.
+TCPPacketGenerator flow 1 is setting a timer for packet 12288 with an RTO of 2.6861.
+At time 4.14, packet 6656 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 6144 at time 4.1603.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 4.1603.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 12288
+Queue length at port: 0 packets.
+Packet dropped: flow id = 0, packet id = 6144
+At time 4.39, packet 7680 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 4.64, packet 8704 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 6656 at time 4.6827.
+TCPPacketGenerator flow 1 is resending packet 6656 with flow_id 0 at time 4.6827.
+TCPPacketGenerator flow 1's Timer expired for packet 7168 at time 4.6827.
+TCPPacketGenerator flow 1 is resending packet 7168 with flow_id 0 at time 4.6827.
+Queue length at port: 0 packets.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 4.8586.
+At time 4.89, packet 9728 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 7680 at time 4.9002.
+TCPPacketGenerator flow 1 is resending packet 7680 with flow_id 0 at time 4.9002.
+TCPPacketGenerator flow 1's Timer expired for packet 8192 at time 4.9002.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 4.9002.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+Packet dropped: flow id = 0, packet id = 7680
+Packet dropped: flow id = 0, packet id = 8192
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 5.1086.
+TCPPacketGenerator flow 1 sent packet 12800 with size 512, flow_id 0 at time 5.1086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 12800 with an RTO of 85.9560.
+At time 5.14, packet 10752 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 12800
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 5.3586.
+TCPPacketGenerator flow 1 sent packet 13312 with size 512, flow_id 0 at time 5.3586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 13312 with an RTO of 85.9560.
+TCPPacketGenerator flow 1's Timer expired for packet 8704 at time 5.3855.
+TCPPacketGenerator flow 1 is resending packet 8704 with flow_id 0 at time 5.3855.
+TCPPacketGenerator flow 1's Timer expired for packet 9216 at time 5.3855.
+TCPPacketGenerator flow 1 is resending packet 9216 with flow_id 0 at time 5.3855.
+At time 5.39, packet 11776 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 13312
+Packet dropped: flow id = 0, packet id = 8704
+Packet dropped: flow id = 0, packet id = 9216
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 5.6086.
+TCPPacketGenerator flow 1 sent packet 13824 with size 512, flow_id 0 at time 5.6086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 13824 with an RTO of 343.8241.
+At time 5.64, packet 6656 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 13824
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 9728 at time 5.7655.
+TCPPacketGenerator flow 1 is resending packet 9728 with flow_id 0 at time 5.7655.
+TCPPacketGenerator flow 1's Timer expired for packet 10240 at time 5.7655.
+TCPPacketGenerator flow 1 is resending packet 10240 with flow_id 0 at time 5.7655.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 5.8586.
+TCPPacketGenerator flow 1 sent packet 14336 with size 512, flow_id 0 at time 5.8586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 14336 with an RTO of 1375.2963.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 10240
+At time 5.89, packet 7168 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Packet dropped: flow id = 0, packet id = 6144
+Packet dropped: flow id = 0, packet id = 14336
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 6144 with flow_id 0 at time 6.1086.
+TCPPacketGenerator flow 1 sent packet 14848 with size 512, flow_id 0 at time 6.1086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 14848 with an RTO of 1375.2963.
+At time 6.14, packet 6144 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 14848
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 10752 at time 6.3538.
+TCPPacketGenerator flow 1 is resending packet 10752 with flow_id 0 at time 6.3538.
+TCPPacketGenerator flow 1's Timer expired for packet 11264 at time 6.3538.
+TCPPacketGenerator flow 1 is resending packet 11264 with flow_id 0 at time 6.3538.
+TCPPacketGenerator flow 1 received ack till sequence number 8192 at time 6.3586.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 8192.
+TCPPacketGenerator flow 1 stopped timer 6144 at time 6.3586.
+TCPPacketGenerator flow 1 stopped timer 6656 at time 6.3586.
+TCPPacketGenerator flow 1 stopped timer 7168 at time 6.3586.
+TCPPacketGenerator flow 1 stopped timer 7680 at time 6.3586.
+At time 6.39, packet 6144 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 11264
+Queue length at port: 0 packets.
+At time 6.64, packet 6144 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 11776 at time 6.7947.
+TCPPacketGenerator flow 1 is resending packet 11776 with flow_id 0 at time 6.7947.
+TCPPacketGenerator flow 1's Timer expired for packet 12288 at time 6.7947.
+TCPPacketGenerator flow 1 is resending packet 12288 with flow_id 0 at time 6.7947.
+At time 6.89, packet 6144 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 7.1086.
+At time 7.14, packet 9728 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 7.3586.
+TCPPacketGenerator flow 1 sent packet 15360 with size 512, flow_id 0 at time 7.3586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 15360 with an RTO of 11.9547.
+At time 7.39, packet 6144 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 15360
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 7.6086.
+TCPPacketGenerator flow 1 sent packet 15872 with size 512, flow_id 0 at time 7.6086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 15872 with an RTO of 11.9547.
+At time 7.64, packet 10752 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 15872
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 7.8586.
+TCPPacketGenerator flow 1 sent packet 16384 with size 512, flow_id 0 at time 7.8586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 16384 with an RTO of 11.9547.
+At time 7.89, packet 11776 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 16384
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 8.1086.
+TCPPacketGenerator flow 1 sent packet 16896 with size 512, flow_id 0 at time 8.1086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 16896 with an RTO of 11.9547.
+At time 8.14, packet 12288 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 16896
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 8192 with flow_id 0 at time 8.3586.
+TCPPacketGenerator flow 1 sent packet 17408 with size 512, flow_id 0 at time 8.3586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 17408 with an RTO of 11.9547.
+At time 8.39, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 17408
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 9216 at time 8.6086.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 9216.
+TCPPacketGenerator flow 1 stopped timer 8192 at time 8.6086.
+TCPPacketGenerator flow 1 stopped timer 8704 at time 8.6086.
+At time 8.64, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 8.89, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 9.14, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 9216 with flow_id 0 at time 9.3586.
+At time 9.39, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 9216 with flow_id 0 at time 9.6086.
+TCPPacketGenerator flow 1 sent packet 17920 with size 512, flow_id 0 at time 9.6086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 17920 with an RTO of 3.1016.
+At time 9.64, packet 8192 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 9216 with flow_id 0 at time 9.8586.
+TCPPacketGenerator flow 1 sent packet 18432 with size 512, flow_id 0 at time 9.8586 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 18432 with an RTO of 3.1016.
+At time 9.89, packet 9216 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 10240 at time 10.1086.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 10240.
+TCPPacketGenerator flow 1 stopped timer 9216 at time 10.1086.
+TCPPacketGenerator flow 1 stopped timer 9728 at time 10.1086.
+At time 10.14, packet 9216 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 10.39, packet 17920 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 10.64, packet 9216 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 10240 with flow_id 0 at time 10.8586.
+At time 10.89, packet 18432 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 10240 with flow_id 0 at time 11.1086.
+TCPPacketGenerator flow 1 sent packet 18944 with size 512, flow_id 0 at time 11.1086 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 18944 with an RTO of 3.0867.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+At time 11.31, packet 10240 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 11264 at time 11.5281.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 11264.
+TCPPacketGenerator flow 1 stopped timer 10240 at time 11.5281.
+TCPPacketGenerator flow 1 stopped timer 10752 at time 11.5281.
+At time 11.56, packet 10240 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+At time 11.81, packet 18944 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 17920 at time 12.7102.
+TCPPacketGenerator flow 1 is resending packet 17920 with flow_id 0 at time 12.7102.
+TCPPacketGenerator flow 1's Timer expired for packet 11776 at time 12.7721.
+TCPPacketGenerator flow 1 is resending packet 11776 with flow_id 0 at time 12.7721.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 18432 at time 12.9602.
+TCPPacketGenerator flow 1 is resending packet 18432 with flow_id 0 at time 12.9602.
+Queue length at port: 0 packets.
+At time 13.16, packet 17920 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 11264 with flow_id 0 at time 13.3798.
+At time 13.41, packet 11776 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 11264 with flow_id 0 at time 13.6298.
+TCPPacketGenerator flow 1 sent packet 19456 with size 512, flow_id 0 at time 13.6298 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 19456 with an RTO of 22.7188.
+At time 13.66, packet 18432 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 11264 with flow_id 0 at time 13.8798.
+TCPPacketGenerator flow 1 sent packet 19968 with size 512, flow_id 0 at time 13.8798 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 19968 with an RTO of 22.7188.
+At time 13.91, packet 11264 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 12800 at time 14.1298.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 12800.
+TCPPacketGenerator flow 1 stopped timer 11264 at time 14.1298.
+TCPPacketGenerator flow 1 stopped timer 11776 at time 14.1298.
+TCPPacketGenerator flow 1 stopped timer 12288 at time 14.1298.
+At time 14.16, packet 11264 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 18944 at time 14.1953.
+TCPPacketGenerator flow 1 is resending packet 18944 with flow_id 0 at time 14.1953.
+Queue length at port: 0 packets.
+Queue length at port: 2 packets.
+At time 14.41, packet 19456 in flow 0 arrived.
+Average throughput (last 10 packets): 1308.65 bytes/second.
+Queue length at port: 0 packets.
+At time 14.66, packet 11264 in flow 0 arrived.
+Average throughput (last 10 packets): 1374.85 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 12800 with flow_id 0 at time 14.8798.
+At time 14.91, packet 19968 in flow 0 arrived.
+Average throughput (last 10 packets): 1374.85 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 12800 with flow_id 0 at time 15.1298.
+TCPPacketGenerator flow 1 sent packet 20480 with size 512, flow_id 0 at time 15.1298 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 20480 with an RTO of 5.5012.
+At time 15.16, packet 18944 in flow 0 arrived.
+Average throughput (last 10 packets): 1374.85 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 12800 with flow_id 0 at time 15.3798.
+TCPPacketGenerator flow 1 sent packet 20992 with size 512, flow_id 0 at time 15.3798 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 20992 with an RTO of 5.5012.
+At time 15.41, packet 12800 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 13312 at time 15.6298.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 13312.
+TCPPacketGenerator flow 1 stopped timer 12800 at time 15.6298.
+At time 15.66, packet 12800 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 15.91, packet 20480 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 16.16, packet 12800 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 13312 with flow_id 0 at time 16.3798.
+At time 16.41, packet 20992 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 13312 with flow_id 0 at time 16.6298.
+TCPPacketGenerator flow 1 sent packet 21504 with size 512, flow_id 0 at time 16.6298 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 21504 with an RTO of 2.6139.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+At time 16.83, packet 13312 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 13824 at time 17.0493.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 13824.
+TCPPacketGenerator flow 1 stopped timer 13312 at time 17.0493.
+At time 17.08, packet 13312 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+At time 17.33, packet 21504 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 17920 at time 18.3899.
+TCPPacketGenerator flow 1 is resending packet 17920 with flow_id 0 at time 18.3899.
+Queue length at port: 0 packets.
+At time 18.84, packet 17920 in flow 0 arrived.
+Average throughput (last 10 packets): 1252.28 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 13824 with flow_id 0 at time 19.0595.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 21504 at time 19.2436.
+TCPPacketGenerator flow 1 is resending packet 21504 with flow_id 0 at time 19.2436.
+TCPPacketGenerator flow 1's Timer expired for packet 15360 at time 19.3133.
+TCPPacketGenerator flow 1 is resending packet 15360 with flow_id 0 at time 19.3133.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+At time 19.51, packet 13824 in flow 0 arrived.
+Average throughput (last 10 packets): 1124.11 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 15872 at time 19.5633.
+TCPPacketGenerator flow 1 is resending packet 15872 with flow_id 0 at time 19.5633.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 18944 at time 19.6964.
+TCPPacketGenerator flow 1 is resending packet 18944 with flow_id 0 at time 19.6964.
+TCPPacketGenerator flow 1 received ack till sequence number 14336 at time 19.7290.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 14336.
+TCPPacketGenerator flow 1 stopped timer 13824 at time 19.7290.
+At time 19.76, packet 21504 in flow 0 arrived.
+Average throughput (last 10 packets): 1124.11 bytes/second.
+Queue length at port: 1 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 16384 at time 19.8133.
+TCPPacketGenerator flow 1 is resending packet 16384 with flow_id 0 at time 19.8133.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+At time 20.01, packet 15360 in flow 0 arrived.
+Average throughput (last 10 packets): 1124.11 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 16896 at time 20.0633.
+TCPPacketGenerator flow 1 is resending packet 16896 with flow_id 0 at time 20.0633.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+At time 20.26, packet 15872 in flow 0 arrived.
+Average throughput (last 10 packets): 1124.11 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 17408 at time 20.3133.
+TCPPacketGenerator flow 1 is resending packet 17408 with flow_id 0 at time 20.3133.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+TCPPacketGenerator flow 1 is resending packet 14336 with flow_id 0 at time 20.4790.
+At time 20.51, packet 18944 in flow 0 arrived.
+Average throughput (last 10 packets): 1124.11 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 20480 at time 20.6309.
+TCPPacketGenerator flow 1 is resending packet 20480 with flow_id 0 at time 20.6309.
+TCPPacketGenerator flow 1 is resending packet 14336 with flow_id 0 at time 20.7290.
+TCPPacketGenerator flow 1 sent packet 22016 with size 512, flow_id 0 at time 20.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 22016 with an RTO of 31.2244.
+Queue length at port: 2 packets.
+At time 20.76, packet 16384 in flow 0 arrived.
+Average throughput (last 10 packets): 1172.61 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 22016
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 20992 at time 20.8809.
+TCPPacketGenerator flow 1 is resending packet 20992 with flow_id 0 at time 20.8809.
+TCPPacketGenerator flow 1 is resending packet 14336 with flow_id 0 at time 20.9790.
+TCPPacketGenerator flow 1 sent packet 22528 with size 512, flow_id 0 at time 20.9790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 22528 with an RTO of 62.4487.
+Queue length at port: 3 packets.
+At time 21.01, packet 16896 in flow 0 arrived.
+Average throughput (last 10 packets): 1172.61 bytes/second.
+Packet dropped: flow id = 0, packet id = 14336
+Packet dropped: flow id = 0, packet id = 22528
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 14336 with flow_id 0 at time 21.2290.
+TCPPacketGenerator flow 1 sent packet 23040 with size 512, flow_id 0 at time 21.2290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 23040 with an RTO of 62.4487.
+At time 21.26, packet 17408 in flow 0 arrived.
+Average throughput (last 10 packets): 1172.61 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 23040
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 14336 with flow_id 0 at time 21.4790.
+TCPPacketGenerator flow 1 sent packet 23552 with size 512, flow_id 0 at time 21.4790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 23552 with an RTO of 62.4487.
+At time 21.51, packet 14336 in flow 0 arrived.
+Average throughput (last 10 packets): 1726.15 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 23552
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 14848 at time 21.7290.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 14848.
+TCPPacketGenerator flow 1 stopped timer 14336 at time 21.7290.
+At time 21.76, packet 20480 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 22.01, packet 14336 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 22.26, packet 20992 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 14848 with flow_id 0 at time 22.4790.
+At time 22.51, packet 14336 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 14848 with flow_id 0 at time 22.7290.
+TCPPacketGenerator flow 1 sent packet 24064 with size 512, flow_id 0 at time 22.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 24064 with an RTO of 1.9332.
+At time 22.76, packet 14336 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 14848 with flow_id 0 at time 22.9790.
+TCPPacketGenerator flow 1 sent packet 24576 with size 512, flow_id 0 at time 22.9790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 24576 with an RTO of 1.9332.
+TCPPacketGenerator flow 1's Timer expired for packet 17920 at time 22.9938.
+TCPPacketGenerator flow 1 is resending packet 17920 with flow_id 0 at time 22.9938.
+At time 23.01, packet 14848 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 22016 at time 23.2290.
+TCPPacketGenerator flow 1 congestion window size = 2304.0, last ack = 22016.
+TCPPacketGenerator flow 1 stopped timer 14848 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 15360 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 15872 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 16384 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 16896 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 17408 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 17920 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 18432 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 18944 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 19456 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 19968 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 20480 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 20992 at time 23.2290.
+TCPPacketGenerator flow 1 stopped timer 21504 at time 23.2290.
+At time 23.26, packet 14848 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 23.51, packet 24064 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 23.76, packet 14848 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22016 with flow_id 0 at time 23.9790.
+At time 24.01, packet 24576 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22016 with flow_id 0 at time 24.2290.
+TCPPacketGenerator flow 1 sent packet 25088 with size 512, flow_id 0 at time 24.2290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 25088 with an RTO of 1.8686.
+At time 24.26, packet 17920 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22016 with flow_id 0 at time 24.4790.
+TCPPacketGenerator flow 1 sent packet 25600 with size 512, flow_id 0 at time 24.4790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 25600 with an RTO of 1.8686.
+At time 24.51, packet 22016 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 24064 at time 24.6622.
+TCPPacketGenerator flow 1 is resending packet 24064 with flow_id 0 at time 24.6622.
+TCPPacketGenerator flow 1 received ack till sequence number 22528 at time 24.7290.
+TCPPacketGenerator flow 1 congestion window size = 2368.0, last ack = 22528.
+TCPPacketGenerator flow 1 stopped timer 22016 at time 24.7290.
+At time 24.76, packet 22016 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 24576 at time 24.9122.
+TCPPacketGenerator flow 1 is resending packet 24576 with flow_id 0 at time 24.9122.
+At time 25.01, packet 25088 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+At time 25.26, packet 22016 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22528 with flow_id 0 at time 25.4790.
+At time 25.51, packet 25600 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22528 with flow_id 0 at time 25.7290.
+TCPPacketGenerator flow 1 sent packet 26112 with size 512, flow_id 0 at time 25.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 26112 with an RTO of 3.5512.
+At time 25.76, packet 24064 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 22528 with flow_id 0 at time 25.9790.
+TCPPacketGenerator flow 1 sent packet 26624 with size 512, flow_id 0 at time 25.9790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 26624 with an RTO of 3.5512.
+At time 26.01, packet 24576 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 25088 at time 26.0976.
+TCPPacketGenerator flow 1 is resending packet 25088 with flow_id 0 at time 26.0976.
+Queue length at port: 0 packets.
+Queue length at port: 3 packets.
+TCPPacketGenerator flow 1 is resending packet 22528 with flow_id 0 at time 26.2290.
+TCPPacketGenerator flow 1 sent packet 27136 with size 512, flow_id 0 at time 26.2290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 27136 with an RTO of 7.1024.
+At time 26.26, packet 22528 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Packet dropped: flow id = 0, packet id = 22528
+Packet dropped: flow id = 0, packet id = 27136
+TCPPacketGenerator flow 1's Timer expired for packet 25600 at time 26.3476.
+TCPPacketGenerator flow 1 is resending packet 25600 with flow_id 0 at time 26.3476.
+Queue length at port: 0 packets.
+Queue length at port: 3 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 23040 at time 26.4790.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 23040.
+TCPPacketGenerator flow 1 stopped timer 22528 at time 26.4790.
+At time 26.51, packet 22528 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 26.76, packet 26112 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 27.01, packet 22528 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23040 with flow_id 0 at time 27.2290.
+At time 27.26, packet 26624 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23040 with flow_id 0 at time 27.4790.
+TCPPacketGenerator flow 1 sent packet 27648 with size 512, flow_id 0 at time 27.4790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 27648 with an RTO of 1.6669.
+At time 27.51, packet 25088 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23040 with flow_id 0 at time 27.7290.
+TCPPacketGenerator flow 1 sent packet 28160 with size 512, flow_id 0 at time 27.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 28160 with an RTO of 1.6669.
+At time 27.76, packet 25600 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23040 with flow_id 0 at time 27.9790.
+TCPPacketGenerator flow 1 sent packet 28672 with size 512, flow_id 0 at time 27.9790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 28672 with an RTO of 1.6669.
+At time 28.01, packet 23040 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 28672
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 23552 at time 28.2290.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 23552.
+TCPPacketGenerator flow 1 stopped timer 23040 at time 28.2290.
+At time 28.26, packet 23040 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 24064 at time 28.3994.
+TCPPacketGenerator flow 1 is resending packet 24064 with flow_id 0 at time 28.3994.
+TCPPacketGenerator flow 1's Timer expired for packet 24576 at time 28.4634.
+TCPPacketGenerator flow 1 is resending packet 24576 with flow_id 0 at time 28.4634.
+Queue length at port: 2 packets.
+At time 28.51, packet 27648 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Queue length at port: 0 packets.
+At time 28.76, packet 23040 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23552 with flow_id 0 at time 28.9790.
+At time 29.01, packet 28160 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 27648 at time 29.1459.
+TCPPacketGenerator flow 1 is resending packet 27648 with flow_id 0 at time 29.1459.
+TCPPacketGenerator flow 1 is resending packet 23552 with flow_id 0 at time 29.2290.
+TCPPacketGenerator flow 1 sent packet 29184 with size 512, flow_id 0 at time 29.2290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 29184 with an RTO of 12.4102.
+Queue length at port: 2 packets.
+At time 29.26, packet 23040 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 26112 at time 29.2802.
+TCPPacketGenerator flow 1 is resending packet 26112 with flow_id 0 at time 29.2802.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 29184
+Queue length at port: 0 packets.
+Packet dropped: flow id = 0, packet id = 26112
+TCPPacketGenerator flow 1's Timer expired for packet 28160 at time 29.3959.
+TCPPacketGenerator flow 1 is resending packet 28160 with flow_id 0 at time 29.3959.
+TCPPacketGenerator flow 1 is resending packet 23552 with flow_id 0 at time 29.4790.
+TCPPacketGenerator flow 1 sent packet 29696 with size 512, flow_id 0 at time 29.4790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 29696 with an RTO of 49.6409.
+Queue length at port: 3 packets.
+At time 29.51, packet 24064 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 26624 at time 29.5302.
+TCPPacketGenerator flow 1 is resending packet 26624 with flow_id 0 at time 29.5302.
+Packet dropped: flow id = 0, packet id = 23552
+Packet dropped: flow id = 0, packet id = 29696
+Queue length at port: 0 packets.
+Packet dropped: flow id = 0, packet id = 26624
+TCPPacketGenerator flow 1's Timer expired for packet 28672 at time 29.6459.
+TCPPacketGenerator flow 1 is resending packet 28672 with flow_id 0 at time 29.6459.
+TCPPacketGenerator flow 1 is resending packet 23552 with flow_id 0 at time 29.7290.
+TCPPacketGenerator flow 1 sent packet 30208 with size 512, flow_id 0 at time 29.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 30208 with an RTO of 198.5637.
+Queue length at port: 3 packets.
+At time 29.76, packet 24576 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Packet dropped: flow id = 0, packet id = 23552
+Packet dropped: flow id = 0, packet id = 30208
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 23552 with flow_id 0 at time 29.9790.
+TCPPacketGenerator flow 1 sent packet 30720 with size 512, flow_id 0 at time 29.9790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 30720 with an RTO of 198.5637.
+At time 30.01, packet 23552 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 3 packets.
+Packet dropped: flow id = 0, packet id = 30720
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 27136 at time 30.2290.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 27136.
+TCPPacketGenerator flow 1 stopped timer 23552 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 24064 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 24576 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 25088 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 25600 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 26112 at time 30.2290.
+TCPPacketGenerator flow 1 stopped timer 26624 at time 30.2290.
+At time 30.26, packet 27648 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 30.51, packet 23552 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 30.76, packet 28160 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 27136 with flow_id 0 at time 30.9790.
+At time 31.01, packet 28672 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 27136 with flow_id 0 at time 31.2290.
+TCPPacketGenerator flow 1 sent packet 31232 with size 512, flow_id 0 at time 31.2290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 31232 with an RTO of 1.4347.
+At time 31.26, packet 23552 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 27136 with flow_id 0 at time 31.4790.
+TCPPacketGenerator flow 1 sent packet 31744 with size 512, flow_id 0 at time 31.4790 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 31744 with an RTO of 1.4347.
+At time 31.51, packet 27136 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 29184 at time 31.7290.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 29184.
+TCPPacketGenerator flow 1 stopped timer 27136 at time 31.7290.
+TCPPacketGenerator flow 1 stopped timer 27648 at time 31.7290.
+TCPPacketGenerator flow 1 stopped timer 28160 at time 31.7290.
+TCPPacketGenerator flow 1 stopped timer 28672 at time 31.7290.
+At time 31.76, packet 27136 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 32.01, packet 31232 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 32.26, packet 27136 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 29184 with flow_id 0 at time 32.4790.
+At time 32.51, packet 31744 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 31232 at time 32.6637.
+TCPPacketGenerator flow 1 is resending packet 31232 with flow_id 0 at time 32.6637.
+TCPPacketGenerator flow 1 is resending packet 29184 with flow_id 0 at time 32.7290.
+TCPPacketGenerator flow 1 sent packet 32256 with size 512, flow_id 0 at time 32.7290 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 32256 with an RTO of 2.6425.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 31744 at time 32.9137.
+TCPPacketGenerator flow 1 is resending packet 31744 with flow_id 0 at time 32.9137.
+At time 32.93, packet 29184 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 29696 at time 33.1485.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 29696.
+TCPPacketGenerator flow 1 stopped timer 29184 at time 33.1485.
+At time 33.18, packet 31232 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+At time 33.43, packet 29184 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+At time 33.68, packet 32256 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 29696 with flow_id 0 at time 33.8985.
+At time 33.93, packet 31744 in flow 0 arrived.
+Average throughput (last 10 packets): 1904.50 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 29696 with flow_id 0 at time 34.1485.
+TCPPacketGenerator flow 1 sent packet 32768 with size 512, flow_id 0 at time 34.1485 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 32768 with an RTO of 1.1198.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+At time 34.35, packet 29696 in flow 0 arrived.
+Average throughput (last 10 packets): 1779.79 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 30208 at time 34.5681.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 30208.
+TCPPacketGenerator flow 1 stopped timer 29696 at time 34.5681.
+At time 34.60, packet 29696 in flow 0 arrived.
+Average throughput (last 10 packets): 1779.79 bytes/second.
+Queue length at port: 0 packets.
+At time 34.85, packet 32768 in flow 0 arrived.
+Average throughput (last 10 packets): 1779.79 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 32768 at time 35.2684.
+TCPPacketGenerator flow 1 is resending packet 32768 with flow_id 0 at time 35.2684.
+TCPPacketGenerator flow 1's Timer expired for packet 31232 at time 35.3062.
+TCPPacketGenerator flow 1 is resending packet 31232 with flow_id 0 at time 35.3062.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1's Timer expired for packet 32256 at time 35.3715.
+TCPPacketGenerator flow 1 is resending packet 32256 with flow_id 0 at time 35.3715.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+At time 35.72, packet 32768 in flow 0 arrived.
+Average throughput (last 10 packets): 1436.01 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30208 with flow_id 0 at time 35.9379.
+At time 35.97, packet 31232 in flow 0 arrived.
+Average throughput (last 10 packets): 1516.11 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30208 with flow_id 0 at time 36.1879.
+TCPPacketGenerator flow 1 sent packet 33280 with size 512, flow_id 0 at time 36.1879 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 33280 with an RTO of 8.0000.
+At time 36.22, packet 32256 in flow 0 arrived.
+Average throughput (last 10 packets): 1516.11 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30208 with flow_id 0 at time 36.4379.
+TCPPacketGenerator flow 1 sent packet 33792 with size 512, flow_id 0 at time 36.4379 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 33792 with an RTO of 8.0000.
+At time 36.47, packet 30208 in flow 0 arrived.
+Average throughput (last 10 packets): 1516.11 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 30720 at time 36.6879.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 30720.
+TCPPacketGenerator flow 1 stopped timer 30208 at time 36.6879.
+At time 36.72, packet 30208 in flow 0 arrived.
+Average throughput (last 10 packets): 1516.11 bytes/second.
+Queue length at port: 0 packets.
+At time 36.97, packet 33280 in flow 0 arrived.
+Average throughput (last 10 packets): 1516.11 bytes/second.
+Queue length at port: 0 packets.
+At time 37.22, packet 30208 in flow 0 arrived.
+Average throughput (last 10 packets): 1605.67 bytes/second.
+TCPPacketGenerator flow 1's Timer expired for packet 32768 at time 37.2684.
+TCPPacketGenerator flow 1 is resending packet 32768 with flow_id 0 at time 37.2684.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30720 with flow_id 0 at time 37.4379.
+At time 37.47, packet 33792 in flow 0 arrived.
+Average throughput (last 10 packets): 1605.67 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30720 with flow_id 0 at time 37.6879.
+TCPPacketGenerator flow 1 sent packet 34304 with size 512, flow_id 0 at time 37.6879 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 34304 with an RTO of 2.0000.
+At time 37.72, packet 32768 in flow 0 arrived.
+Average throughput (last 10 packets): 1605.67 bytes/second.
+Queue length at port: 0 packets.
+Queue length at port: 1 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 is resending packet 30720 with flow_id 0 at time 37.9379.
+TCPPacketGenerator flow 1 sent packet 34816 with size 512, flow_id 0 at time 37.9379 as dupack > 3.
+TCPPacketGenerator flow 1 is setting a timer for packet 34816 with an RTO of 2.0000.
+At time 37.97, packet 30720 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 1 packets.
+Queue length at port: 2 packets.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 34304 at time 38.1879.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 34304.
+TCPPacketGenerator flow 1 stopped timer 30720 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 31232 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 31744 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 32256 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 32768 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 33280 at time 38.1879.
+TCPPacketGenerator flow 1 stopped timer 33792 at time 38.1879.
+At time 38.22, packet 30720 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 38.47, packet 34304 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 34816 at time 38.6879.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 34816.
+TCPPacketGenerator flow 1 stopped timer 34304 at time 38.6879.
+At time 38.72, packet 30720 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+At time 38.97, packet 34816 in flow 0 arrived.
+Average throughput (last 10 packets): 2048.00 bytes/second.
+Queue length at port: 0 packets.
+TCPPacketGenerator flow 1 received ack till sequence number 35328 at time 39.1879.
+TCPPacketGenerator flow 1 congestion window size = 1536.0, last ack = 35328.
+TCPPacketGenerator flow 1 stopped timer 34816 at time 39.1879.
