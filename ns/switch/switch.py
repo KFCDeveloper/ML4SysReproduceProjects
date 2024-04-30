@@ -48,10 +48,20 @@ class SimplePacketSwitch:
                      element_id=f"{element_id}_{port}",
                      debug=debug))
         self.demux = FIBDemux(fib=None, outs=self.ports, default=None)
+        # ydy: writer
+        self.file_writer = open("/mydata/ns.py/2.txt", 'a')
 
     def put(self, packet):
         """ Sends a packet to this element. """
+        # ydy: record time before entering
+        start_time = self.env.now
         self.demux.put(packet)
+        # ydy: record the packet
+        time_in_sys = self.env.now - start_time
+        write_data = (
+            f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
+        )
+        self.file_writer.write(write_data + '\n')
 
 
 class FairPacketSwitch:
@@ -153,3 +163,61 @@ class FairPacketSwitch:
     def put(self, packet):
         """ Sends a packet to this element. """
         self.demux.put(packet)
+
+
+class SimpleDisPacketSwitch:
+    """ 
+        ** ydy created. Used to add transit time. **
+        
+        Implements a packet switch with a FIFO bounded buffer on each of the outgoing ports.
+
+        Parameters
+        ----------
+        env: simpy.Environment
+            the simulation environment.
+        nports: int
+            the total number of ports on this switch.
+        port_rate: float
+            the bit rate of the port.
+        buffer_size: int
+            the size of an outgoing port' bounded buffer, in packets.
+        element_id: str
+            The (optional) element ID of this component.
+        debug: bool
+            If True, prints more verbose debug information.
+    """
+
+    def __init__(self,
+                 env,
+                 arrival_dist,
+                 nports: int,
+                 port_rate: float,
+                 buffer_size: int,
+                 element_id: str = "",
+                 debug: bool = False) -> None:
+        self.arrival_dist = arrival_dist
+        self.env = env
+        self.ports = []
+        for port in range(nports):
+            self.ports.append(
+                Port(env,
+                     rate=port_rate,
+                     qlimit=buffer_size,
+                     limit_bytes=False,
+                     element_id=f"{element_id}_{port}",
+                     debug=debug))
+        self.demux = FIBDemux(fib=None, outs=self.ports, default=None)
+        # ydy: writer
+        self.file_writer = open("/mydata/ns.py/2.txt", 'a')
+
+    def put(self, packet):
+        """ Sends a packet to this element. """
+        # ydy: record time before entering
+        start_time = self.env.now
+        self.demux.put(packet)
+        # ydy: record the packet
+        time_in_sys = self.env.now - start_time
+        write_data = (
+            f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
+        )
+        self.file_writer.write(write_data + '\n')

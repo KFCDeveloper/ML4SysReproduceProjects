@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     pg = DistPacketGenerator(env,
                              'flow_1',
-                             iat_dist,
+                             iat_dist,  # arrival_dist
                              pkt_size_dist,
                              flow_id='flow_1',
                              initial_delay=0.0,

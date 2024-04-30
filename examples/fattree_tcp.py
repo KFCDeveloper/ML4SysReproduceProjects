@@ -16,7 +16,7 @@ env = simpy.Environment()
 
 n_flows = 64
 finish_time = 10
-k = 32 # 32
+k = 4 # 32
 pir = 10000000000  # 10Gbps
 buffer_size = 1000
 
