@@ -48,10 +48,20 @@ class SimplePacketSwitch:
                      element_id=f"{element_id}_{port}",
                      debug=debug))
         self.demux = FIBDemux(fib=None, outs=self.ports, default=None)
+        # ydy: writer
+        self.file_writer = open("/mydata/ns.py/2.txt", 'a')
 
     def put(self, packet):
         """ Sends a packet to this element. """
+        # ydy: record time before entering
+        start_time = self.env.now
         self.demux.put(packet)
+        # ydy: record the packet
+        time_in_sys = self.env.now - start_time
+        write_data = (
+            f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
+        )
+        self.file_writer.write(write_data + '\n')
 
 
 class FairPacketSwitch:

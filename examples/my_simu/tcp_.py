@@ -17,12 +17,13 @@ import random
 
 def packet_arrival():
     """Packets arrive with a constant interval of 0.1 seconds."""
-    return 0.0008 # 0.1
+    return 0.1 # 0.1 , 0.008
+
 
 
 def packet_size():
     """The packets have a constant size of 1024 bytes."""
-    return 1024 # 512
+    return 512 # 512
 
 
 def delay_dist():
@@ -67,8 +68,8 @@ def main():
     )
     # I find that if I did not model link and only use one switch. We don't need to do anything with Port; 
     # but dataset I need to record the 
-    fib = genfib_chain(flow_num,switch_port_num) # fixed this, make it convenient for debugging
-    # fib = {0: 1, 10000: 3, 1: 0, 10001: 2, 2: 1, 10002: 2, 3: 0, 10003: 2, 4: 1, 10004: 3, 5: 1, 10005: 2, 6: 1, 10006: 2, 7: 1, 10007: 2}
+    # fib = genfib_chain(flow_num,switch_port_num) # fixed this, make it convenient for debugging
+    fib = {0: 1, 10000: 3, 1: 0, 10001: 2, 2: 1, 10002: 2, 3: 0, 10003: 2, 4: 1, 10004: 3, 5: 1, 10005: 2, 6: 1, 10006: 2, 7: 1, 10007: 2}
     switch.demux.fib = fib
 
 
