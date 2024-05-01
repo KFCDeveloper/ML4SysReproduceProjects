@@ -30,7 +30,7 @@ def packet_size():
 
 def delay_dist():
     """Network wires experience a constant propagation delay of 0.1 seconds."""
-    return 0.1
+    return 0.1 # 0.1
 
 
 def genfib_chain(tem_flow_num, tem_switch_port_num):

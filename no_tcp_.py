@@ -20,7 +20,7 @@ from ns.utils.generators.MAP_MSP_generator import BMAP_generator
 
 def packet_arrival():
     """Packets arrive with a constant interval of 0.1 seconds."""
-    return 0.0008  # 0.1
+    return 0.008  # 0.1  0.0008
 
 
 def packet_size():
@@ -30,7 +30,7 @@ def packet_size():
 
 def delay_dist():
     """Network wires experience a constant propagation delay of 0.1 seconds."""
-    return 0.1
+    return 0.1 # 0.1
 
 
 def genfib_chain(tem_flow_num, tem_switch_port_num):
