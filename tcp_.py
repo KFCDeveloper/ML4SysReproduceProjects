@@ -70,7 +70,7 @@ def main():
             fid=i,
             src="flow " + str(i),
             dst="flow " + str(i),
-            finish_time=10,
+            finish_time=20,
             arrival_dist=packet_arrival,
             size_dist=packet_size, )
         all_flows.append(each_flow)

@@ -11,12 +11,12 @@ from ns.flow.flow import AppType, Flow
 from ns.packet.tcp_generator import TCPPacketGenerator
 from ns.packet.tcp_sink import TCPSink
 from ns.port.wire import Wire
-from ns.switch.switch import SimplePacketSwitch
+from ns.switch.switch import SimplePacketSwitch,SimpleDisPacketSwitch
 
 
 def packet_arrival():
     """Packets arrive with a constant interval of 0.1 seconds."""
-    return 0.1
+    return 0.01 # 0.1
 
 
 def packet_size():
@@ -26,7 +26,7 @@ def packet_size():
 
 def delay_dist():
     """Network wires experience a constant propagation delay of 0.1 seconds."""
-    return 0.1
+    return 0.1  # 
 
 
 env = simpy.Environment()
@@ -49,8 +49,8 @@ wire1_upstream = Wire(env, delay_dist)
 wire2_downstream = Wire(env, delay_dist)
 wire2_upstream = Wire(env, delay_dist)
 
-switch = SimplePacketSwitch(
-    env,
+switch = SimpleDisPacketSwitch(
+    env,arrival_dist="",
     nports=2,
     port_rate=16384,  # in bits/second
     buffer_size=5,  # in packets
