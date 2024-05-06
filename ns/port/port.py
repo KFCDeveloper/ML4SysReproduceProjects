@@ -226,7 +226,7 @@ class DisPort:
             self.busy_packet_size = packet.size
 
             # ydy: record time before entering
-            start_time = self.env.now
+            # start_time = self.env.now
 
             if self.rate > 0:
                 yield self.env.timeout(packet.size * 8.0 / self.rate)
@@ -236,10 +236,13 @@ class DisPort:
                 self.byte_size -= packet.size
   
             # ydy: record the packet
-            time_in_sys = self.env.now - start_time
+            time_in_sys = self.env.now - packet.intime
             print(f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} ")
+            # write_data = (
+            #     f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
+            # )
             write_data = (
-                f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
+                f"{self.env.now:.5f},{packet.packet_id},{packet.flow_id},{time_in_sys}"
             )
             self.packet_file_writer.write(write_data + '\n')
             # ———— ydy code end ———— #
@@ -254,6 +257,9 @@ class DisPort:
             self.busy_packet_size = 0
 
     def put(self, packet):
+        """
+        first through this method to add to queue and than pop by runner loop method in `def run`
+        """
         """Sends a packet to this element."""
         self.packets_received += 1
 

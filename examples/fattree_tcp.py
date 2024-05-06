@@ -4,6 +4,10 @@ from random import expovariate, sample
 import numpy as np
 import simpy
 
+import sys
+import os
+sys.path.append(os.getcwd())
+
 from ns.flow.cc import TCPReno
 from ns.packet.tcp_generator import TCPPacketGenerator
 from ns.packet.tcp_sink import TCPSink
@@ -13,6 +17,7 @@ from ns.topos.fattree import build as build_fattree
 from ns.topos.utils import generate_fib, generate_flows
 
 env = simpy.Environment()
+
 
 n_flows = 64
 finish_time = 10

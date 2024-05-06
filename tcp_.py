@@ -8,7 +8,7 @@ import simpy
 from ns.flow.cc import TCPReno
 from ns.flow.cubic import TCPCubic
 from ns.flow.flow import AppType, Flow
-from ns.packet.tcp_generator import TCPPacketGenerator
+from ns.packet.tcp_generator import TCPPacketGenerator,TCPDisPacketGenerator
 from ns.packet.tcp_sink import TCPSink
 from ns.port.wire import Wire
 from ns.switch.switch import SimpleDisPacketSwitch
@@ -36,8 +36,12 @@ def delay_dist():
 def genfib_chain(tem_flow_num, tem_switch_port_num):
     tem_fib = {}
     for i in range(tem_flow_num):
-        tem_fib[i] = random.randint(0, tem_switch_port_num / 2 - 1)
-        tem_fib[i + 10000] = random.randint(tem_switch_port_num / 2, tem_switch_port_num - 1)
+        tem_fib[i] = int(i % (tem_switch_port_num / 2))
+        tem_fib[i + 10000] = int(i % (tem_switch_port_num /
+                                 2) + tem_switch_port_num / 2)
+    # for i in range(tem_flow_num):
+    #     tem_fib[i] = random.randint(0, tem_switch_port_num / 2 - 1)
+    #     tem_fib[i + 10000] = random.randint(tem_switch_port_num / 2, tem_switch_port_num - 1)
     return tem_fib
 
 
@@ -78,8 +82,8 @@ def main():
     # set switch: switches arrange in a chain
     switch_num = 1
     switch_port_num = 4
-    switch_buffer_size = 5
-    switch_port_rate = 16384
+    switch_buffer_size = 512*4
+    switch_port_rate = 512*8
 
     switch = SimpleDisPacketSwitch(
         env, pkt_size_dist,
@@ -95,19 +99,21 @@ def main():
     switch.demux.fib = fib
 
     for flow_index in range(len(all_flows)):
-        sender = TCPPacketGenerator(env, flow=all_flows[flow_index], cc=TCPReno(),
-                                    element_id="sender_" + str(flow_index), debug=True)
+        sender = TCPDisPacketGenerator(env, flow=all_flows[flow_index], cc=TCPReno(), arrival_dist=iat_dist, size_dist=None,
+                                       element_id="sender_" + str(flow_index), debug=True)
         receiver = TCPSink(env, rec_waits=True, debug=True)
 
         this_flow = all_flows[flow_index]
 
-        this_flow.pkt_gen = sender
-        this_flow.pkt_sink = receiver
-        this_flow.pkt_gen.out = switch
-        switch.demux.outs[fib[flow_index]].out = this_flow.pkt_sink
+        # this_flow.pkt_gen = sender
+        # this_flow.pkt_sink = receiver
+
+
+        sender.out = switch
+        switch.demux.ends[this_flow.fid] = receiver
 
         receiver.out = switch  # ack flow
-        switch.demux.outs[fib[flow_index + 10000]].out = this_flow.pkt_gen  # ack flow
+        switch.demux.ends[this_flow.fid + 10000] = sender  # ack flow
         # ft.nodes[flow.dst]["device"].demux.ends[flow_id] 使用ends不行，但是使用 outs 上面这样写，却可以
         # 还没弄清楚 outs 和 ends 之间的关系
 

@@ -207,7 +207,7 @@ class SimpleDisPacketSwitch:
                     packet_file_writer,
                     rate=port_rate,
                     qlimit=buffer_size,
-                    limit_bytes=False,
+                    limit_bytes=True, # ydy: it should be true
                     element_id=f"{element_id}_{port}",
                     debug=debug))
         self.demux = FIBDemux(fib=None, outs=self.ports, default=None)
@@ -215,5 +215,6 @@ class SimpleDisPacketSwitch:
 
     def put(self, packet):
         """ Sends a packet to this element. """
+        packet.intime = self.env.now
         self.demux.put(packet)
         # yield self.env.timeout(self.arrival_dist())

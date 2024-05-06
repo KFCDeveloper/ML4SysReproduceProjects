@@ -8,7 +8,7 @@ import simpy
 from ns.flow.cc import TCPReno
 from ns.flow.cubic import TCPCubic
 from ns.flow.flow import AppType, Flow
-from ns.packet.tcp_generator import TCPPacketGenerator
+from ns.packet.tcp_generator import TCPPacketGenerator, TCPDisPacketGenerator
 from ns.packet.tcp_sink import TCPSink
 from ns.port.wire import Wire
 from ns.switch.switch import SimpleDisPacketSwitch
@@ -30,14 +30,15 @@ def packet_size():
 
 def delay_dist():
     """Network wires experience a constant propagation delay of 0.1 seconds."""
-    return 0.1 # 0.1
+    return 0.1  # 0.1
 
 
 def genfib_chain(tem_flow_num, tem_switch_port_num):
     tem_fib = {}
     for i in range(tem_flow_num):
-        tem_fib[i] = int(i%(tem_switch_port_num / 2))
-        tem_fib[i + 10000] = int(i%(tem_switch_port_num / 2) + tem_switch_port_num / 2)
+        tem_fib[i] = int(i % (tem_switch_port_num / 2))
+        tem_fib[i + 10000] = int(i % (tem_switch_port_num /
+                                 2) + tem_switch_port_num / 2)
     # for i in range(tem_flow_num):
     #     tem_fib[i] = random.randint(0, tem_switch_port_num / 2 - 1)
     #     tem_fib[i + 10000] = random.randint(tem_switch_port_num / 2, tem_switch_port_num - 1)
@@ -64,7 +65,7 @@ def main():
     iat_dist = partial(interarrival, y)
     # pkt_size_dist = partial(packet_size, myseed=10)
     pkt_size_dist = partial(packet_size)
-    
+
     # set flow
     flow_num = 4  # 1
     all_flows = []
@@ -73,7 +74,7 @@ def main():
             fid=i,
             src="flow " + str(i),
             dst="flow " + str(i),
-            finish_time=5,
+            finish_time=10,
             arrival_dist=packet_arrival,
             size_dist=packet_size, )
         all_flows.append(each_flow)
@@ -81,8 +82,8 @@ def main():
     # set switch: switches arrange in a chain
     switch_num = 1
     switch_port_num = 4
-    switch_buffer_size = 5
-    switch_port_rate = 16384
+    switch_buffer_size = 2000
+    switch_port_rate = 256 # 16384
 
     switch = SimpleDisPacketSwitch(
         env, pkt_size_dist,
@@ -94,21 +95,20 @@ def main():
 
     all_wires = {}
     for i in range(switch_port_num):
-        all_wires["down"+str(i)] = Wire(env, delay_dist) # wire_downstream
-        all_wires["up"+str(i)] = Wire(env, delay_dist) # wire_upstream
+        all_wires["down"+str(i)] = Wire(env, delay_dist)  # wire_downstream
+        all_wires["up"+str(i)] = Wire(env, delay_dist)  # wire_upstream
 
-    # I find that if I did not model link and only use one switch. We don't need to do anything with Port; 
-    # but dataset I need to record the 
-    fib = genfib_chain(flow_num, switch_port_num)  # fixed this, make it convenient for debugging
+    # I find that if I did not model link and only use one switch. We don't need to do anything with Port;
+    # but dataset I need to record the
+    # fixed this, make it convenient for debugging
+    fib = genfib_chain(flow_num, switch_port_num)
     # fib = {0: 0, 10000: 3, 1: 0, 10001: 3, 2: 0, 10002: 2, 3: 1, 10003: 2}
     # {0: 1, 10000: 2, 1: 1, 10001: 3, 2: 0, 10002: 2, 3: 0, 10003: 3}
     switch.demux.fib = fib
 
     for flow_index in range(len(all_flows)):
-        sender = TCPPacketGenerator(env, flow=all_flows[flow_index], cc=TCPReno(),
-                                    element_id="sender_" + str(flow_index), debug=True)
-        
-
+        sender = TCPDisPacketGenerator(env, flow=all_flows[flow_index], cc=TCPReno(), arrival_dist=iat_dist, size_dist=None,
+                                       element_id="sender_" + str(flow_index), debug=True)
 
         receiver = TCPSink(env, rec_waits=True, debug=True)
 
@@ -116,11 +116,14 @@ def main():
 
         sender.out = all_wires["down"+str(fib[flow_index])]
         all_wires["down"+str(fib[flow_index])].out = switch
-        all_wires["down"+str(fib[flow_index+ 10000])].out = receiver
-        receiver.out = all_wires["up"+str(fib[flow_index+ 10000])]
-        all_wires["up"+str(fib[flow_index+ 10000])].out = switch
-        switch.demux.outs[fib[flow_index]].out = all_wires["down"+str(fib[flow_index+ 10000])].out # demux.outs is [class Port]. So it equal to Port.out = Wire
-        switch.demux.outs[fib[flow_index+ 10000]].out = all_wires["up"+str(fib[flow_index])]
+        all_wires["down"+str(fib[flow_index + 10000])].out = receiver
+        receiver.out = all_wires["up"+str(fib[flow_index + 10000])]
+        all_wires["up"+str(fib[flow_index + 10000])].out = switch
+        # demux.outs is [class Port]. So it equal to Port.out = Wire
+        switch.demux.outs[fib[flow_index]
+                          ].out = all_wires["down"+str(fib[flow_index + 10000])].out
+        switch.demux.outs[fib[flow_index + 10000]
+                          ].out = all_wires["up"+str(fib[flow_index])]
 
         all_wires["up"+str(fib[flow_index])].out = sender
         # this_flow.pkt_gen = sender
