@@ -52,7 +52,7 @@ switch = FairPacketSwitch(
     nports=1,
     port_rate=port_rate,
     buffer_size=buffer_size,
-    weights=[1, 2],
+    weights=[1, 2], # 这个的意思可能是 flow0 对应 priority 1, flow1 对应 priority 2
     server="DRR",
     debug=True,
 )

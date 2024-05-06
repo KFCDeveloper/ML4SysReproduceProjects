@@ -36,13 +36,15 @@ def delay_dist():
 
 
 def genfib_chain(tem_flow_num, tem_switch_port_num):
-    tem_fib = {}
+    tem_fib = {}    # each flow map to egress port
+    tem_map_ingress = {}    # each flow map to ingress port
     for i in range(tem_flow_num):
         # tem_fib[i] = random.randint(0, tem_switch_port_num / 2 - 1)
         # tem_fib[i + 10000] = random.randint(tem_switch_port_num / 2, tem_switch_port_num - 1)
         tem_fib[i] = int(i % (tem_switch_port_num))
+        tem_map_ingress[i] = random.randint(0, tem_switch_port_num - 1)
 
-    return tem_fib
+    return tem_fib,tem_map_ingress
 
 
 def interarrival(y):
@@ -123,9 +125,10 @@ def main():
 
     # I find that if I did not model link and only use one switch. We don't need to do anything with Port; 
     # but dataset I need to record the 
-    fib = genfib_chain(flow_num, switch_port_num)  # fixed this, make it convenient for debugging
+    fib,map_ingress = genfib_chain(flow_num, switch_port_num)  # fixed this, make it convenient for debugging
     # fib = {0: 1, 10000: 3, 1: 0, 10001: 2, 2: 1, 10002: 2, 3: 0, 10003: 2, 4: 1, 10004: 3, 5: 1, 10005: 2, 6: 1, 10006: 2, 7: 1, 10007: 2}
     switch.demux.fib = fib
+    switch.map_ingress = map_ingress
 
     for flow_index in range(len(all_flows)):
         sender = all_flows[flow_index]

@@ -199,7 +199,11 @@ class SimpleDisPacketSwitch:
         self.env = env
         self.ports = []
         # ydy: writer
-        packet_file_writer = open("/mydata/ns.py/2.txt", 'a')
+        packet_file_writer = open("/mydata/ns.py/2.csv", 'w')
+        packet_file_writer
+        write_data = (f"timestamp (sec),pkt len (byte),priority,src,dst,time_in_sys")
+        packet_file_writer.write(write_data + '\n')
+        
         for port in range(nports):
             self.ports.append(
                 DisPort(env,
@@ -208,7 +212,7 @@ class SimpleDisPacketSwitch:
                     rate=port_rate,
                     qlimit=buffer_size,
                     limit_bytes=True, # ydy: it should be true
-                    element_id=f"{element_id}_{port}",
+                    element_id=f"{element_id}_{port}",current_switch=self,
                     debug=debug))
         self.demux = FIBDemux(fib=None, outs=self.ports, default=None)
         

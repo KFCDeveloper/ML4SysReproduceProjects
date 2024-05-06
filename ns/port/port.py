@@ -180,6 +180,7 @@ class DisPort:
         limit_bytes: bool = False,
         zero_downstream_buffer: bool = False,
         element_id: int = None,
+        current_switch=None,
         debug: bool = False,
     ):
         self.packet_file_writer = packet_file_writer
@@ -194,6 +195,7 @@ class DisPort:
         self.limit_bytes = limit_bytes
         self.byte_size = 0  # the current size of the queue in bytes
         self.element_id = element_id
+        self.current_switch = current_switch
 
         self.zero_downstream_buffer = zero_downstream_buffer
         if self.zero_downstream_buffer:
@@ -242,7 +244,7 @@ class DisPort:
             #     f"{self.env.now:.5f} : {packet.packet_id} with flow_id {packet.flow_id} at time; time_in_sys {time_in_sys} "
             # )
             write_data = (
-                f"{self.env.now:.5f},{packet.packet_id},{packet.flow_id},{time_in_sys}"
+                f"{self.env.now:.5f},{packet.size},0,{self.current_switch.map_ingress[packet.flow_id]},{self.current_switch.demux.fib[packet.flow_id]},{time_in_sys}"
             )
             self.packet_file_writer.write(write_data + '\n')
             # ———— ydy code end ———— #
