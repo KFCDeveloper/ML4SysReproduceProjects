@@ -91,7 +91,7 @@ class ECMPHistoryEnv(BaseEnv):
                     continue
                 if t in self._g[s]:
                     cap = self._g[s][t][EdgeConsts.CAPACITY_STR]
-                    cap = SizeConsts.BPS_TO_GBPS(cap)
+                    # cap = SizeConsts.BPS_TO_GBPS(cap) # ydy: comment out this; I don't think we need to convert unit
                     self._adj[s, t] = 1.0
                     self._weighted_adj[s, t] = cap
                     self._capacities.append(cap)

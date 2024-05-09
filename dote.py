@@ -212,15 +212,16 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
         y_true = torch.narrow(y_true, 1, 0, num_nodes * (num_nodes - 1))
 
         y_pred = y_pred + 0.1 #ELU
-        edges_weight = paths_to_edges.transpose(0,1).matmul(torch.transpose(y_pred, 0, 1))
-        alpha = torch.max(edges_weight.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1)))
-        max_flow_on_tunnel = y_pred / alpha
-        max_flow_per_commodity = commodities_to_paths.matmul(max_flow_on_tunnel.transpose(0,1))
+        edges_weight = paths_to_edges.transpose(0,1).matmul(torch.transpose(y_pred, 0, 1))  # y_pred 本来是 基于 paths的（并且预测出来应该是百分比，一对节点之间的带宽，分到这个节点之间所有路径上，每个路径带宽占总的百分比），然后转化为edges(不是隧道)上的带宽
+        alpha = torch.max(edges_weight.divide(torch.tensor(np.array([env._capacities])).to(device).transpose(0,1))) # 所有edge上 带宽占比最大的那个
+        max_flow_on_tunnel = y_pred / alpha 
+        max_flow_per_commodity = commodities_to_paths.matmul(max_flow_on_tunnel.transpose(0,1)) # 基于path的带宽转为基于 隧道（不是edge）的带宽
 
-        if props.opt_function == "MAXFLOW": #MAX FLOW
-            max_mcf = torch.sum(torch.minimum(max_flow_per_commodity.transpose(0,1), y_true))
+        if props.opt_function == "MAXFLOW": #MAX FLOW *(1e10)
+            max_mcf = torch.sum(torch.minimum(max_flow_per_commodity.transpose(0,1), y_true))  # 应该是要让隧道的带宽越大越好（因为可能因为链路容量问题，永远无法完全分配完） # 应该是和 y_true 一个性质的；表示计算出来的 每个隧道上的带宽
             
-            loss = -max_mcf if max_mcf.item() == 0.0 else -max_mcf/max_mcf.item()
+            # loss = -max_mcf if max_mcf.item() == 0.0 else -max_mcf/max_mcf.item()   # previous one
+            loss = -max_mcf + torch.sum(y_true) # *(1e10)
             loss_val = 1.0 if opt == 0.0 else max_mcf.item()/SizeConsts.BPS_TO_GBPS(opt)
         
         elif props.opt_function == "MAXCONC": #MAX CONCURRENT FLOW
@@ -320,10 +321,10 @@ if props.so_mode == SOMode.TRAIN: #train
                 loss.backward()
                 optimizer.step()
                 epoch_train_loss.append(loss_val)
-                loss_sum += loss_val
+                loss_sum += loss # ydy: original is `loss_val`
                 loss_count += 1
                 loss_avg = loss_sum / loss_count
-                tepoch.set_postfix(loss=loss_avg)
+                tepoch.set_postfix(loss=loss)
                 # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
         # print('saving...... ' + str(epoch))
         # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
