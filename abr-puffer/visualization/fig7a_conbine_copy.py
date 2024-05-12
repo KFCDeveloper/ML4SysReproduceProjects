@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 import argparse
 import os
-
+# 对比 fig7a_conbine.py 就是画图倒转位置
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 args = parser.parse_args()
