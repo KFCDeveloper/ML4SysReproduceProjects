@@ -72,15 +72,44 @@
             //     "('0', '2')",
             // ]
 
-            "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            "cwd": "/mydata/DOTE/networking_envs/save_models/drop_data_model", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--ecmp_topo","Abilene",
+                "--ecmp_topo","Brain-obj1",  //     Abilene-2-('0', '2')-('9', '10')   Abilene-2-('0', '1')-('0', '2')-obj2  GEANT copy
                 "--paths_from", "sp",
                 "--so_mode", "train",
                 "--so_epochs","100",
                 "--so_batch_size","32",
-                "--opt_function","MAXFLOW"
+                "--opt_function","MAXUTIL"  // MAXFLOW  MAXUTIL
             ]
+
+            // "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            // ]
+
+            // "cwd": "/mydata/DOTE/networking_envs/data/Brain-obj1", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "Brain-obj1"  // '1' '10' 
+            // ]
+            
+            // debug evalute.py
+            // "cwd": "/mydata/DOTE/networking_envs/data/GEANT-obj2",    //Abilene-0.25
+            // "args":[
+            //     "--ecmp_topo", "GEANT-obj2",
+            //     "--hist_len", "0",
+            //     "--sl_type", "eval",
+            //     "--compute_opts","--opt_function","MAXFLOW",
+            //     "--opts_dir", "opts_test"
+            // ]
+
+            // debug evalute.py
+            // "cwd": "/mydata/DOTE/networking_envs/data/Brain-obj2",    //Abilene-0.25 Brain 
+            // "args":[
+            //     "--ecmp_topo", "Brain-obj2",
+            //     "--hist_len", "0",
+            //     "--sl_type", "eval",
+            //     "--compute_opts","--opt_function","MAXFLOW",    //    MAXFLOW MAXUTIL
+            //     "--opts_dir", "opts_test"
+            // ]
         }
     ]
 }

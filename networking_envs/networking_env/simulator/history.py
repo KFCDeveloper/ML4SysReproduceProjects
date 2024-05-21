@@ -87,7 +87,8 @@ class Histories(object):
                     pdb.set_trace()
 
                 tm_time = tm_length_func()
-                # ydy: I comment it # tm = SizeConsts.BPS_TO_GBPS(tm) # tm is traffic matrix. len() is num_node*num_node - num_node
+                # ydy: I comment it 
+                tm = SizeConsts.BPS_TO_GBPS(tm) # tm is traffic matrix. len() is num_node*num_node - num_node
                 self._tms.append(tm)
                 self._tm_times.append(tm_time)
 

@@ -7,6 +7,7 @@ topo_full_name = sys.argv[1]   # Abilene-squeeze-links-more1
 opts_dir_prefix = 'opts_'
 topology_name = topo_full_name
 paths_from = 'sp'
+obj_func = "MAXUTIL"   # {"MAXUTIL","MAXFLOW","MAXCONC"}
 
 test_opts_dir = opts_dir_prefix + 'test'
 train_opts_dir = opts_dir_prefix + 'train'
@@ -17,12 +18,12 @@ assert not os.path.exists(train_opts_dir)
 os.mkdir(test_opts_dir)
 os.mkdir(train_opts_dir)
 
-# ??????? why evaluate too early? evaluate process requires 
-subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'stats_comm', '--compute_opts', '--paths_from', paths_from], check=True)
-subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'eval', '--compute_opts', '--opts_dir', test_opts_dir], check=True)
 
-subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'stats_comm', '--compute_opts', '--compute_opts_dir', 'train'], check=True)
-subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'eval', '--compute_opts', '--compute_opts_dir', 'train', '--opts_dir', train_opts_dir], check=True)
+subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'stats_comm', '--compute_opts','--opt_function',obj_func, '--paths_from', paths_from], check=True)
+subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'eval', '--compute_opts','--opt_function',obj_func, '--opts_dir', test_opts_dir], check=True)
+
+subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'stats_comm', '--compute_opts','--opt_function',obj_func, '--compute_opts_dir', 'train'], check=True)
+subprocess.run(['python', '../../ml/sl_algos/evaluate.py', '--ecmp_topo', topology_name, '--hist_len', '0', '--sl_type', 'eval', '--compute_opts','--opt_function',obj_func, '--compute_opts_dir', 'train', '--opts_dir', train_opts_dir], check=True)
 
 for d in ['test', 'train']:
     opts_info = []

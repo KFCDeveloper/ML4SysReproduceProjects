@@ -3,6 +3,9 @@ import joblib
 from subprocess import PIPE, Popen
 import numpy as np
 import shutil
+import os,sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../..")
+from const_dote import *
 
 def jar_cplex_wrapper(cplex_path, args, all_output=True):
     process = Popen(['java'] + cplex_path + ['-jar']+args, stdout=PIPE, stderr=PIPE)
@@ -80,13 +83,16 @@ def tm_to_string(tm):
                 res.append("%d %d %f" % (i, j, tm[i, j]))
     return ",".join(res)
 
-
-def get_opt_cplex(props, tm, next_tm=None, opt_function="MAXUTIL", combine=None, use_cplex=False, idx=0, path=None):
+# ydy: opt_function =  {"MAXUTIL","MAXFLOW","MAXCONC"}
+def get_opt_cplex(props, tm, next_tm=None, opt_function="", combine=None, use_cplex=False, idx=0, path=None):
     tunnels_file = '/'.join(props.g_name.split("/")[:-1]) + "/tunnels.txt"
     args_java = [props.jar_cplex_loc] if use_cplex else [props.jar_gurobi_loc]
 
     args_java += [opt_function, props.g_name, tunnels_file, tm_to_string(tm)]
     if next_tm is not None:
+        # ydy: tm/10 # Abi的obj1 这里注释掉; Abl-obj2 这里 *10; GEANT-obj1 ; GEANT-obj2 next_tm*50; Brain obj1 不管; Brain obj2 next_tm*50
+        if props.ecmp_topo in FACTOR_MAP:   # obj1 和 obj2 我用的 traffic的系数不一样，obj2需要更多的带宽才能让优化变难
+            next_tm = next_tm * FACTOR_MAP[props.ecmp_topo]    # 我发现，np.sum(tm)的数量级比容量总数小二级，就是差不多差100倍的时候，数据才对。
         args_java += [tm_to_string(next_tm)]
     if use_cplex:
         res = jar_cplex_wrapper(props.cplex_path, args_java)

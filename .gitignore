@@ -13,3 +13,6 @@ networking_envs/data/*Arnes*/
 *.log
 *.pyc
 *.pkl
+networking_envs/data/*Brain*/
+networking_envs/data/*GEANT*/
+real_traffic/download_data/

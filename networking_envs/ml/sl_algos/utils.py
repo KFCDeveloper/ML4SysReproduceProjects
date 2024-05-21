@@ -2,6 +2,7 @@ from data_gen import utils as DU
 from networking_env.utils.shared_consts import SizeConsts
 import numpy as np
 import tqdm
+import time
 
 
 def convert_to_batchs(X, Y, props):
@@ -238,7 +239,29 @@ def dump_prediciton(props, y_hat, y, mse=0, dir_name=None):
     joblib.dump(y_hat, '%s/yhat.pkl' % logs_dir)
     joblib.dump(y, '%s/y.pkl' % logs_dir)
 
+# original 
+# def get_all_cplex_res(props, y_hat, y):
+#     from tqdm import trange
+#     assert y_hat.shape == y.shape
+#     tr = trange(y_hat.shape[0], leave=True)
+#     ress = []
+#     ress_all = []
+#     cntr = 0
+#     for i in tr:
+#         tm = y_hat[i, :]
+#         next_tm = y[i, :]
+#         factor_units = 1.0 #SizeConsts.ONE_Mb
+#         res_str = DU.get_opt_cplex(props, tm * factor_units, next_tm * factor_units, opt_function=props.opt_function,
+#                                    use_cplex=False, idx=cntr, path=props.base_path+'/data/'+props.ecmp_topo+'/' + props.opts_dir + '/')
+#         cntr += 1
+#         try:
+#             ress.append(float(res_str[-1].split(":")[1]))
+#         except:
+#             import pdb; pdb.set_trace()
+#         ress_all.append(res_str)
+#     return ress, ress_all
 
+# ydy: get data collecting time
 def get_all_cplex_res(props, y_hat, y):
     from tqdm import trange
     assert y_hat.shape == y.shape
@@ -246,13 +269,18 @@ def get_all_cplex_res(props, y_hat, y):
     ress = []
     ress_all = []
     cntr = 0
+    stat_path = "/mydata/DOTE/real_traffic/Brain/data_collecting_stat/collecting_stat-brain-obj1.txt"
+    stat_writer = open(stat_path, "a")
     for i in tr:
         tm = y_hat[i, :]
         next_tm = y[i, :]
         factor_units = 1.0 #SizeConsts.ONE_Mb
+        start_time = time.time()
+        
         res_str = DU.get_opt_cplex(props, tm * factor_units, next_tm * factor_units, opt_function=props.opt_function,
                                    use_cplex=False, idx=cntr, path=props.base_path+'/data/'+props.ecmp_topo+'/' + props.opts_dir + '/')
         cntr += 1
+        stat_writer.write(f"{time.time()-start_time}\n")
         try:
             ress.append(float(res_str[-1].split(":")[1]))
         except:

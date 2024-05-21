@@ -6,7 +6,7 @@ import urllib.request
 
 # topology_file = "http://informatique.umons.ac.be/networks/igen/downloads/geant-20041125.gml"
 topology_file = "/mydata/DOTE/networking_envs/data/zoo_topologies/geant-20041125.gml"
-demand_matrices_dir = "/mydata/software/GEANT/directed-geant-uhlig-15min-over-4months-ALL-native"
+demand_matrices_dir = "/mydata/DOTE/real_traffic/download_data/GEANT/directed-geant-uhlig-15min-over-4months-ALL-native"
 output_dir = "GEANT"
 
 train_fraction = 0.75 #fraction of DMs for the training dataset
@@ -27,11 +27,11 @@ with open(demand_matrices_dir + '/' + dms_input_files[0]) as f:
     line = f.readline().strip()
     while not line.startswith(")"):
         node_name = line.split()[0]
-        nodes[node_name] = len(nodes)
+        nodes[node_name] = len(nodes)   # nodes[node_name] = node_id
         #topology_name = "SL" if node_name == 'si1.si' else node_name.split('.')[1].upper()
         topology_name = node_name.split('.')[0]
-        topology_name_to_dm_name[topology_name] = node_name
-        if topology_name == "de1": topology_name_to_dm_name["de2"] = node_name
+        topology_name_to_dm_name[topology_name] = node_name # topology_name_to_dm_name[topology_name]
+        if topology_name == "de1": topology_name_to_dm_name["de2"] = node_name  # 这么修改，貌似是拓扑的信息和流的数据有差异，Brain的相关代码直接删掉这一段
         line = f.readline().strip()
         
 topology_id_to_dm_id = {}
@@ -128,7 +128,7 @@ for i in range(len(dms_input_files)):
             dst = demand_info[3]
             demand = demand_info[6]
             assert src in nodes and dst in nodes and demand_info[0] == src + '_' + dst and float(demand) >= 0.0
-            demands[count][nodes[src]*len(nodes) + nodes[dst]] = repr(float(demand)*1e6)
+            demands[count][nodes[src]*len(nodes) + nodes[dst]] = repr(float(demand)*1e5) # 1e6
             line = f.readline().strip()
     if is_empty:
         continue
@@ -148,5 +148,5 @@ for i in range(count):
         f_dm_idx += 1
         n_dms_in_f = 0
         
-    f.write(' '.join(demands[i]) + '\n')    
+    f.write(' '.join(demands[i]) + '\n')
     n_dms_in_f += 1
