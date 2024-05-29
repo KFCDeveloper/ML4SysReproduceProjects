@@ -7,9 +7,9 @@
 
 cd /mydata/Unbiased-Trace-Driven-Simulation/abr-puffer
 targets=("bola_basic_v1" "bola_basic_v2" "linear_bba")  # "linear_bba"
-root_dirs=("CAUSALSIM_DIR-20-9-27-6monthmodel/")   # "CAUSALSIM_DIR/" "CAUSALSIM_DIR-20-9-27/" "CAUSALSIM_DIR-20-11-27/" 
+root_dirs=("CAUSALSIM_DIR-20-9-27to20-11-27_total_view/")   # "CAUSALSIM_DIR/" "CAUSALSIM_DIR-20-9-27/" "CAUSALSIM_DIR-20-11-27/" 
 c_s=( "0.05" ) # "0.1" "0.5" "1.0" "5.0" "10.0" "15.0" "20.0" "25.0" "30.0" "40.0"   # "0.05"
-
+# !! for each dir, need to run `python data_preparation/generate_subset_data.py --dir "$root_dir"`
 for target in "${targets[@]}"
 do
     for root_dir in "${root_dirs[@]}"

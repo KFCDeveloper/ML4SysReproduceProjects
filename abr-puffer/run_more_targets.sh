@@ -5,7 +5,7 @@ targets=("linear_bba" "bola_basic_v1" "bola_basic_v2")  #
 c_s=("0.1" "0.5" "1.0" "5.0" "10.0" "15.0" "20.0" "25.0" "30.0" "40.0")    # "0.05"
 # root_dirs=("CAUSALSIM_DIR-20-7-27/" "CAUSALSIM_DIR-20-9-27/" "CAUSALSIM_DIR-20-11-27/" "CAUSALSIM_DIR-21-1-27/" "CAUSALSIM_DIR-21-3-27/")
 root_dir="CAUSALSIM_DIR-20-11-27/"
-
+# !! for each dir, need to run `python data_preparation/generate_subset_data.py --dir "$root_dir"`
 for target in "${targets[@]}"
 do
     for c in "${c_s[@]}"

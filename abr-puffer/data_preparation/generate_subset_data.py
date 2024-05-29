@@ -3,11 +3,12 @@ import datetime
 from tqdm import tqdm
 import os
 import argparse
-from common_var import Durration_CON
+from common_var import Durration_CON, match_date
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 args = parser.parse_args()
+match_date(args)
 
 policy_names = ['bola_basic_v2', 'bola_basic_v1', 'puffer_ttp_cl', 'puffer_ttp_20190202', 'linear_bba']
 target_policy_names = ['bola_basic_v2', 'bola_basic_v1', 'linear_bba']
