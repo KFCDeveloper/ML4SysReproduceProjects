@@ -26,8 +26,8 @@ np.random.seed(10)
 BATCH_SIZE = 2 ** args.batch_size
 DISCRIMINATOR_EPOCH = 10
 C = args.C
-# device = torch.device(args.device)
-device = torch.device("cpu")
+device = torch.device(args.device)
+# device = torch.device("cpu")
 left_out_text = f'_{args.left_out_policy}'
 # PERIOD_TEXT = f'2020-07-27to2021-06-01{left_out_text}'
 PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
