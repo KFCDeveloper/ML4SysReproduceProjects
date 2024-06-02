@@ -33,6 +33,7 @@ def match_date(args):
                 "CAUSALSIM_DIR-dis-20-12-27/":[datetime.date(2020, 12, 27),datetime.date(2021, 1, 27)],
                 "CAUSALSIM_DIR-dis-21-1-27/":[datetime.date(2021, 1, 27),datetime.date(2021, 2, 27)],
                 "CAUSALSIM_DIR-dis-21-2-27/":[datetime.date(2021, 2, 27),datetime.date(2021, 3, 27)],
+                "CAUSALSIM_DIR-21-3-27_applied/":[datetime.date(2021, 3, 27),datetime.date(2021, 6, 1)],
                 }
     if args.dir in dir_date:
         Durration_CON.start_date = dir_date[args.dir][0]
