@@ -24,18 +24,23 @@
             // ]
             
             // inference/extract_subset_latents.py
-            "cwd": "/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
-            "args": [
-                "--dir","CAUSALSIM_DIR-dis-20-7-27/",
-                "--left_out_policy", "bola_basic_v1",
-                "--C", "0.05",
-            ]
+            // "cwd": "/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--dir","CAUSALSIM_DIR-dis-20-7-27/",
+            //     "--left_out_policy", "bola_basic_v1",
+            //     "--C", "0.05",
+            // ]
 
             // analysis/tune_buffer_hyperparams.py
             // "cwd": "/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             // "args": [
             //     "--dir","CAUSALSIM_DIR/",
             // ]
+
+            "cwd": "/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            "args": [
+                "--dir","CAUSALSIM_DIR-dis-20-7-27/",
+            ]
         }
     ]
 }

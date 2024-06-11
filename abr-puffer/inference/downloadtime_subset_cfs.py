@@ -244,9 +244,9 @@ left_out_text = f'_{args.left_out_policy}'
 PERIOD_TEXT = Durration_CON.start_date.strftime("%Y-%m-%d") + 'to' + Durration_CON.end_date.strftime("%Y-%m-%d") + f'{left_out_text}'
 
 C = args.C
-b_C = 0.05
-# with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f: # ydy: do not need tune
-#     b_C = pickle.load(f)[args.left_out_policy][0]
+# b_C = 0.05
+with open(f'{args.dir}tuned_hyperparams/buffer.pkl', 'rb') as f: # ydy: do not need tune
+    b_C = pickle.load(f)[args.left_out_policy][0]
 cf_path = f'{args.dir}{PERIOD_TEXT}_dt_cfs/inner_loop_{DISCRIMINATOR_EPOCH}/C_{C}/cfs/model_{args.model_number}'
 os.makedirs(cf_path, exist_ok=True)
 

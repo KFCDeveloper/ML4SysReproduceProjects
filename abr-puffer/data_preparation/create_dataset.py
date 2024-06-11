@@ -12,13 +12,13 @@ import json
 import istarmap
 from multiprocessing import Pool
 import argparse
-from common_var import Durration_CON
+from common_var import Durration_CON,match_date
 
 parser = argparse.ArgumentParser(description='Auto experiment launch')
 parser.add_argument('--dir', type=str, required=True, help='Puffer dataset directory')
 
 args = parser.parse_args()
-
+match_date(args)
 fmt_list = ['426x240-26', '640x360-26', '640x360-24', '854x480-26', '854x480-24', '854x480-22', '1280x720-26',
             '1280x720-24', '1280x720-22', '1920x1080-24', '1280x720-20', '1920x1080-22']
 fmt_map = {fmt: i for i, fmt in enumerate(fmt_list)}

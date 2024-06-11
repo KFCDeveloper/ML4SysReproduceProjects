@@ -4,6 +4,9 @@ import numpy as np
 import argparse
 import os
 # 对比 fig7a_conbine.py 就是画图倒转位置
+# cd /mydata/Unbiased-Trace-Driven-Simulation/abr-puffer
+# python visualization/fig7a/fig7a_conbine_2month_infer1month.py --dir CAUSALSIM_DIR-20-7-27/
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--dir", help="root directory")
 args = parser.parse_args()
@@ -18,7 +21,7 @@ short_buffer_based_names = ['bb2', 'bb1', 'lb']
 #     bf_C = {policy: f[policy][1] for policy in buffer_based_names}
 bf_C = {'linear_bba':'0.05','bola_basic_v2':'0.05', 'bola_basic_v1':'0.05'}
 plt.figure(figsize=(6.25, 6.00)) # (5.25, 4.25)
-label_dic={'CAUSALSIM_DIR-dis-20-7-27/':'7.27-8.27','CAUSALSIM_DIR-dis-20-8-27/':'7.27-8.27','CAUSALSIM_DIR-dis-20-9-27/':'7.27-8.27','CAUSALSIM_DIR-dis-20-10-27/':'7.27-8.27',"CAUSALSIM_DIR-dis-20-11-27/":'7.27-8.27',"CAUSALSIM_DIR-dis-20-12-27/":'7.27-8.27',"CAUSALSIM_DIR-dis-21-1-27/":'7.27-8.27',"CAUSALSIM_DIR-dis-21-2-27/":'7.27-8.27'}
+label_dic={'CAUSALSIM_DIR-dis-20-7-27/':'7.27-8.27','CAUSALSIM_DIR-dis-20-8-27/':'8.27-9.27','CAUSALSIM_DIR-dis-20-9-27/':'9.27-10.27','CAUSALSIM_DIR-dis-20-10-27/':'10.27-11.27',"CAUSALSIM_DIR-dis-20-11-27/":'11.27-12.27',"CAUSALSIM_DIR-dis-20-12-27/":'12.27-21.1.27',"CAUSALSIM_DIR-dis-21-1-27/":'21.1.27-21.2.27',"CAUSALSIM_DIR-dis-21-2-27/":'21.2.27-21.3.27'}
 for root_dir in ["CAUSALSIM_DIR-dis-20-7-27/","CAUSALSIM_DIR-dis-20-8-27/","CAUSALSIM_DIR-dis-20-9-27/","CAUSALSIM_DIR-dis-20-10-27/","CAUSALSIM_DIR-dis-20-11-27/","CAUSALSIM_DIR-dis-20-12-27/","CAUSALSIM_DIR-dis-21-1-27/","CAUSALSIM_DIR-dis-21-2-27/"]:
     sim_EMDs = []
     labels = []
@@ -38,7 +41,7 @@ for root_dir in ["CAUSALSIM_DIR-dis-20-7-27/","CAUSALSIM_DIR-dis-20-8-27/","CAUS
     # if root_dir in ['CAUSALSIM_DIR-20-7-27/','CAUSALSIM_DIR-20-11-27/','CAUSALSIM_DIR-21-1-27/','CAUSALSIM_DIR-21-3-27/']:
     #     plt.plot(labels, sim_EMDs, label=str(label_dic[root_dir])+' months', alpha=0.15)    # [i/12*100 for i in range(1, 13)]
     # else:
-    #     plt.plot(labels, sim_EMDs, label=str(label_dic[root_dir])+' months',linewidth=2)    # [i/12*100 for i in range(1, 13)]
+    plt.plot(labels, sim_EMDs, label=str(label_dic[root_dir])+' months',linewidth=2)    # [i/12*100 for i in range(1, 13)]
 plt.legend()
 plt.xlabel('<src_alg, trt_alg>')    # 'CDF %'
 plt.xticks(rotation=-17)
@@ -48,4 +51,4 @@ plt.ylabel('EMD')
 fig_path = f'{args.dir}plots'
 os.makedirs(fig_path, exist_ok=True)
 # plt.savefig(f'{fig_path}/fig7a.pdf', format='pdf')
-plt.savefig(f'{fig_path}/fig7a-conbine-6month_infer2month.png')
+plt.savefig('/mydata/Unbiased-Trace-Driven-Simulation/abr-puffer/visualization/fig7a/fig_save/fig7a-conbine-2month_infer1month.png')

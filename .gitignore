@@ -13,3 +13,4 @@ abr-puffer/assets/*
 **/__pycache__/
 abr-puffer/log/*
 abr-puffer/dis-backup/*
+abr-puffer/good_dis_backup/*
