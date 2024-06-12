@@ -33,6 +33,8 @@ def match_date(args):
                 "CAUSALSIM_DIR-dis-20-12-27/":[datetime.date(2020, 12, 27),datetime.date(2021, 1, 27)],
                 "CAUSALSIM_DIR-dis-21-1-27/":[datetime.date(2021, 1, 27),datetime.date(2021, 2, 27)],
                 "CAUSALSIM_DIR-dis-21-2-27/":[datetime.date(2021, 2, 27),datetime.date(2021, 3, 27)],
+                "CAUSALSIM_DIR-dis-21-3-27/":[datetime.date(2021, 3, 27),datetime.date(2021, 4, 27)],
+                "CAUSALSIM_DIR-dis-21-4-27/":[datetime.date(2021, 4, 27),datetime.date(2021, 5, 27)],
                 "CAUSALSIM_DIR-21-3-27_applied/":[datetime.date(2021, 3, 27),datetime.date(2021, 6, 1)],
                 # new data
                 "CAUSALSIM_DIR-20-3-27/":[datetime.date(2020, 3, 27),datetime.date(2020, 7, 27)],
