@@ -5,7 +5,7 @@ import core as abrenv
 import load_trace
 
 # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
-S_INFO = 4 # TODO ydy: original is 6
+S_INFO = 4 # TODO: change fea ydy: original is 6
 S_LEN = 8  # take how many frames in the past
 A_DIM = 6
 TRAIN_SEQ_LEN = 100  # take as a train batch
@@ -126,7 +126,7 @@ class ABREnv():
         # state 的 shape 一直都是 (6,8)，然后每次都把6个里面最老的给覆盖掉（滚动后，覆盖最后一行）
         # pensieve里面是有 6个 features
         state = np.roll(self.state, -1, axis=1)
-
+        # TODO: change fea
         # this should be S_INFO number of terms
         state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality # 第6个feature Last chunk bit rate
         state[1, -1] = self.buffer_size / BUFFER_NORM_FACTOR  # 10 sec # 第4个feature Current buffer size
@@ -153,7 +153,7 @@ class ABREnv():
             end_of_video, video_chunk_remain = \
             self.net_env.get_video_chunk(bit_rate)
         state = np.roll(self.state, -1, axis=1)
-
+        # TODO: change fea
         # this should be S_INFO number of terms
         state[0, -1] = VIDEO_BIT_RATE[bit_rate] / \
             float(np.max(VIDEO_BIT_RATE))  # last quality

@@ -3,12 +3,12 @@ import numpy as np
 import os
 from torch.utils.tensorboard import SummaryWriter
 from env import ABREnv
-import ppo2 as network
+import ppo2_less_fea as network
 import torch
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
-S_DIM = [4, 8]  # TODO original [6,8]
+S_DIM = [4, 8]  # TODO: change fea # TODO original [6,8]
 A_DIM = 6
 ACTOR_LR_RATE = 1e-4
 NUM_AGENTS = 16 # 16
@@ -36,7 +36,7 @@ def testing(epoch, nn_model, log_file):
     if not os.path.exists(TEST_LOG_FOLDER):
         os.makedirs(TEST_LOG_FOLDER)
     # run test script
-    os.system('python test.py ' + nn_model)
+    os.system('python test_less_fea.py ' + nn_model)
 
     # append test performance to the log
     rewards, entropies = [], []
@@ -80,7 +80,7 @@ def central_agent(net_params_queues, exp_queues):
     assert len(exp_queues) == NUM_AGENTS
     
     with open(LOG_FILE + '_test.txt', 'w') as test_log_file:
-        actor = network.Network(state_dim=S_DIM, 
+        actor = network.Network_Less(state_dim=S_DIM, 
                                 action_dim=A_DIM,
                                 learning_rate=ACTOR_LR_RATE)
 
@@ -130,7 +130,7 @@ def central_agent(net_params_queues, exp_queues):
 # 这个里面的模型虽然叫actor，但是是actor critic，train的时候两个都train，推理的时候只有actor在推理，
 def agent(agent_id, net_params_queue, exp_queue):
     env = ABREnv(agent_id)
-    actor = network.Network(state_dim=S_DIM, action_dim=A_DIM,
+    actor = network.Network_Less(state_dim=S_DIM, action_dim=A_DIM,
                             learning_rate=ACTOR_LR_RATE)
 
     # initial synchronization of the network parameters from the coordinator
@@ -138,7 +138,7 @@ def agent(agent_id, net_params_queue, exp_queue):
     actor.set_network_params(actor_net_params)
 
     for epoch in range(TRAIN_EPOCH):
-        obs = env.reset()
+        obs = env.reset_less_fea()
         s_batch, a_batch, p_batch, r_batch = [], [], [], []
         for step in range(TRAIN_SEQ_LEN):
             s_batch.append(obs)

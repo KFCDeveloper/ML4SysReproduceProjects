@@ -10,3 +10,4 @@ src/test_smo.py
 src/ppo-smo/
 src/ppo_backup/
 src/test_results_backup/
+src/backup/
