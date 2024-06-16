@@ -13,7 +13,7 @@ MODEL_SAVE_INTERVAL = 100
 VIDEO_BIT_RATE = np.array([300., 750., 1200., 1850., 2850., 4300.])  # Kbps
 BUFFER_NORM_FACTOR = 10.0
 CHUNK_TIL_VIDEO_END_CAP = 48.0
-M_IN_K = 1000.0
+M_IN_K = 1000.0 # Mbps to Kbps
 REBUF_PENALTY = 4.3  # 1 sec rebuffering -> 3 Mbps
 SMOOTH_PENALTY = 1
 DEFAULT_QUALITY = 1  # default video quality without agent
@@ -87,19 +87,17 @@ class ABREnv():
                                       VIDEO_BIT_RATE[self.last_bit_rate]) / M_IN_K
 
         self.last_bit_rate = bit_rate
+        # state 的 shape 一直都是 (6,8)，然后每次都把6个里面最老的给覆盖掉（滚动后，覆盖最后一行）
         state = np.roll(self.state, -1, axis=1)
 
         # this should be S_INFO number of terms
-        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / \
-            float(np.max(VIDEO_BIT_RATE))  # last quality
-        state[1, -1] = self.buffer_size / BUFFER_NORM_FACTOR  # 10 sec
-        state[2, -1] = float(video_chunk_size) / \
-            float(delay) / M_IN_K  # kilo byte / ms
-        state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec
+        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality # 第6个feature Last chunk bit rate
+        state[1, -1] = self.buffer_size / BUFFER_NORM_FACTOR  # 10 sec # 第4个feature Current buffer size
+        state[2, -1] = float(video_chunk_size) / float(delay) / M_IN_K  # kilo byte / ms # 第1个feature Past chunk throughput
+        state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec # 第2个feature Past chunk download time
         state[4, :A_DIM] = np.array(
-            next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte
-        state[5, -1] = np.minimum(video_chunk_remain,
-                                  CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP)
+            next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte  # 第3个feature Next chunk sizes
+        state[5, -1] = np.minimum(video_chunk_remain, CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP) # 第5个feature Number of chunks left
 
         self.state = state
         #observation, reward, done, info = env.step(action)
@@ -125,19 +123,18 @@ class ABREnv():
                                       VIDEO_BIT_RATE[self.last_bit_rate]) / M_IN_K
 
         self.last_bit_rate = bit_rate
+        # state 的 shape 一直都是 (6,8)，然后每次都把6个里面最老的给覆盖掉（滚动后，覆盖最后一行）
+        # pensieve里面是有 6个 features
         state = np.roll(self.state, -1, axis=1)
 
         # this should be S_INFO number of terms
-        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / \
-            float(np.max(VIDEO_BIT_RATE))  # last quality
-        state[1, -1] = self.buffer_size / BUFFER_NORM_FACTOR  # 10 sec
-        state[2, -1] = float(video_chunk_size) / \
-            float(delay) / M_IN_K  # kilo byte / ms
-        state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec
+        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality # 第6个feature Last chunk bit rate
+        state[1, -1] = self.buffer_size / BUFFER_NORM_FACTOR  # 10 sec # 第4个feature Current buffer size
+        state[2, -1] = float(video_chunk_size) / float(delay) / M_IN_K  # kilo byte / ms # 第1个feature Past chunk throughput
+        state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec # 第2个feature Past chunk download time
         state[4, :A_DIM] = np.array(
-            next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte
-        state[5, -1] = np.minimum(video_chunk_remain,
-                                  CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP)
+            next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte  # 第3个feature Next chunk sizes
+        state[5, -1] = np.minimum(video_chunk_remain, CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP) # 第5个feature Number of chunks left
 
         self.state = state
         #observation, reward, done, info = env.step(action)

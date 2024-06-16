@@ -11,7 +11,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 S_DIM = [6, 8]
 A_DIM = 6
 ACTOR_LR_RATE = 1e-4
-NUM_AGENTS = 16
+NUM_AGENTS = 1 # 16
 TRAIN_SEQ_LEN = 1000  # take as a train batch
 TRAIN_EPOCH = 500000
 MODEL_SAVE_INTERVAL = 300
@@ -150,7 +150,7 @@ def agent(agent_id, net_params_queue, exp_queue):
             noise = np.random.gumbel(size=len(action_prob))
             bit_rate = np.argmax(np.log(action_prob) + noise)
 
-            obs, rew, done, info = env.step(bit_rate)
+            obs, rew, done, info = env.step_less_fea(bit_rate)
 
             action_vec = np.zeros(A_DIM)
             action_vec[bit_rate] = 1
