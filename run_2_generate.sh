@@ -37,8 +37,15 @@ else
     exit 1
 fi
 
+if [[ ${RESULTS_DIR} =~ _cl([0-9]+)_ ]]; then # ydy: to match cluster number
+    NUM_CLUSTER=${BASH_REMATCH[1]}
+else
+    echo "ERROR: unable to extract seed from ${RESULTS_DIR}"
+    exit 1
+fi
+
 cd ${BASE_DIR}
-prepare/run_prepare.sh data/${RESULTS_FILE} ${SEED} ${NUM_SWITCHES}
+prepare/run_prepare.sh data/${RESULTS_FILE} ${SEED} ${NUM_SWITCHES} ${NUM_CLUSTER}
 
 echo "Generate complete! Results are in the following directory:"
 echo "data/${RESULTS_FILE}"

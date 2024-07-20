@@ -1,5 +1,6 @@
 #! /bin/bash
 
+# refer to  `/mydata/MimicNet/prepare/extract_features_tcp.py`, ${2} is number of clusters
 if [ $# -lt 2 ]; then
     echo "Usage: parse_pdmps.sh directory num_clusters"
     echo "Assumes directory has zero or more of:"
@@ -11,6 +12,7 @@ fi
 
 shopt -s nullglob
 
+echo "-d "${1}/hosts${2}" && ! -f ${1}/hosts${2}/hosts.raw"
 if [[ -d "${1}/hosts${2}" && ! -f ${1}/hosts${2}/hosts.raw ]]; then
     echo "Parsing pdmps of hosts..."
 
@@ -27,7 +29,7 @@ if [[ -d "${1}/hosts${2}" && ! -f ${1}/hosts${2}/hosts.raw ]]; then
     done
 
     echo "Merging host tcpdumps..."
-    sort -s -m -g -k1,1 -o "${1}/hosts${2}/hosts.raw" ${1}/hosts${2}/*.dump
+    TMPDIR=/mydata/tmp sort -s -m -g -k1,1 -o "${1}/hosts${2}/hosts.raw" ${1}/hosts${2}/*.dump
 fi
 
 if [[ -d "${1}/edges${2}" && ! -f ${1}/edges${2}/edges.raw ]]; then
@@ -45,7 +47,7 @@ if [[ -d "${1}/edges${2}" && ! -f ${1}/edges${2}/edges.raw ]]; then
     done
 
     echo "Merging edge tcpdumps..."
-    sort -s -m -g -k1,1 -o "${1}/edges${2}/edges.raw" ${1}/edges${2}/*.dump
+    TMPDIR=/mydata/tmp sort -s -m -g -k1,1 -o "${1}/edges${2}/edges.raw" ${1}/edges${2}/*.dump
 fi
 
 if [[ -d "${1}/eval${2}" && ! -f ${1}/eval${2}/eval.raw ]]; then
@@ -64,5 +66,5 @@ if [[ -d "${1}/eval${2}" && ! -f ${1}/eval${2}/eval.raw ]]; then
     done
 
     echo "Merging eval tcpdumps..."
-    sort -s -m -g -k1,1 -o "${1}/eval${2}/eval.raw" ${1}/eval${2}/*.dump
+    TMPDIR=/mydata/tmp sort -s -m -g -k1,1 -o "${1}/eval${2}/eval.raw" ${1}/eval${2}/*.dump
 fi

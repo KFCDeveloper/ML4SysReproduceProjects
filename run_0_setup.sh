@@ -92,9 +92,9 @@ echo "Installing anaconda..."
 cd src/
 rm -f Anaconda3-*
 rm -rf ${BASE_DIR}/opt/anaconda3
-wget https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh
-chmod ugo+x Anaconda3-5.3.1-Linux-x86_64.sh
-./Anaconda3-5.3.1-Linux-x86_64.sh -b -p ${BASE_DIR}/opt/anaconda3
+wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+chmod ugo+x Anaconda3-2020.02-Linux-x86_64.sh
+./Anaconda3-2020.02-Linux-x86_64.sh -b -p ${BASE_DIR}/opt/anaconda3
 conda update -y -n base -c defaults conda
 
 

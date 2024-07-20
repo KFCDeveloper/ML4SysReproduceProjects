@@ -718,6 +718,20 @@ void PacketDump::tcpDump(bool l2r, const char *label, TCPSegment *tcpseg,
     // ecn
     out << "ecn " << ecn << " ";
 
+    // real time
+
+    timeval now;
+    gettimeofday(&now, NULL);
+    static char buf2[64];
+    char *b = buf ? buf : buf2;
+    if (now.tv_sec<3600)
+        sprintf(b,"%ld.%.6ds (%dm %02ds)", (long)now.tv_sec, (int)(now.tv_usec), int(now.tv_sec/60L), int(now.tv_sec%60L));
+    else if (now.tv_sec<86400)
+        sprintf(b,"%ld.%.6ds (%dh %02dm)", (long)now.tv_sec, (int)(now.tv_usec), int(now.tv_sec/3600L), int((now.tv_sec%3600L)/60L));
+    else
+        sprintf(b,"%ld.%.6ds (%dd %02dh)", (long)now.tv_sec, (int)(now.tv_usec), int(now.tv_sec/86400L), int((now.tv_sec%86400L)/3600L));
+    out << "real time: " << b << " ";
+
     // options present?
     if (tcpseg->getHeaderLength() > 20)
     {

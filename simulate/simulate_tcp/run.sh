@@ -63,8 +63,8 @@ ROUTING="ecmp"
 QUEUE="DropTailQueue"
 TCPVAR="TCPNewReno"
 CLUSTERS=2
-SERVERS=4
-DEGREE=2
+SERVERS=16
+DEGREE=16
 LOAD=0.70
 MODE="release"
 LINK_SPEED=100e6
@@ -122,7 +122,9 @@ date +"%Y-%m-%d %T.%6N"
 
 echo -e "\e[34mConfiguration: ${VARIANT}\e[0m"
 
-UNIQUE_NAME="sw${DEGREE}_sv${SERVERS}_l${LOAD}_L${LINK_SPEED}_s${SEED}_q${QUEUE}_v${TCPVAR}_S${SIMU_LEN}"
+# UNIQUE_NAME="sw${DEGREE}_sv${SERVERS}_l${LOAD}_L${LINK_SPEED}_s${SEED}_q${QUEUE}_v${TCPVAR}_S${SIMU_LEN}"
+
+UNIQUE_NAME="sw${DEGREE}_cl${CLUSTERS}_sv${SERVERS}_l${LOAD}_L${LINK_SPEED}_s${SEED}_q${QUEUE}_v${TCPVAR}_S${SIMU_LEN}"
 
 mkdir -p out
 rm -rf out/${UNIQUE_NAME}*

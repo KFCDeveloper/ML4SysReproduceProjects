@@ -9,3 +9,6 @@ train/lstm/*.hdf5
 data/*
 *.ckpt
 *.hdf5
+third_party/*
+
+myfiles/mylogs/*.txt

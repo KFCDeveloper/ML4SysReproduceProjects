@@ -1,24 +1,27 @@
 #! /bin/bash
 set -e
 
-if [ "$#" -ne 3 ]; then
-	echo "Usage: run_prepare.sh [directory] [seed] [number of ToRs/Aggs per subtree]"
+# [number of ToRs/Aggs per subtree] is sw2_.., number of switches
+if [ "$#" -ne 4 ]; then
+	echo "Usage: run_prepare.sh [directory] [seed] [number of ToRs/Aggs per subtree] [number of cluster]"
 	exit 1
 fi
 
 dir=${1%/}
+echo ${dir}
 
 echo "Starting pdmp parsing..."
-prepare/parse_pdmps.sh $dir 2
+# prepare/parse_pdmps.sh $dir 2
+prepare/parse_pdmps.sh $dir $4
 find . -path ${1}\*.dump -delete
 
 echo "Starting feature extraction..."
 if [[ ${dir: -5} == "_homa" ]]; then    
-    python3 prepare/extract_features_homa.py $dir 1.1. $2 $3
+    python3 prepare/extract_features_homa.py $dir 1.1. $2 $3 --num_clusters $4
 elif [[ ${dir: -6} == "_dctcp" ]]; then
-    python3 prepare/extract_features_dctcp.py $dir 1.1. $2 $3
+    python3 prepare/extract_features_dctcp.py $dir 1.1. $2 $3 --num_clusters $4
 elif [[ ${dir: -4} == "_tcp" ]]; then
-    python3 prepare/extract_features_tcp.py $dir 1.1. $2 $3
+    python3 prepare/extract_features_tcp.py $dir 1.1. $2 $3 --num_clusters $4
 else
     echo "ERROR: Unable to infer variant from directory name: $dir"
     exit 1
