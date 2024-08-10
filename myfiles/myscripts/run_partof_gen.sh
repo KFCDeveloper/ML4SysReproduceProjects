@@ -1,8 +1,11 @@
 #!/bin/bash
 # cd /mydata/MimicNet
+cd /mydata/MimicNet
 BASE_DIR=`pwd`
-RESULTS_DIR=results/sw4_cl2_sv4_l0.70_L100e6_s0_qDropTailQueue_vTCPNewReno_S20_tcp
+cd simulate/simulate_tcp
+RESULTS_DIR=results/sw2_cl2_sv32_l0.70_L100e6_s0_qDropTailQueue_vTCPNewReno_S20_tcp
 RESULTS_FILE=${RESULTS_DIR##*/}
+echo "()()()()()()()"
 echo ${RESULTS_FILE}
 rsync -a ${RESULTS_DIR}/ ${BASE_DIR}/data/${RESULTS_FILE}
 rm -r ${RESULTS_DIR}

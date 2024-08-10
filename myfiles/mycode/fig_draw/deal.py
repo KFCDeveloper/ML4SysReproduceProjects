@@ -9,7 +9,7 @@ import glob
 
 
 
-config_path = "sw8_cl8_sv8_l0.70_L100e6_s0_qDropTailQueue_vTCPNewReno_S20_tcp"
+config_path = "sw2_cl4_sv4_l0.70_L100e6_s0_qDropTailQueue_vTCPNewReno_S20_tcp"
 
 def find_index(sorted_list, value):
     index = bisect.bisect_left(sorted_list, value)
@@ -128,4 +128,4 @@ plt.xlabel('Value')
 plt.ylabel('CDF')
 plt.title('CDF Plot')
 plt.grid(True)
-plt.savefig(os.path.join('/mydata/MimicNet/myfiles/myfigs', 'sw4_cl4_sv8cdf_plot.jpg'))
+plt.savefig(os.path.join('/mydata/MimicNet/myfiles/myfigs', 'sw2_cl4_sv4cdf_plot.jpg'))

@@ -2,7 +2,7 @@
 
 ./run_2_generate.sh "tcp" > /mydata/MimicNet/myfiles/mylogs/cl8_sv8_deg8.txt 2>&1
 
-./run_2_generate.sh "tcp" > /mydata/MimicNet/myfiles/mylogs/cl2_sv16_deg16.txt 2>&1
+./run_2_generate.sh "tcp" > /mydata/MimicNet/myfiles/mylogs/cl2_sv32_deg2.txt 2>&1
 
 ./run_2_generate.sh "tcp" > /mydata/MimicNet/myfiles/mylogs/cl2_sv4_deg4.txt 2>&1
 
