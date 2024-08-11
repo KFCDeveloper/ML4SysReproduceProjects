@@ -1,3 +1,5 @@
+KFCDeveloper copys MimicNet repository.
+
 MimicNet provides fast performance estimation for data center networks at scale, based on packet-level simulations and machine learning.
 [Our SIGCOMM 2021 paper](https://dl.acm.org/doi/10.1145/3452296.3472926) describes the details of the system.
 

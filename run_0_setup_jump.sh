@@ -67,20 +67,20 @@ echo "Installing prereqs..."
 #     GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone https://github.com/eniac/MimicNet.git
 # fi
 
-echo "Installing OMNET++..."
-cp -r ${MIMICNET_HOME}/third_party/parallel-inet-omnet .
-cd parallel-inet-omnet
-mkdir -p bin
-./configure
-make MODE=release -j
-cd ..
+# echo "Installing OMNET++..."
+# cp -r ${MIMICNET_HOME}/third_party/parallel-inet-omnet .
+# cd parallel-inet-omnet
+# mkdir -p bin
+# ./configure
+# make MODE=release -j
+# cd ..
 
 
-echo "Installing INET..."
-cp -r ${MIMICNET_HOME}/third_party/parallel-inet .
-cd parallel-inet
-./compile.sh
-cd ..
+# echo "Installing INET..."
+# cp -r ${MIMICNET_HOME}/third_party/parallel-inet .
+# cd parallel-inet
+# ./compile.sh
+# cd ..
 
 
 # mkdir -p src
@@ -106,7 +106,7 @@ cd ..
 # conda install -y -c pytorch magma-cuda92
 # conda install -y pyyaml==5.4.1 # switch yaml to 5.4.1
 
-
+# cd ${BASE_DIR}/src
 # git clone https://github.com/google/glog.git || true
 # cd glog
 # git checkout v0.4.0
@@ -128,18 +128,18 @@ cd ..
 # cp -r include ${BASE_DIR}/opt/
 # cd ../..
 
-# cd ${BASE_DIR}/pytorch
-# echo "Installing pytorch/ATEN..."
-# TMPDIR=${BASE_DIR}/tmp python setup.py install
-# cd aten/
-# mkdir -p build
-# cd build
-# if [ "$1" == "GPU" ]; then
-#     cmake .. -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/opt -DUSE_TENSORRT=OFF -DUSE_NVRTC=ON -DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}
-# else
-#     cmake .. -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/opt -DUSE_TENSORRT=OFF -DUSE_NVRTC=ON
-# fi
-# make -j
-# make install
+cd ${BASE_DIR}/src/pytorch
+echo "Installing pytorch/ATEN..."
+TMPDIR=${BASE_DIR}/tmp python setup.py install
+cd aten/
+mkdir -p build
+cd build
+if [ "$1" == "GPU" ]; then
+    cmake .. -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/opt -DUSE_TENSORRT=OFF -DUSE_NVRTC=ON -DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}
+else
+    cmake .. -DCMAKE_INSTALL_PREFIX=${BASE_DIR}/opt -DUSE_TENSORRT=OFF -DUSE_NVRTC=ON
+fi
+make -j
+make install
 
-# pip install msgpack hyperopt
+pip install msgpack hyperopt
