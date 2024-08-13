@@ -599,7 +599,7 @@ if props.so_mode == SOMode.TRAIN: #train
     #save the model
     # torch.save(model, 'model_dote.pkl')
     # torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
-    torch.save(model, 'model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl')
+    torch.save(model, 'model_tca_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl')
 
 elif props.so_mode == SOMode.TEST: #test
     # create the dataset

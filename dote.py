@@ -331,9 +331,10 @@ elif props.so_mode == SOMode.TEST: #test
     # model = torch.load('model_dote.pkl').to(device)
     # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
     # model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
-    portion=0.75
-    model = torch.load('model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl').to(device)
-    
+    portion=1.0
+    # model = torch.load('model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl').to(device)
+    # model = torch.load("model_dote_Abilene-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
+    model = torch.load("model_tca_Abilene-2-('0', '1')-('4', '6')_choose_0.0001.pkl").to(device)
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:
@@ -362,7 +363,8 @@ elif props.so_mode == SOMode.TEST: #test
             
             if concurrent_flow_cdf != None:
                 concurrent_flow_cdf.sort()
-                with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+                # with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+                with open('concurrent_flow_cdf.txt', 'w') as f:
                     for v in concurrent_flow_cdf:
                         f.write(str(v / len(dists)) + '\n')
 
@@ -373,7 +375,8 @@ elif props.so_mode == "train_diff_env": #test
     # create a data loader for the train set
     train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     #create the model
-    model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
+    # model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
+    model = torch.load("model_dote_Abilene-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
     model.to(device)
     # optimizer
     optimizer = torch.optim.Adam(model.parameters())
