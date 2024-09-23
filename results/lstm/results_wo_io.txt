@@ -1,0 +1,4 @@
+CASE: KMeans
+Train Score: -0.01 R2
+Test Score: -0.01 R2
+Validation Score: -0.01 R2
