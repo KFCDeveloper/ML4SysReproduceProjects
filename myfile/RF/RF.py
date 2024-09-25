@@ -91,18 +91,6 @@ def main(TEST_NAME, output_file, context, model_train=False):
     validationX = numpy.reshape(validationX, (validationX.shape[0], validation.shape[1], validationX.shape[1]))
     
     if model_train==True:
-        # model = Sequential()
-        # model.add(LSTM(64, input_shape=(train.shape[1], look_back)))
-        # model.add(Dense(1))
-        # model.compile(loss='mean_absolute_error', optimizer='adam')
-        # es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=10, restore_best_weights=True)
-        
-        # history = model.fit(trainX, trainY, 
-        #                     validation_data=(validationX, validationY), 
-        #                     epochs=20, batch_size=20, verbose=1, callbacks=[es])
-        # model.save(MODEL_SAVE_PATH)
-        # with open(LOG_FILE, 'wb') as f:
-        #     pickle.dump(model.history.history, f)
         trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  # 转换为 (63769, 75)
         # 初始化 QRF 模型
         qrf = RandomForestQuantileRegressor(n_estimators=100, random_state=42)
@@ -111,21 +99,26 @@ def main(TEST_NAME, output_file, context, model_train=False):
         print("*** Model fitted ***")
         print("Saved model to disk")
         # 保存训练好的模型
-        pickle.dump(qrf, MODEL_SAVE_PATH)
+        with open(MODEL_SAVE_PATH, 'wb') as file:
+            pickle.dump(qrf, file)
         print(f"Model saved to {MODEL_SAVE_PATH}")
-        
-        
         # # 在验证集上进行预测
         # y_pred = qrf.predict(validationX)
         # # 计算均绝对误差
         # mae = mean_absolute_error(validationY, y_pred)
         # print(f"Mean Absolute Error on validation set: {mae}")
     
-    model = load_model(MODEL_SAVE_PATH)
+    # 加载模型
+    with open(MODEL_SAVE_PATH, 'rb') as file:
+        model = pickle.load(file)
     # make predictions
-    trainPredict = model.predict(trainX)
-    testPredict = model.predict(testX)
-    validationPredict = model.predict(validationX)
+    # 转换为 (63769, 75)
+    trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  
+    testX_reshaped = testX.reshape(testX.shape[0], -1)
+    validationX_reshaped = validationX.reshape(validationX.shape[0], -1)
+    trainPredict = model.predict(trainX_reshaped)
+    testPredict = model.predict(testX_reshaped)
+    validationPredict = model.predict(validationX_reshaped)
     
     trainScore = r2_score(trainY.flatten(), trainPredict.flatten())
     print('Train Score: %.2f R2' % (trainScore))
