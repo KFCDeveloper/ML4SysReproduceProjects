@@ -1,30 +1,9 @@
 RUNNING MODELS WITH CONTEXT
 
-CASE: KMeans
-Train Score: 0.99 R2
-Test Score: 0.86 R2
-Validation Score: 0.91 R2
-CASE: PageRank
-Train Score: 0.96 R2
-Test Score: 0.79 R2
-Validation Score: 0.82 R2
-CASE: SGD
-Train Score: 0.93 R2
-Test Score: 0.39 R2
-Validation Score: -0.24 R2
 
 
 RUNNING MODELS WITHOUT CONTEXT
 
 CASE: KMeans
-Train Score: 0.98 R2
-Test Score: 0.82 R2
-Validation Score: 0.86 R2
 CASE: PageRank
-Train Score: 0.93 R2
-Test Score: 0.45 R2
-Validation Score: 0.37 R2
 CASE: SGD
-Train Score: 0.92 R2
-Test Score: 0.37 R2
-Validation Score: -0.24 R2

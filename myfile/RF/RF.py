@@ -12,11 +12,17 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
-from skgarden import RandomForestQuantileRegressor
+# from skgarden import RandomForestQuantileRegressor
+from sklearn.ensemble import RandomForestRegressor
 import os
 import pickle
 import argparse
+import numpy as np
 import joblib
+
+rf_quantiles = [0.0, 1.0]
+n_tree = 100
+tree_max_depth = 10
 
 def create_dataset(dataset, look_back=1):
     dataX, dataY = [], []
@@ -42,6 +48,15 @@ def load_dataset(path, cut = -1):
         dataset = dataset[:cut,:]
 
     return dataset
+
+# 预测并计算分位数
+def predict_quantiles(model, X, quantiles, Y):
+    preds = np.array([tree.predict(X) for tree in model.estimators_])
+    predict_bound = np.percentile(preds, [q * 100 for q in quantiles], axis=0)
+    # 检查真实值是否在边界之间
+    is_within_bounds = (Y >= predict_bound[0, :]) & (Y <= predict_bound[1, :])
+     # 计算 True 的百分比
+    return np.mean(is_within_bounds) * 100
 
 def main(TEST_NAME, output_file, context, model_train=False):
     
@@ -92,15 +107,18 @@ def main(TEST_NAME, output_file, context, model_train=False):
     
     if model_train==True:
         trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  # 转换为 (63769, 75)
-        # 初始化 QRF 模型
-        qrf = RandomForestQuantileRegressor(n_estimators=100, random_state=42)
-        # 训练模型
-        qrf.fit(trainX_reshaped, trainY)
+        # # 初始化 QRF 模型
+        # qrf = RandomForestQuantileRegressor(n_estimators=100, random_state=42)
+        # # 训练模型
+        # qrf.fit(trainX_reshaped, trainY)
+        # 训练 Random Forest
+        model = RandomForestRegressor(n_estimators=n_tree, max_depth=tree_max_depth, random_state=42)
+        model.fit(trainX_reshaped, trainY)
         print("*** Model fitted ***")
         print("Saved model to disk")
         # 保存训练好的模型
         with open(MODEL_SAVE_PATH, 'wb') as file:
-            pickle.dump(qrf, file)
+            pickle.dump(model, file)
         print(f"Model saved to {MODEL_SAVE_PATH}")
         # # 在验证集上进行预测
         # y_pred = qrf.predict(validationX)
@@ -116,19 +134,27 @@ def main(TEST_NAME, output_file, context, model_train=False):
     trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  
     testX_reshaped = testX.reshape(testX.shape[0], -1)
     validationX_reshaped = validationX.reshape(validationX.shape[0], -1)
-    trainPredict = model.predict(trainX_reshaped)
-    testPredict = model.predict(testX_reshaped)
-    validationPredict = model.predict(validationX_reshaped)
+
+    train_percentage_true = predict_quantiles(model, trainX_reshaped, rf_quantiles, trainY)
+    test_percentage_true = predict_quantiles(model, testX_reshaped, rf_quantiles, testY)
+    validation_percentage_true = predict_quantiles(model, validationX_reshaped, rf_quantiles, validationY)
+    # trainPredict = model.predict(trainX_reshaped)
+    # testPredict = model.predict(testX_reshaped)
+    # validationPredict = model.predict(validationX_reshaped)
     
-    trainScore = r2_score(trainY.flatten(), trainPredict.flatten())
-    print('Train Score: %.2f R2' % (trainScore))
-    output_file.write('Train Score: %.2f R2\n' % (trainScore))
-    testScore = r2_score(testY.flatten(), testPredict.flatten())
-    print('Test Score: %.2f R2' % (testScore))
-    output_file.write('Test Score: %.2f R2\n' % (testScore))
-    validationScore = r2_score(validationY.flatten(), validationPredict.flatten())
-    print('Validation Score: %.2f R2' % (validationScore))
-    output_file.write('Validation Score: %.2f R2\n' % (validationScore))
+    
+    print('Trainning Data Bounded: ' + str(train_percentage_true) + ' %')
+    print('Testing Data Bounded: ' + str(test_percentage_true) + ' %')
+    print('Vali Data Bounded: ' + str(validation_percentage_true) + ' %')
+    # trainScore = r2_score(trainY.flatten(), trainPredict.flatten())
+    # print('Train Score: %.2f R2' % (trainScore))
+    # output_file.write('Train Score: %.2f R2\n' % (trainScore))
+    # testScore = r2_score(testY.flatten(), testPredict.flatten())
+    # print('Test Score: %.2f R2' % (testScore))
+    # output_file.write('Test Score: %.2f R2\n' % (testScore))
+    # validationScore = r2_score(validationY.flatten(), validationPredict.flatten())
+    # print('Validation Score: %.2f R2' % (validationScore))
+    # output_file.write('Validation Score: %.2f R2\n' % (validationScore))
 
     # show_plots.ml_plots(LOG_FILE, TEST_NAME)
 
@@ -146,10 +172,10 @@ if __name__ == "__main__":
     #### tensorflow requires too much time
     print("***********Running models with context***********")
     output_file.write('RUNNING MODELS WITH CONTEXT\n\n')
-    for test_name in test_names:
-        print("Dataset used: %s" %(test_name))
-        output_file.write('CASE: '+ test_name + '\n')
-        main(test_name, output_file, context=True, model_train = args.train)
+    # for test_name in test_names:
+    #     print("Dataset used: %s" %(test_name))
+    #     output_file.write('CASE: '+ test_name + '\n')
+    #     main(test_name, output_file, context=True, model_train = args.train)
     
     print("***********Running models without context***********")
     output_file.write('\n\nRUNNING MODELS WITHOUT CONTEXT\n\n')
