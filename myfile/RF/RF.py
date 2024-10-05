@@ -121,7 +121,7 @@ def main(TEST_NAME, output_file, context, model_train=False):
     
     if model_train==True:
         trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  # 转换为 (63769, 75)
-        model = RandomForestQuantileRegressor(n_estimators=n_tree, max_depth=tree_max_depth, random_state=10, n_jobs=30)
+        model = RandomForestQuantileRegressor(n_estimators=n_tree, max_depth=tree_max_depth, random_state=10, n_jobs=30, warm_start=True)
         model.fit(trainX_reshaped, trainY)
         print("*** Model fitted ***")
         print("Saved model to disk")

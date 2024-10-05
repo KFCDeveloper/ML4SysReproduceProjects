@@ -56,25 +56,6 @@ def predict_quantiles(model, X, quantiles, Y):
      # 计算 True 的百分比
     return np.mean(is_within_bounds) * 100
 
-# def predict_quantiles(model, X, quantiles, Y):
-#     num_samples = X.shape[0]  # 样本数量（6000）
-#     num_trees = len(model.estimators_)  # 树的数量
-#     # 创建一个二维数组存储每个样本对于每棵树的预测
-#     preds = np.zeros((num_samples, num_trees))
-#     for i, tree in enumerate(model.estimators_):
-#         # 获取每个样本在该树中落入的叶节点
-#         leaf_indices = tree.apply(X)
-#         # 获取每个叶节点存储的值
-#         leaf_values = np.array([tree.tree_.value[leaf_index][0][0] for leaf_index in leaf_indices])
-#         # 将该树的预测值存入 preds
-#         preds[:, i] = leaf_values
-#     # 计算分位数
-#     predict_bound = np.percentile(preds, [q * 100 for q in quantiles], axis=1)  # 对每个样本计算分位数
-#     # 检查真实值是否在边界之间
-#     is_within_bounds = (Y >= predict_bound[0, :]) & (Y <= predict_bound[1, :])
-#     # 计算 True 的百分比
-#     return np.mean(is_within_bounds) * 100
-
 def main(TEST_NAME, output_file, context, model_train=False):
     
     numpy.random.seed(7)
@@ -140,7 +121,11 @@ def main(TEST_NAME, output_file, context, model_train=False):
     
     if model_train==True:
         trainX_reshaped = trainX.reshape(trainX.shape[0], -1)  # 转换为 (63769, 75)
-        model = RandomForestQuantileRegressor(n_estimators=n_tree, max_depth=tree_max_depth, random_state=10, n_jobs=30)
+        # --
+        trainX_reshaped = trainX_reshaped[:1000,:]
+        trainY = trainY[:1000]
+        # --
+        model = RandomForestQuantileRegressor(n_estimators=n_tree, max_depth=tree_max_depth, random_state=10, n_jobs=30, warm_start=True)
         model.fit(trainX_reshaped, trainY)
         print("*** Model fitted ***")
         print("Saved model to disk")
@@ -200,10 +185,10 @@ if __name__ == "__main__":
     #### tensorflow requires too much time
     print("***********Running models with context***********")
     output_file.write('RUNNING MODELS WITH CONTEXT\n\n')
-    # for test_name in test_names:
-    #     print("Dataset used: %s" %(test_name))
-    #     output_file.write('CASE: '+ test_name + '\n')
-    #     main(test_name, output_file, context=True, model_train = args.train)
+    for test_name in test_names:
+        print("Dataset used: %s" %(test_name))
+        output_file.write('CASE: '+ test_name + '\n')
+        main(test_name, output_file, context=True, model_train = args.train)
     
     print("***********Running models without context***********")
     output_file.write('\n\nRUNNING MODELS WITHOUT CONTEXT\n\n')
