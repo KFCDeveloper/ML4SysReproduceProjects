@@ -4,7 +4,6 @@ import math
 import urllib.request
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import stats
 
 
 # topology_file = "http://informatique.umons.ac.be/networks/igen/downloads/geant-20041125.gml"
@@ -93,25 +92,25 @@ while i < len(lines):
 edges_list = [(int(e[0]), int(e[1]), edges[e]) for e in edges]
 edges_list.sort()
     
-# assert not os.path.exists(output_dir)
-# os.mkdir(output_dir)
-# os.mkdir(output_dir + "/opts")
-# os.mkdir(output_dir + "/test")
-# os.mkdir(output_dir + "/train")
+assert not os.path.exists(output_dir)
+os.mkdir(output_dir)
+os.mkdir(output_dir + "/opts")
+os.mkdir(output_dir + "/test")
+os.mkdir(output_dir + "/train")
 
-# with open(output_dir + '/' + pathlib.PurePath(output_dir).name + "_int.pickle.nnet", "w", newline='\n') as f:
-#     for e in edges_list:
-#         f.write(str(e[0]) + ',' + str(e[1]) + ',' + e[2] + '\n')
+with open(output_dir + '/' + pathlib.PurePath(output_dir).name + "_int.pickle.nnet", "w", newline='\n') as f:
+    for e in edges_list:
+        f.write(str(e[0]) + ',' + str(e[1]) + ',' + e[2] + '\n')
 
-# with open(output_dir + '/' + pathlib.PurePath(output_dir).name + "_int.txt", "w", newline='\n') as f:
-#     capacities = [["0.0"]*len(nodes) for _ in range(len(nodes))]
-#     for e in edges_list:
-#         capacities[e[0]][e[1]] = e[2]
-#         if (str(e[1]), str(e[0])) not in edges:
-#             capacities[e[1]][e[0]] = e[2]
+with open(output_dir + '/' + pathlib.PurePath(output_dir).name + "_int.txt", "w", newline='\n') as f:
+    capacities = [["0.0"]*len(nodes) for _ in range(len(nodes))]
+    for e in edges_list:
+        capacities[e[0]][e[1]] = e[2]
+        if (str(e[1]), str(e[0])) not in edges:
+            capacities[e[1]][e[0]] = e[2]
     
-#     for i in range(len(nodes)):
-#         f.write(','.join(capacities[i]) + '\n')
+    for i in range(len(nodes)):
+        f.write(','.join(capacities[i]) + '\n')
 
 #demand matrices
 demands = [["0.0"]*(len(nodes)*len(nodes)) for _ in range(len(dms_input_files))]
@@ -136,36 +135,35 @@ for i in range(len(dms_input_files)):
     if is_empty:
         continue
     count += 1
+# have a look at demands
+topn = 1
+demands = np.array(demands).astype(np.float64)
+top5_indices = np.argsort(-demands, axis=1)[:, :topn]  # 使用负号将排序顺序改为从大到小
+top5_indices_matrix = np.zeros((11460, topn), dtype=int)
+for i in range(11460):
+    top5_indices_matrix[i] = top5_indices[i]
 
-# # have a look at demands
-# topn = 1
-# demands = np.array(demands).astype(np.float64)
-# top5_indices = np.argsort(-demands, axis=1)[:, :topn]  # 使用负号将排序顺序改为从大到小
-# top5_indices_matrix = np.zeros((11460, topn), dtype=int)
-# for i in range(11460):
-#     top5_indices_matrix[i] = top5_indices[i]
+# 统计那个link的带宽基本是最大的，发现是index=158
+grouped_indices = {}
+for i, row in enumerate(top5_indices_matrix):
+    row_tuple = tuple(row)
+    if row_tuple not in grouped_indices:
+        grouped_indices[row_tuple] = []
+    grouped_indices[row_tuple].append(i)
 
-# # 统计那个link的带宽基本是最大的，发现是index=158
-# grouped_indices = {}
-# for i, row in enumerate(top5_indices_matrix):
-#     row_tuple = tuple(row)
-#     if row_tuple not in grouped_indices:
-#         grouped_indices[row_tuple] = []
-#     grouped_indices[row_tuple].append(i)
+group_sizes = {}
+for group, indices in grouped_indices.items():
+    group_sizes[group] = len(indices)
 
-# group_sizes = {}
-# for group, indices in grouped_indices.items():
-#     group_sizes[group] = len(indices)
-
-mode = "all_points"
-if mode=="std/avg": # 这个的主体就是看标准差，就是为了看标准差大还是小，以此来判断波动是否大
+mode = "sumbyweek"
+if mode=="std/avg":
     # 4 months https://sndlib.put.poznan.pl/home.action
     window_size = 7*24*4
     demands_week = []
     for j in range(window_size):    # 15 min 一个点，一周所有的点
         element_in_win = []
         for i in range(len(demands) // window_size):
-            element_in_win.append(demands[i * window_size + j][158])#  因为 index 158 的link bw最大
+            element_in_win.append(demands[i * window_size + j][158])
         demands_week.append(element_in_win)
     demands_week_array = np.array(demands_week)
     std_dev_array = np.std(demands_week_array, axis=1)
@@ -248,48 +246,7 @@ elif mode=="sum":   # 整个时间看
 
     plt.savefig('/mydata/DOTE/real_traffic/GEANT/sumbyweek.png')
 
-if mode=="all_points": # 不要只画出一周的图，要画所有的图
-    
-    demands = np.array(demands).astype(np.float64)
-    demands_sum = np.sum(demands,axis=1)
 
-
-    # 将值为0的点替换为 NaN
-    demands_sum[demands_sum == 0] = np.nan
-
-    
-    
-    # 计算均值
-    mean = np.nanmean(demands_sum)
-
-    # 找到大于均值10倍的数
-    outliers = demands_sum > 6 * mean
-
-    # 打印离群值
-    print("Outliers:", demands_sum[outliers])
-    print("normal:", demands_sum[10])
-
-    # 剔除离群值
-    data_cleaned = demands_sum[~outliers]
-    plt.figure(figsize=(10, 6))
-    # 创建一个索引数组
-    indices = np.arange(len(data_cleaned))
-    x_ticks = np.arange(0, len(data_cleaned), 7 * 24 * 4)
-    plt.xticks(ticks=x_ticks)
-    plt.grid(axis='x')
-    # 创建折线图
-    # plt.plot(data_cleaned)
-    # 绘制折线图
-    plt.plot(indices, data_cleaned)
-    
-    # 添加标题和标签
-    plt.title('Trend of Bandwidth')
-    plt.xlabel('Data Points')
-    plt.ylabel('BandWidth')
-
-
-
-    plt.savefig('/mydata/DOTE/real_traffic/GEANT/all_points.jpg')
 
 print("Number of demand matrices: " + str(count))
 
