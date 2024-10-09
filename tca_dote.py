@@ -1,5 +1,14 @@
 import sys
 import os
+import cupy as cp
+print("Script started")
+
+# import debugpy
+# print("Debugpy imported")
+# debugpy.listen(("0.0.0.0", 6969))
+# print("Waiting for debugger attach...")
+# debugpy.wait_for_client()
+# print("Debugger attached")
 
 cwd = os.getcwd()
 assert "networking_envs" in cwd
@@ -7,6 +16,10 @@ sys.path.append(cwd[:cwd.find("networking_envs")] + "networking_envs")
 sys.path.append(cwd[:cwd.find("networking_envs")] + "openai_baselines")
 
 import torch
+from scipy.linalg import eigh
+print(torch.cuda.is_available())
+print(torch.cuda.current_device())
+print(torch.cuda.get_device_name(0))
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
@@ -18,6 +31,196 @@ from tqdm import tqdm
 from networking_envs.meta_learning.meta_const import RNN_Cons, DOTE_Cons
 from torch.utils.data import Subset
 from const_dote import *
+import scipy.io
+import scipy.linalg
+import sklearn.metrics
+from sklearn.neighbors import KNeighborsClassifier
+
+
+import cupy as cp
+import numpy as np
+import sklearn.metrics
+from cupy.linalg import inv
+from scipy.sparse.linalg import eigs
+
+# class TCA:
+#     def __init__(self, kernel_type='primal', dim=30, lamb=1, gamma=1):
+#         self.kernel_type = kernel_type
+#         self.dim = dim
+#         self.lamb = lamb
+#         self.gamma = gamma
+
+#     def kernel(self, X1, X2, gamma):
+#         K = None
+#         ker = self.kernel_type
+#         if not ker or ker == 'primal':
+#             K = X1
+#         elif ker == 'linear':
+#             if X2 is not None:
+#                 K = sklearn.metrics.pairwise.linear_kernel(
+#                     np.asarray(X1).T, np.asarray(X2).T)
+#             else:
+#                 K = sklearn.metrics.pairwise.linear_kernel(np.asarray(X1).T)
+#         elif ker == 'rbf':
+#             if X2 is not None:
+#                 K = sklearn.metrics.pairwise.rbf_kernel(
+#                     np.asarray(X1).T, np.asarray(X2).T, gamma)
+#             else:
+#                 K = sklearn.metrics.pairwise.rbf_kernel(
+#                     np.asarray(X1).T, None, gamma)
+#         return K
+
+    # def fit(self, Xs, Xt):
+    #     cp.get_default_memory_pool().free_all_blocks()
+    #     Xs = cp.asarray(Xs)
+    #     Xt = cp.asarray(Xt)
+    #     X = cp.hstack((Xs.T, Xt.T))
+    #     X /= cp.linalg.norm(X, axis=0)
+    #     m, n = X.shape
+    #     ns, nt = len(Xs), len(Xt)
+    #     e = cp.vstack((1 / ns * cp.ones((ns, 1)), -1 / nt * cp.ones((nt, 1))))
+    #     M = e @ e.T
+    #     M = M / cp.linalg.norm(M, 'fro')
+    #     H = cp.eye(n) - 1 / n * cp.ones((n, n))
+    #     print("reach here")
+        
+    #     K = self.kernel(cp.asnumpy(X), None, 1)  # Convert CuPy array to NumPy array
+    #     K = cp.asarray(K)  # Convert back to CuPy array
+    #     print("finish kernel")
+        
+    #     # Release unused memory
+    #     cp.get_default_memory_pool().free_all_blocks()
+    #     n_eye = m if self.kernel_type == 'primal' else n
+    #     a, b = K @ M @ K.T + self.lamb * cp.eye(n_eye), K @ H @ K.T
+    #     print("ready eigen value")
+        
+    #     A_inv_B = cp.linalg.solve(a, b)
+        
+    #     # Release unused memory
+    #     cp.get_default_memory_pool().free_all_blocks()
+        
+    #     # Convert A_inv_B to NumPy array and perform SVD on CPU
+    #     A_inv_B_cpu = cp.asnumpy(A_inv_B)
+    #     U, S, Vt = np.linalg.svd(A_inv_B_cpu)
+    #     print("solve eigen value")
+        
+    #     # Convert the results back to CuPy arrays
+    #     U = cp.asarray(U)
+        
+    #     A = U[:, :self.dim]
+    #     Z = A.T @ K
+    #     Z /= cp.linalg.norm(Z, axis=0)
+
+    #     # Release unused memory
+    #     cp.get_default_memory_pool().free_all_blocks()
+
+    #     Xs_new, Xt_new = Z[:, :ns].T, Z[:, ns:].T
+    #     print("done")
+    #     return cp.asnumpy(Xs_new), cp.asnumpy(Xt_new)
+
+class TCA:
+    def __init__(self, kernel_type='primal', dim=30, lamb=1, gamma=1):
+        self.kernel_type = kernel_type
+        self.dim = dim
+        self.lamb = lamb
+        self.gamma = gamma
+
+    # def kernel(self, X1, X2, gamma):
+    #     K = None
+    #     ker = self.kernel_type
+    #     if not ker or ker == 'primal':
+    #         K = X1
+    #     elif ker == 'linear':
+    #         if X2 is not None:
+    #             K = np.dot(X1.T, X2.T)
+    #         else:
+    #             K = np.dot(X1.T, X1.T)
+    #     elif ker == 'rbf':
+    #         if X2 is not None:
+    #             sq_dists = -2 * np.dot(X1.T, X2.T) + np.sum(X1 ** 2, axis=0).reshape(-1, 1) + np.sum(X2 ** 2, axis=0)
+    #         else:
+    #             sq_dists = -2 * np.dot(X1.T, X1.T) + np.sum(X1 ** 2, axis=0).reshape(-1, 1) + np.sum(X1 ** 2, axis=0)
+    #         K = np.exp(-gamma * sq_dists)
+    #     return K
+    
+    def kernel(self, X1, X2, gamma):
+        K = None
+        ker = self.kernel_type
+        if not ker or ker == 'primal':
+            K = X1
+        elif ker == 'linear':
+            if X2 is not None:
+                K = sklearn.metrics.pairwise.linear_kernel(
+                    np.asarray(X1).T, np.asarray(X2).T)
+            else:
+                K = sklearn.metrics.pairwise.linear_kernel(np.asarray(X1).T)
+        elif ker == 'rbf':
+            if X2 is not None:
+                K = sklearn.metrics.pairwise.rbf_kernel(
+                    np.asarray(X1).T, np.asarray(X2).T, gamma)
+            else:
+                K = sklearn.metrics.pairwise.rbf_kernel(
+                    np.asarray(X1).T, None, gamma)
+        return K
+
+    def fit(self, Xs, Xt):
+        Xs = cp.asarray(Xs)
+        Xt = cp.asarray(Xt)
+        X = cp.hstack((Xs.T, Xt.T))
+        X /= cp.linalg.norm(X, axis=0)
+        ns, nt = len(Xs), len(Xt)
+
+        # Create the centering matrix H
+        H = cp.eye(ns + nt) - cp.ones((ns + nt, ns + nt)) / float(ns + nt)
+
+        # Compute the kernel matrix
+        K = self.kernel(cp.asnumpy(X), None, self.gamma)  # Convert CuPy array to NumPy array
+        K = cp.asarray(K)
+        # Create the coefficient matrix L using CuPy
+        L = cp.vstack((
+            cp.hstack((
+                cp.ones((ns, ns)) / ns ** 2,
+                -1.0 * cp.ones((ns, nt)) / (ns * nt))),
+            cp.hstack((
+                -1.0 * cp.ones((nt, ns)) / (ns * nt),
+                cp.ones((nt, nt)) / (nt ** 2)))
+        ))
+        print("finish L")
+        mu = self.lamb
+        I = cp.eye(ns + nt)
+        KLK = cp.dot(K, cp.dot(L, K))
+        KHK = cp.dot(K, cp.dot(H, K))
+
+        cp.get_default_memory_pool().free_all_blocks()
+        # J = cp.dot(cp.linalg.inv(I + mu * KLK), KHK)
+        # print("ready for eig solve")
+        # # Eigenvector decomposition as solution to trace minimization
+        # _, C = eigh(cp.asnumpy(J), eigvals=(0, self.dim - 1))  # Convert to NumPy array for eigh
+        # print("finish solving")
+        # # Transformation/embedding matrix
+        # C_ = cp.real(cp.asarray(C))  # Convert back to CuPy array and take the real part
+
+        # # Transform the source data
+        # Xs_new = cp.dot(K[:ns, :], C_)
+        # Xt_new = cp.dot(K[ns:, :], C_)
+        # self.Ixs_trans_ = cp.arange(0, ns, 1)
+        # print("done")
+        J_cpu = np.dot(np.linalg.inv(cp.asnumpy(I + mu * KLK)), cp.asnumpy(KHK))
+
+        # Eigenvector decomposition as solution to trace minimization
+        _, C = eigh(J_cpu, eigvals=(0, self.dim - 1))  # Eigen decomposition on CPU
+        print("finish solving")
+        # Transformation/embedding matrix
+        C_ = cp.real(cp.asarray(C))  # Convert back to CuPy array and take the real part
+
+        # Transform the source data
+        Xs_new = cp.dot(K[:ns, :], C_)
+        Xt_new = cp.dot(K[ns:, :], C_)
+        self.Ixs_trans_ = cp.arange(0, ns, 1)
+        return Xs_new, Xt_new
+
+
+# Other parts of the code remain unchanged
 
 # dataset definition
 class DmDataset(Dataset):
@@ -29,7 +232,7 @@ class DmDataset(Dataset):
         env.test(is_test)
         tms = env._simulator._cur_hist._tms
         if props.ecmp_topo in FACTOR_MAP:
-            tms = [x * FACTOR_MAP[props.ecmp_topo] for x in tms]
+            tms = [x * FACTOR_MAP[props.ecmp_topo] for x in tms] 
         opts = env._simulator._cur_hist._opts
         tms = [np.asarray([tms[i]]) for i in range(len(tms))]
         np_tms = np.vstack(tms)
@@ -209,7 +412,7 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
             
             loss = -max_concurrent if max_concurrent.item() == 0.0 else -max_concurrent/max_concurrent.item()
             loss_val = 1.0 if opt == 0.0 else max_concurrent.item()/opt
-                
+            
             #update concurrent flow statistics
             if concurrent_flow_cdf != None:
                 curr_dm_conc_flow_cdf = [0]*len(concurrent_flow_cdf)
@@ -243,14 +446,34 @@ def choose_part_dataset(portion,input_dataset):
     # 创建子集
     return Subset(input_dataset, subset_indices)
     
+# props_firdomain = parse_args(sys.argv[1:])
+
+
+# # Process the TCA
+# tca = TCA(kernel_type='linear', dim=5, lamb=1, gamma=1)
+# env_firdomain = history_env.ECMPHistoryEnv(props_firdomain)
+# env_secdomain = history_env.ECMPHistoryEnv(parse_args(['--ecmp_topo', 'Abilene-0.75', '--paths_from', 'sp', '--so_mode', 'train', '--so_epochs', '20', '--so_batch_size', '32', '--opt_function', 'MAXUTIL']))
+
 props = parse_args(sys.argv[1:])
 env = history_env.ECMPHistoryEnv(props)
+
+# Train the model
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 ctp_coo = env._optimizer._commodities_to_paths.tocoo()
 commodities_to_paths = torch.sparse_coo_tensor(np.vstack((ctp_coo.row, ctp_coo.col)), torch.DoubleTensor(ctp_coo.data), torch.Size(ctp_coo.shape)).to(device)
 pte_coo = env._optimizer._paths_to_edges.tocoo()
 paths_to_edges = torch.sparse_coo_tensor(np.vstack((pte_coo.row, pte_coo.col)), torch.DoubleTensor(pte_coo.data), torch.Size(pte_coo.shape)).to(device)
+
+# set the base domain
+props_base = parse_args(['--ecmp_topo', "Abilene-2-('5', '8')-('6', '7')", '--paths_from', 'sp', '--so_mode', 'train', '--so_epochs', '20', '--so_batch_size', '32', '--opt_function', 'MAXUTIL'])
+env_base = history_env.ECMPHistoryEnv(props_base)
+ctp_coo_base = env_base._optimizer._commodities_to_paths.tocoo()
+commodities_to_paths_base = torch.sparse_coo_tensor(np.vstack((ctp_coo_base.row, ctp_coo_base.col)), torch.DoubleTensor(ctp_coo_base.data), torch.Size(ctp_coo_base.shape)).to(device)
+pte_coo_base = env_base._optimizer._paths_to_edges.tocoo()
+paths_to_edges_base = torch.sparse_coo_tensor(np.vstack((pte_coo_base.row, pte_coo_base.col)), torch.DoubleTensor(pte_coo_base.data), torch.Size(pte_coo_base.shape)).to(device)
+
 
 batch_size = props.so_batch_size
 n_epochs = props.so_epochs
@@ -273,22 +496,76 @@ else:
     print("Unsupported optimization function. Supported functions: MAXUTIL, MAXFLOW, MAXCOLC")
     assert False
 
+# def choose_part_dataset(portion, dataset):
+#     total_size = dataset.X.shape[0]
+#     selected_size = int(total_size * portion)
+#     indices = np.random.choice(total_size, selected_size, replace=False)
+#     return dataset.X[indices], indices
+
+def choose_part_dataset(portion,input_dataset):
+    # 假设你的 input_dataset 已经定义
+    dataset_size = len(input_dataset)
+    indices = list(range(dataset_size))
+    split = int(np.floor(dataset_size * portion))  # 一部分的数据
+    np.random.shuffle(indices)
+    subset_indices = indices[:split]
+
+    # 创建子集
+    return Subset(input_dataset, subset_indices)
+
+def expand_input(inputs, target_dim):
+    batch_size, original_dim = inputs.shape
+    if original_dim >= target_dim:
+        raise ValueError("Target dimension must be greater than the original dimension.")
+    
+    # Create a tensor of zeros with the desired expanded shape
+    expanded_inputs = torch.zeros(batch_size, target_dim, device=inputs.device, dtype=inputs.dtype)
+    
+    # Copy the original data into the expanded tensor
+    expanded_inputs[:, :original_dim] = inputs
+    
+    return expanded_inputs
+
+
+class CombinedDataset(Dataset):
+    def __init__(self, dataset_one, dataset_two):
+        self.X = np.concatenate((dataset_one.dataset.X, dataset_two.dataset.X), axis=0)
+        self.y = np.concatenate((dataset_one.dataset.y, dataset_two.dataset.y), axis=0)
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, idx):
+        # return self.X[idx], self.y[idx]
+        return cp.asnumpy(self.X[idx]), cp.asnumpy(self.y[idx])
+
+
 if props.so_mode == SOMode.TRAIN: #train
-    # create the dataset
-    train_dataset = DmDataset(props, env, False)
-    # —————— ydy: use part of data ——————
-    portion=1.0
-    train_dataset = choose_part_dataset(portion,train_dataset)
-    # ———————————————————————————————————
-    # create a data loader for the train set
-    train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    #create the model
-    model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
+
+    train_dataset_one = DmDataset(props, env, False)
+    train_dataset_two = DmDataset(props_base, env_base, False)
+    portion = 0.0001
+    subset_train_one_X = choose_part_dataset(portion, train_dataset_one)
+    subset_train_two_X = choose_part_dataset(portion, train_dataset_two)
+
+    tca = TCA(kernel_type='linear', dim=5, lamb=1, gamma=1)
+    new_train_one, new_train_two = tca.fit(subset_train_one_X.dataset.X, subset_train_two_X.dataset.X)
+    subset_train_one_X.dataset.X, subset_train_two_X.dataset.X = new_train_one, new_train_two
+    
+    
+    combined_dataset = CombinedDataset(subset_train_one_X, subset_train_two_X)
+
+    # Create a data loader for the train set
+    train_dl = DataLoader(combined_dataset, batch_size=batch_size, shuffle=True)
+
+    # Create the model
+    model = NeuralNetwork(props.hist_len * env.get_num_nodes() * (env.get_num_nodes() - 1), env._optimizer._num_paths)  # Output is the bandwidth allocation for each <nodei, nodej> path
     model.double()
     model.to(device)
-    # optimizer
-    optimizer = torch.optim.Adam(model.parameters())
 
+    # Optimizer
+    optimizer = torch.optim.Adam(model.parameters())
+    
     for epoch in range(n_epochs):
         with tqdm(train_dl) as tepoch:
             epoch_train_loss = []
@@ -301,12 +578,14 @@ if props.so_mode == SOMode.TRAIN: #train
                 # put data on the graphics memory   
                 inputs = inputs.to(device)
                 targets = targets.to(device)
+                inputs = expand_input(inputs, props.hist_len * env.get_num_nodes() * (env.get_num_nodes() - 1))
+         
                 tepoch.set_description(f"Epoch {epoch}")
                 optimizer.zero_grad()
                 yhat = model(inputs)
                 loss, loss_val = loss_fn(yhat, targets, env)
                 loss.backward()
-                optimizer.step()
+                optimizer.step()  
                 epoch_train_loss.append(loss_val)
                 loss_sum += loss_val # ydy: original is `loss_val`  loss
                 real_loss_sum += loss
@@ -320,7 +599,7 @@ if props.so_mode == SOMode.TRAIN: #train
     #save the model
     # torch.save(model, 'model_dote.pkl')
     # torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
-    torch.save(model, 'model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl')
+    torch.save(model, 'model_tca_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl')
 
 elif props.so_mode == SOMode.TEST: #test
     # create the dataset
@@ -331,10 +610,11 @@ elif props.so_mode == SOMode.TEST: #test
     # model = torch.load('model_dote.pkl').to(device)
     # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
     # model = torch.load('model_dote_' + props.ecmp_topo + '.pkl').to(device)
-    portion=1.0
-    # model = torch.load('model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl').to(device)
-    # model = torch.load("model_dote_Abilene-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
-    model = torch.load("model_tca_Abilene-2-('0', '1')-('4', '6')_choose_0.0001.pkl").to(device)
+    
+    
+    portion=0.75
+    model = torch.load('model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl').to(device)
+    
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:
@@ -363,20 +643,21 @@ elif props.so_mode == SOMode.TEST: #test
             
             if concurrent_flow_cdf != None:
                 concurrent_flow_cdf.sort()
-                # with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
-                with open('concurrent_flow_cdf.txt', 'w') as f:
+                with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
                     for v in concurrent_flow_cdf:
                         f.write(str(v / len(dists)) + '\n')
 
 # ydy: not original code
 elif props.so_mode == "train_diff_env": #test
     # create the dataset
-    train_dataset = DmDataset(props, env, False)
+    train_dataset_one = DmDataset(props, env, False)
+    
+    
+    
     # create a data loader for the train set
     train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     #create the model
-    # model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
-    model = torch.load("model_dote_Abilene-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
+    model = torch.load('model_dote_Abilene-squeeze-links-more1.pkl').to(device)
     model.to(device)
     # optimizer
     optimizer = torch.optim.Adam(model.parameters())
