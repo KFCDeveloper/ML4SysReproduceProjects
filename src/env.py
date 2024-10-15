@@ -5,7 +5,7 @@ import core as abrenv
 import load_trace
 
 # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
-S_INFO = 4 # TODO: change fea ydy: original is 6
+S_INFO = 6 # TODO: change fea ydy: original is 6; less fea is 4
 S_LEN = 8  # take how many frames in the past
 A_DIM = 6
 TRAIN_SEQ_LEN = 100  # take as a train batch

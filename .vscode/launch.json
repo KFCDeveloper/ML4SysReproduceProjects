@@ -16,6 +16,15 @@
             "args": [
                 
             ]
+
+            // "cwd": "/mydata/Pensieve-PPO/src", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--src","/mydata/Pensieve-PPO/src/tca/train/distri_0/",
+            //     "--trg_train","/mydata/Pensieve-PPO/src/tca/train/distri_1/",
+            //     "--trg_test","/mydata/Pensieve-PPO/src/tca/test/distri_1",
+            //     "--test_log_file","/mydata/Pensieve-PPO/src/tca/test_result_dir/tca-dis0-dis1/",
+            //     "--summary","/mydata/Pensieve-PPO/src/tca/sum_dir/tca-dis0-dis1"
+            // ]
         }
     ]
 
