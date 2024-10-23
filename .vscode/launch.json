@@ -114,14 +114,26 @@
             // "cwd": "/mydata/DOTE/",
             // "args":[
             // ]
+
+            // "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--ecmp_topo","Abilene-2-('0', '1')-('4', '6')",
+            //     "--paths_from", "sp",
+            //     "--so_mode", "train",
+            //     "--so_epochs","20",
+            //     "--so_batch_size","32",
+            //     "--opt_function","MAXUTIL"
+            // ]
+
+            
             "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--ecmp_topo","Abilene-2-('0', '1')-('4', '6')",
+                "--ecmp_topo","Abilene-obj2-2-('0', '1')-('0', '2')",
                 "--paths_from", "sp",
                 "--so_mode", "train",
-                "--so_epochs","20",
-                "--so_batch_size","32",
-                "--opt_function","MAXUTIL"
+                "--so_epochs","100",
+                "--so_batch_size","20",
+                "--opt_function","MAXFLOW"
             ]
         }
     ]

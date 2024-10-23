@@ -192,9 +192,11 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
         if props.opt_function == "MAXFLOW": #MAX FLOW *(1e10)
             max_mcf = torch.sum(torch.minimum(max_flow_per_commodity.transpose(0,1), y_true))  # 这个的意思有点像concurrent obj啊，这里是希望每个commodity的flow都尽量大，至少要比这个不调度的大（但我觉得还是有问题，因为我可以牺牲某一个commodity让整体更大） # 应该是要让隧道的带宽越大越好（因为可能因为链路容量问题，永远无法完全分配完） # 应该是和 y_true 一个性质的；表示计算出来的 每个隧道上的带宽
             
-            loss = -max_mcf if max_mcf.item() == 0.0 else -max_mcf/max_mcf.item()   # previous one
+            # loss = -max_mcf if max_mcf.item() == 0.0 else -max_mcf/max_mcf.item()   # previous one
             # loss = -max_mcf + torch.sum(y_true) # *(1e10)
-            loss_val = 1.0 if opt == 0.0 else max_mcf.item()/SizeConsts.BPS_TO_GBPS(opt)
+            loss = opt - max_mcf*(1e4)
+            # loss_val = 1.0 if opt == 0.0 else max_mcf.item()/SizeConsts.BPS_TO_GBPS(opt)
+            loss_val = 1.0 if opt == 0.0 else max_mcf.item()*(1e4)/opt  # ydy: *(1e4), 我也不知道为什么差这么多
         
         elif props.opt_function == "MAXCONC": #MAX CONCURRENT FLOW
             actual_flow_per_commodity = torch.minimum(max_flow_per_commodity.transpose(0,1), y_true)
@@ -313,7 +315,7 @@ if props.so_mode == SOMode.TRAIN: #train
                 loss_count += 1
                 loss_avg = loss_sum / loss_count
                 real_loss_avg = real_loss_sum / loss_count
-                tepoch.set_postfix(loss=f"loss:{real_loss_avg:.5f} loss_val:{loss_avg:.5f}")
+                tepoch.set_postfix(loss=f"real_loss_avg:{real_loss_avg:.5f} loss_val:{loss_avg:.5f}")
                 # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
         # print('saving...... ' + str(epoch))
         # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
