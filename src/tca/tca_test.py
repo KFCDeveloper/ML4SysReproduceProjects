@@ -1,14 +1,20 @@
 import os
 import sys
+from pathlib import Path
+
+folder = Path(__file__).resolve()
+sys.path.append(str(folder.parent.parent))
+
 os.environ['CUDA_VISIBLE_DEVICES']='-1'
 import numpy as np
 import load_trace
 #import a2c as network
 import ppo2 as network
 import fixed_env as env
+import argparse
 
 
-S_INFO = 6  # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
+S_INFO = 6 # TODO: change fea # origin is 6  # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
 S_LEN = 8  # take how many frames in the past
 A_DIM = 6
 ACTOR_LR_RATE = 0.0001
@@ -25,7 +31,7 @@ RAND_RANGE = 1000
 LOG_FILE = './test_results/log_sim_ppo'
 TEST_TRACES = './test/'
 # log in format of time_stamp bit_rate buffer_size rebuffer_time chunk_size download_time reward
-NN_MODEL = sys.argv[1]
+NN_MODEL = ""
     
 def main():
 
@@ -151,4 +157,16 @@ def main():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Example script with arguments")
+    parser.add_argument('--test_dataset', type=str, help='Testing Dataset', required=True)
+    parser.add_argument('--nn_model', type=str, help='nn model', required=True)
+    parser.add_argument('--log_file', type=str, help='LOG file path', required=True)
+    
+    # 解析命令行参数
+    args = parser.parse_args()
+    TEST_TRACES = args.test_dataset
+    NN_MODEL = args.nn_model
+    LOG_FILE = args.log_file
+
+    # 调用 main 函数并传递解析后的参数
     main()

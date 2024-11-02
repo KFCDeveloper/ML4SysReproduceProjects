@@ -1,20 +1,14 @@
 import os
 import sys
-from pathlib import Path
-
-folder = Path(__file__).resolve()
-sys.path.append(str(folder.parent.parent))
-
 os.environ['CUDA_VISIBLE_DEVICES']='-1'
 import numpy as np
 import load_trace
 #import a2c as network
-import ppo2_less_fea as network
+import ppo2 as network
 import fixed_env as env
-import argparse
 
 
-S_INFO = 4 # TODO: change fea # origin is 6  # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
+S_INFO = 6  # bit_rate, buffer_size, next_chunk_size, bandwidth_measurement(throughput and time), chunk_til_video_end
 S_LEN = 8  # take how many frames in the past
 A_DIM = 6
 ACTOR_LR_RATE = 0.0001
@@ -31,7 +25,7 @@ RAND_RANGE = 1000
 LOG_FILE = './test_results/log_sim_ppo'
 TEST_TRACES = './test/'
 # log in format of time_stamp bit_rate buffer_size rebuffer_time chunk_size download_time reward
-NN_MODEL = ""
+NN_MODEL = sys.argv[1]
     
 def main():
 
@@ -48,7 +42,7 @@ def main():
     log_file = open(log_path, 'w')
 
 
-    actor = network.Network_Less(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
+    actor = network.Network(state_dim=[S_INFO, S_LEN], action_dim=A_DIM,
         learning_rate=ACTOR_LR_RATE)
 
     # restore neural net parameters
@@ -112,24 +106,13 @@ def main():
         # dequeue history record
         state = np.roll(state, -1, axis=1)
 
-        # TODO: change fea
         # this should be S_INFO number of terms
-        # state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality
-        # state[1, -1] = buffer_size / BUFFER_NORM_FACTOR  # 10 sec
-        # state[2, -1] = float(video_chunk_size) / float(delay) / M_IN_K  # kilo byte / ms
-        # state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec
-        # state[4, :A_DIM] = np.array(next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte
-        # state[5, -1] = np.minimum(video_chunk_remain, CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP)
-
-        # this should be S_INFO number of terms
-        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality # 第6个feature Last chunk bit rate
-        state[1, -1] = buffer_size / BUFFER_NORM_FACTOR  # 10 sec # 第4个feature Current buffer size
-        # state[2, -1] = float(video_chunk_size) / float(delay) / M_IN_K  # kilo byte / ms # 第1个feature Past chunk throughput
-        # state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec # 第2个feature Past chunk download time
-        state[2, :A_DIM] = np.array(
-            next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte  # 第3个feature Next chunk sizes
-        state[3, -1] = np.minimum(video_chunk_remain, CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP) # 第5个feature Number of chunks left
-
+        state[0, -1] = VIDEO_BIT_RATE[bit_rate] / float(np.max(VIDEO_BIT_RATE))  # last quality
+        state[1, -1] = buffer_size / BUFFER_NORM_FACTOR  # 10 sec
+        state[2, -1] = float(video_chunk_size) / float(delay) / M_IN_K  # kilo byte / ms
+        state[3, -1] = float(delay) / M_IN_K / BUFFER_NORM_FACTOR  # 10 sec
+        state[4, :A_DIM] = np.array(next_video_chunk_sizes) / M_IN_K / M_IN_K  # mega byte
+        state[5, -1] = np.minimum(video_chunk_remain, CHUNK_TIL_VIDEO_END_CAP) / float(CHUNK_TIL_VIDEO_END_CAP)
 
         action_prob = actor.predict(np.reshape(state, (1, S_INFO, S_LEN)))
         noise = np.random.gumbel(size=len(action_prob))
@@ -168,16 +151,4 @@ def main():
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Example script with arguments")
-    parser.add_argument('--test_dataset', type=str, help='Testing Dataset', required=True)
-    parser.add_argument('--nn_model', type=str, help='nn model', required=True)
-    parser.add_argument('--log_file', type=str, help='LOG file path', required=True)
-    
-    # 解析命令行参数
-    args = parser.parse_args()
-    TEST_TRACES = args.test_dataset
-    NN_MODEL = args.nn_model
-    LOG_FILE = args.log_file
-
-    # 调用 main 函数并传递解析后的参数
     main()
