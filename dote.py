@@ -194,9 +194,9 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
             
             # loss = -max_mcf if max_mcf.item() == 0.0 else -max_mcf/max_mcf.item()   # previous one
             # loss = -max_mcf + torch.sum(y_true) # *(1e10)
-            loss = opt - max_mcf*(1e4)
+            loss = opt - SizeConsts.GBPS_TO_BPS(max_mcf) 
             # loss_val = 1.0 if opt == 0.0 else max_mcf.item()/SizeConsts.BPS_TO_GBPS(opt)
-            loss_val = 1.0 if opt == 0.0 else max_mcf.item()*(1e4)/opt  # ydy: *(1e4), 我也不知道为什么差这么多
+            loss_val = 1.0 if opt == 0.0 else SizeConsts.GBPS_TO_BPS(max_mcf.item())/opt  # ydy: *(1e4), 我也不知道为什么差这么多
         
         elif props.opt_function == "MAXCONC": #MAX CONCURRENT FLOW
             actual_flow_per_commodity = torch.minimum(max_flow_per_commodity.transpose(0,1), y_true)
