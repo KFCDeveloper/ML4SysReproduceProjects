@@ -11,7 +11,7 @@ first_edge_str = sys.argv[2]
 second_edge_str = sys.argv[3]
 network_name = topo_name    # "Abilene"
 # remember to modify three places; second_edge_str| "-2-" | second_edge_tuple
-dest_dir = network_name + "-2-" + first_edge_str + "-" + second_edge_str # remember to modify three places;  "-squeeze-links-more1"  || + "-" + second_edge_str
+dest_dir = network_name + "-obj2-2-" + first_edge_str + "-" + second_edge_str # remember to modify three places;  "-squeeze-links-more1"  || + "-" + second_edge_str
 
 # additional configuration variables
 default_capacity = "10000.0"
