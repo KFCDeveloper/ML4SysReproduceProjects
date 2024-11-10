@@ -37,7 +37,7 @@ LOG_FILE = SUMMARY_DIR + '/log'
 TEST_TRACES = ''
 
 
-NN_MODEL = None    
+NN_MODEL = '/mydata/Pensieve-PPO/src/pretrain/nn_model_ep_80100_bus_my.pth' # None    
 
 class TCA:
     def __init__(self, kernel_type='primal', dim=30, lamb=1, gamma=1):
@@ -314,13 +314,17 @@ def choose_and_combine(src_traces_path, trg_traces_path):
         time_diffs = new_dataset[:, 0]
         cumulative_time = np.cumsum(time_diffs)
         new_dataset[:, 0] = cumulative_time
+        # 放缩时间列
+        # array_min, array_max = new_dataset[:, 0].min(), new_dataset[:, 0].max()
+        # target_min, target_max = np.array(dataset1_cooked_time[i]).min(), np.array(dataset1_cooked_time[i]).max()
+        # new_dataset[:, 0] = ((new_dataset[:, 0] - array_min) / (array_max - array_min)) * (target_max - target_min) + target_min
         # 放缩比特率列
         min_val = np.min(dataset1_cooked_bw[i][1:])
         max_val = np.max(dataset1_cooked_bw[i][1:])
-        new_dataset[:, 0] = min_val + (new_dataset[:, 0] - new_dataset[:, 0].min()) * (max_val - min_val) / (new_dataset[:, 0].max() - new_dataset[:, 0].min())
+        new_dataset[:, 1] = min_val + (new_dataset[:, 1] - new_dataset[:, 1].min()) * (max_val - min_val) / (new_dataset[:, 1].max() - new_dataset[:, 1].min())
 
         # 将数组保存成指定格式的文件
-        combined_save_path = '/mydata/Pensieve-PPO/src/tca/train/combined/distri_0_1/'
+        combined_save_path = '/mydata/Pensieve-PPO/src/tca/train/combined/distri_0_2/'
         np.savetxt(combined_save_path + "combined_" + str(i), new_dataset, fmt="%.11f", delimiter="\t")
 
         combined_cooked_time.append(new_dataset[:, 0].tolist())
@@ -350,7 +354,7 @@ if __name__ == '__main__':
     # !!!  如果不重新生成数据，要注释这里
     # combined_cooked_time, combined_cooked_bw = choose_and_combine(args.src,args.trg_train)
     # save combined, 然后combined 保存到 `/mydata/Pensieve-PPO/src/tca/train/combined/distri_0_1/`
-    load_trace.COOKED_TRACE_FOLDER = '/mydata/Pensieve-PPO/src/tca/train/combined/distri_0_1/'
+    load_trace.COOKED_TRACE_FOLDER = '/mydata/Pensieve-PPO/src/tca/train/combined/distri_0_2/'
     # 直接在此处修改 src dataset和target dataset
     SUMMARY_DIR = args.summary
     TEST_TRACES = args.trg_test
