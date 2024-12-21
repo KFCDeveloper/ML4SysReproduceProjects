@@ -5,7 +5,7 @@ cwd = os.getcwd()
 assert "networking_envs" in cwd
 sys.path.append(cwd[:cwd.find("networking_envs")] + "networking_envs")
 sys.path.append(cwd[:cwd.find("networking_envs")] + "openai_baselines")
-
+import random
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
@@ -16,7 +16,7 @@ from networking_envs.networking_env.environments.consts import SOMode
 from networking_envs.networking_env.utils.shared_consts import SizeConsts
 from tqdm import tqdm
 from networking_envs.meta_learning.meta_const import RNN_Cons, DOTE_Cons
-from torch.utils.data import Subset
+from torch.utils.data import Subset, ConcatDataset
 from const_dote import *
 
 # dataset definition
@@ -150,16 +150,15 @@ class NeuralNetworkMaxFlowMaxConc(nn.Module):
         self.flatten = nn.Flatten()
         self.net = nn.Sequential(
             nn.Linear(input_dim, 128),
-            nn.ReLU(),
+            nn.LeakyReLU(0.01),
             nn.Linear(128, 128),
-            nn.ReLU(),
+            nn.LeakyReLU(0.01),
             nn.Linear(128, 128),
-            nn.ReLU(),
+            nn.LeakyReLU(0.01),
             nn.Linear(128, 128),
-            nn.ReLU(),
+            nn.LeakyReLU(0.01),
             nn.Linear(128, output_dim),
             nn.ELU(alpha=0.1)
-            # nn.Sigmoid()
         )
 
     def forward(self, x):
@@ -237,15 +236,18 @@ def loss_fn_maxflow_maxconc(y_pred_batch, y_true_batch, env):
     
 def choose_part_dataset(portion,input_dataset):
     # 假设你的 input_dataset 已经定义
+    # dataset_size = len(input_dataset)
+    # indices = list(range(dataset_size))
+    # split = int(np.floor(dataset_size * portion))  # 一部分的数据
+    # np.random.shuffle(indices)
+    # subset_indices = indices[:split]
+    # return Subset(input_dataset, subset_indices)
     dataset_size = len(input_dataset)
-    indices = list(range(dataset_size))
-    split = int(np.floor(dataset_size * portion))  # 一部分的数据
-    np.random.shuffle(indices)
-    subset_indices = indices[:split]
-
-    # 创建子集
+    split = int(dataset_size * portion)  # 根据比例计算切分大小
+    subset_indices = list(range(split))  # 按顺序取出前 split 个数据索引
     return Subset(input_dataset, subset_indices)
-    
+
+
 props = parse_args(sys.argv[1:])
 env = history_env.ECMPHistoryEnv(props)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -275,6 +277,168 @@ elif props.opt_function == "MAXCONC":
 else:
     print("Unsupported optimization function. Supported functions: MAXUTIL, MAXFLOW, MAXCOLC")
     assert False
+
+if props.so_mode == "progressive": # draw the fig$2, which contain direct transfer
+    # create the dataset
+    # train_dataset = DmDataset(props, env, False)
+    # —————— ydy: use part of data ——————
+    # portion=1.0
+    # train_dataset = choose_part_dataset(portion,train_dataset) 
+    # ———————————————————————————————————
+    # create a data loader for the train set
+    # train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    #create the model
+    model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
+    # 在4个quarter的第一个quarter上well-trained model； 看 topo_list 的第一个topo
+    model = torch.load("/mydata/DOTE/networking_envs/save_models/24-12-prog-direct-tran/model_save/model_dote_Abilene-obj2-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
+    model.double()
+    model.to(device)
+    # optimizer
+    optimizer = torch.optim.Adam(model.parameters())
+
+    # --- prepare subsets
+    dataset_waiting = []
+    topo_list = ["Abilene-obj2-2-('5', '8')-('6', '7')","Abilene-obj2-dis05-2-('5', '8')-('6', '7')","Abilene-obj2-dis10-2-('5', '8')-('6', '7')","Abilene-obj2-dis125-2-('5', '8')-('6', '7')"]
+    # topo_list = ["Abilene-obj2-dis125-2-('5', '8')-('6', '7')"] * 4 
+    for each_topo in topo_list:
+        props_tmp = parse_args(['--ecmp_topo', each_topo, '--paths_from', 'sp', '--so_mode', 'train', '--so_epochs', '20', '--so_batch_size', '20', '--opt_function', 'MAXFLOW'])
+        env_tmp = history_env.ECMPHistoryEnv(props_tmp)
+        train_dataset_sub = DmDataset(props_tmp, env_tmp, False)
+        dataset_waiting.append(train_dataset_sub)
+    
+    subsets = []
+    total_length = 0
+    for i, dataset in enumerate(dataset_waiting):
+        dataset_size = 6000 # ** define, 我这里设置为6000，一个adapt_interval需要等于整数个batch_size ；； len(dataset)
+        split_size = dataset_size // 4  # 每个1/4部分的大小
+        # 计算当前数据集的索引范围
+        start_index = i * split_size
+        end_index = start_index + split_size
+        # 根据索引范围创建子集
+        subset_indices = list(range(start_index, min(end_index, dataset_size)))
+        subsets.append(Subset(dataset, subset_indices))
+        # 计算总长度
+        total_length += len(subset_indices)
+    concatenated_dataset = ConcatDataset([each_subset for each_subset in subsets])
+    # --- end prepare
+
+    # 20min, 前5min是
+    # for i in range(20):
+        # 得跑一下 dote train，测试一个 时间，比如一分钟 可以推理几下；
+        # 但转头一想，其实是按照batch输入的，所以我还是设置一个batch或者几个batch训一下
+    # **defined
+    num_interval = 20   # 20 是我规定的，相当于跑20分钟
+    test_num_dpoints = total_length # 相当于时间长度（也是 【推理的次数】），我让它直接等于1个数据集的train数据的总长度，相当于 6000；因为我们是假设四个数据集每个取一个quarter拼起来就是总的timeline
+    n_epochs_interval = 1  # 相当于 在间隙的时候，适应新的数据集 需要训多少个epoch
+    adapt_interval = int(test_num_dpoints/num_interval)    # 会在整个训练过程中adapt num_interval 次，并且每次adapt 数据的数量都会增加的，我最好再设置一个权重
+    
+    interv_num_record = 0   # record from 0, from 0 to 19
+    batch_size = 1
+    test_dl = DataLoader(concatenated_dataset, batch_size=batch_size, shuffle=True)
+    with tqdm(test_dl) as tests:
+        test_losses = []
+        for step ,(inputs, targets) in enumerate(tests):
+            interv_num_record = int(step * batch_size / adapt_interval)
+            # --- train and refresh the dataset; for the first quarter; 并且是有 一个interval的数据，才进行训练；a interval == some epochs;  (expected to run 15 times) 
+            # if (step * batch_size) % adapt_interval == 0 and interv_num_record > (num_interval // 4) and interv_num_record % (num_interval // 4) == 1:  
+            if 1==0:  
+                model.train()
+                #TODO: 每次在这里重新初始化数据集；
+                # num_records_to_select = int((interv_num_record /num_interval) * len(concatenated_dataset))
+                # selected_indices = list(range(num_records_to_select))
+                # refreshed_dataset = Subset(concatenated_dataset, selected_indices)
+                # refreshed_dataset = decay_selector(using_subsets)
+                # --- start create balanced dataset  ## 最终是根据新数据的length*2 来设置训练的总长度的
+                to_subset_index = int(interv_num_record / (num_interval/4)) # 运行到了 当前index的dataset；to_subset_index > 0
+                old_datasets = subsets[0:to_subset_index] # 因为interv_num_record >= int(num_interval *  test_num_dpoints / 4)，所以一定是有olddataset的(to_subset_index>)
+                dealing_dataset = subsets[to_subset_index]
+                # interv_num_record % (num_interval/4) from 0 to 4 表示该quarter还没结束的部分; test_num_dpoints* (interv_num_record % (num_interval/4))/num_interval 表示该部分对应的 datapoint的数量
+                selected_dealing_indices = list(range(test_num_dpoints* (interv_num_record % (num_interval//4))//num_interval))
+                part_of_dealing_dataset = Subset(dealing_dataset, selected_dealing_indices)
+                # 获取 part_of_dealing_dataset 的长度
+                part_len = test_num_dpoints* (interv_num_record % (num_interval//4)) // num_interval
+                # 从 old_datasets 中随机选择长度为 part_len 的子数据集
+                selected_old_subsets = []
+                for dataset in old_datasets:
+                    # 确保当前 dataset 的长度足够
+                    if len(dataset) >= part_len:
+                        # 随机选择长度为 part_len // 4 的索引
+                        selected_indices = random.sample(dataset.indices, part_len // len(old_datasets))
+                        # 创建新的 Subset
+                        new_subset = Subset(dataset.dataset, selected_indices)
+                        selected_old_subsets.append(new_subset)
+                    else:
+                        # 如果长度不足，直接使用整个数据集
+                        selected_old_subsets.append(dataset)
+                # 将所有选中的子数据集合并
+                merged_old_datasets = ConcatDataset(selected_old_subsets)
+                # 最后将 merged_old_datasets 和 part_of_dealing_dataset 合并
+                refreshed_dataset = ConcatDataset([merged_old_datasets, part_of_dealing_dataset])
+                # --- end create
+                train_prog_dl = DataLoader(refreshed_dataset, batch_size=batch_size, shuffle=True)
+
+                # --- start train
+                for epoch in range(n_epochs_interval):   # TODO
+                    with tqdm(train_prog_dl) as tepoch:
+                        epoch_train_loss = []
+                        loss_sum = loss_count = 0
+                        real_loss_sum = 0
+                        for (inputs, targets) in tepoch:        
+                            # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
+                            # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
+                            # 
+                            # put data on the graphics memory   
+                            inputs = inputs.to(device)
+                            targets = targets.to(device)
+                            tepoch.set_description(f"Epoch {epoch}")
+                            optimizer.zero_grad()
+                            yhat = model(inputs)
+                            loss, loss_val = loss_fn(yhat, targets, env)
+                            loss.backward()
+                            optimizer.step()
+                            epoch_train_loss.append(loss_val)
+                            loss_sum += loss_val # ydy: original is `loss_val`  loss
+                            real_loss_sum += loss
+                            loss_count += 1
+                            loss_avg = loss_sum / loss_count
+                            real_loss_avg = real_loss_sum / loss_count
+                            tepoch.set_postfix(loss=f"real_loss_avg:{real_loss_avg:.5f} loss_val:{loss_avg:.5f}")
+            # --- test (inference every step)
+            model.eval() # start to test
+            with torch.no_grad():
+                inputs = inputs.to(device)
+                targets = targets.to(device)
+
+                pred = model(inputs)
+                test_loss, test_loss_val = loss_fn(pred, targets, env)
+                test_losses.append(test_loss_val)
+
+        avg_loss = sum(test_losses) / len(test_losses)
+        # 保存到文本文件
+        # with open('prog_train_test_losses.txt', 'w') as f:
+        with open('test_losses.txt', 'w') as f:
+            for loss in test_losses:
+                f.write(f"{loss}\n")
+        print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
+        #print statistics to file
+        with open('so_stats_' + props.ecmp_topo + f"_prog"+ '.txt', 'w') as f:
+            import statistics
+            dists = [float(v) for v in test_losses]
+            dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
+            f.write('Average: ' + str(statistics.mean(dists)) + '\n')
+            f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
+            f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
+            f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
+            f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
+            f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
+            f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
+        
+        if concurrent_flow_cdf != None:
+            concurrent_flow_cdf.sort()
+            # with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
+            with open('concurrent_flow_cdf.txt', 'w') as f:
+                for v in concurrent_flow_cdf:
+                    f.write(str(v / len(dists)) + '\n')
 
 if props.so_mode == SOMode.TRAIN: #train
     # create the dataset
@@ -337,8 +501,7 @@ elif props.so_mode == SOMode.TEST: #test
     portion=1.0
     # model = torch.load('model_dote_' + props.ecmp_topo + f"_choose_{portion}" + '.pkl').to(device)
     # model = torch.load("model_dote_Abilene-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
-    # model = torch.load("model_tca_Abilene-2-('0', '1')-('4', '6')_choose_0.0001.pkl").to(device)
-    model = torch.load("/mydata/DOTE/networking_envs/save_models/24-12-prog-direct-tran/model_save/model_dote_Abilene-obj2-2-('5', '8')-('6', '7')_choose_1.0.pkl").to(device)
+    model = torch.load("model_tca_Abilene-2-('0', '1')-('4', '6')_choose_0.0001.pkl").to(device)
     model.eval()
     with torch.no_grad():
         with tqdm(test_dl) as tests:
@@ -435,110 +598,3 @@ elif props.so_mode == "train_diff_env": #test
         # torch.save(model, 'model_dote.pkl')
         # torch.save(model, 'model_dote_' + props.ecmp_topo + '.pkl')
     
-elif props.so_mode == "train-fixdimen": # train learner with fixed input and output dimension
-    NeuralNetwork = AdaptiveNeuralNetworkMaxUtil
-    # create the dataset
-    train_dataset = DmDataset(props, env, False)
-    # create a data loader for the train set
-    train_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    #create the model
-    model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes()) # 输出是 每条<nodei,nodej>的路径上，分配多少带宽
-    model.double()
-    model.to(device)
-    # optimizer
-    optimizer = torch.optim.Adam(model.parameters())
-
-    for epoch in range(n_epochs):
-        with tqdm(train_dl) as tepoch:
-            epoch_train_loss = []
-            loss_sum = loss_count = 0
-            for (inputs, targets) in tepoch:        
-                # inputs shape: [batch_size, (node_num * (node_num - 1))* hist_len{default 12}]
-                # target shape: [batch_size, (node_num * (node_num - 1)) + 1]  concatenate with opt_MLU {no.1's opt -> no. 13, 这一个小时的12个traffic matrix，对应到了下一个小时开始的那个matrix}
-                # 
-                # put data on the graphics memory   
-                inputs = inputs.to(device)
-                targets = targets.to(device)
-                tepoch.set_description(f"Epoch {epoch}")
-                optimizer.zero_grad()
-                yhat = model(inputs)
-                loss, loss_val = loss_fn(yhat, targets, env)
-                loss.backward()
-                optimizer.step()
-                epoch_train_loss.append(loss_val)
-                loss_sum += loss_val
-                loss_count += 1
-                loss_avg = loss_sum / loss_count
-                tepoch.set_postfix(loss=loss_avg)
-                # tepoch.set_postfix(loss=loss.cpu().detach().numpy())
-        # print('saving...... ' + str(epoch))
-        # torch.save(model, 'model_dote_' + str(epoch) + '.pkl')
-    #save the model
-    # torch.save(model, 'model_dote.pkl')
-    torch.save(model, 'fixed_model_' + props.ecmp_topo + '.pkl')
-elif props.so_mode == "test-fixdimen": # test adaptive model on the other dataset, especially opensource dataset.
-    NeuralNetwork = AdaptiveNeuralNetworkMaxUtil
-    # create the dataset
-    train_dataset = DmDataset(props, env, False)
-    # create a data loader for the train set
-    test_dl = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)   
-    #load the model
-    # model = torch.load('model_dote.pkl').to(device)
-    # model = torch.load('model_dote_' + str(n_epochs) + '.pkl').to(device)
-    # model = torch.load('meta_model_dote_' + props.ecmp_topo + '.pkl').to(device)
-    model = torch.load("fixed_model_Abilene-2-('7', '8')-('9', '10').pkl").to(device) # TODO load 
-    # model = torch.load('model_dote_Abilene.pkl').to(device)
-    # model = NeuralNetwork(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), env._optimizer._num_paths, env.get_num_nodes())
-    # model.load_state_dict('meta_models/model_dote_' + props.ecmp_topo + '.pkl')
-    # 替换那两层 nn.linear
-    model.input_main_layer = nn.Linear(props.hist_len*env.get_num_nodes()*(env.get_num_nodes()-1), 1320)    # 1320 是我直接写固定了，就把主要模型的维度弄成1320; meta model 那里我也这么做的
-    model.net[-2] = nn.Linear(128, env._optimizer._num_paths)
-    model.double()
-    model.to(device)
-    print("——————————————————————————")
-    print(sum(p.numel() for p in model.parameters() if p.requires_grad))
-    print("——————————————————————————")
-    optimizer = torch.optim.Adam(model.parameters())
-    # 这里test模式的时候，只需要在一个我生成的拓扑环境下，就只需要看，需要训几个epoch能达到很低的loss水平
-    with open("well_trained_test_" + props.ecmp_topo + ".txt", "a+") as file:
-        for epoch in range(n_epochs):
-            with tqdm(test_dl) as tests:
-                test_losses = []
-                loss_count = 0
-                for (inputs, targets) in tests:
-                    inputs = inputs.to(device)
-                    targets = targets.to(device)
-
-                    optimizer.zero_grad()
-                    pred = model(inputs)
-                    test_loss, test_loss_val = loss_fn(pred, targets, env)
-                    test_loss.backward()
-                    optimizer.step()
-                    test_losses.append(test_loss_val)
-                    tests.set_postfix(loss=test_loss_val)
-                    
-                    loss_count += 1
-                    avg_val_loss = sum(test_losses) / loss_count
-                    file.write(str(test_loss_val)+"\n")
-                    file.flush()
-
-                    avg_loss = sum(test_losses) / len(test_losses)
-                    # print(f"Test Error: \n Avg loss: {avg_loss:>8f} \n")
-                    # print statistics to file
-                # with open('so_stats_' + props.ecmp_topo + '.txt', 'a') as f:
-                #     import statistics
-                #     dists = [float(v) for v in test_losses]
-                #     dists.sort(reverse=False if props.opt_function == "MAXUTIL" else True)
-                #     f.write('Average: ' + str(statistics.mean(dists)) + '\n')
-                #     f.write('Median: ' + str(dists[int(len(dists) * 0.5)]) + '\n')
-                #     f.write('25TH: ' + str(dists[int(len(dists) * 0.25)]) + '\n')
-                #     f.write('75TH: ' + str(dists[int(len(dists) * 0.75)]) + '\n')
-                #     f.write('90TH: ' + str(dists[int(len(dists) * 0.90)]) + '\n')
-                #     f.write('95TH: ' + str(dists[int(len(dists) * 0.95)]) + '\n')
-                #     f.write('99TH: ' + str(dists[int(len(dists) * 0.99)]) + '\n')
-            
-                # if concurrent_flow_cdf != None:
-                #     concurrent_flow_cdf.sort()
-                #     with open(props.graph_base_path + '/' + props.ecmp_topo + '/' + 'concurrent_flow_cdf.txt', 'w') as f:
-                #         for v in concurrent_flow_cdf:
-                #             f.write(str(v / len(dists)) + '\n')

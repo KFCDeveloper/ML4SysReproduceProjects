@@ -15,7 +15,7 @@ do
         /mydata/miniconda3/envs/dote/bin/python /mydata/DOTE/networking_envs/data/loop_compute_opts.py "Abilene-obj2-2-${edges[i]}-${edges[j]}"
     done
 done
-/mydata/miniconda3/envs/dote/bin/python /mydata/DOTE/networking_envs/data/loop_compute_opts.py "Abilene-obj2-2-('0', '1')-('0', '2')"
+
 ############## reduce single link
 # edges=("('0', '1')" "('0', '2')" "('1', '10')" "('2', '9')" "('3', '4')" "('3', '6')" "('4', '5')" "('4', '6')" "('5', '8')" "('6', '7')" "('7', '8')" "('7', '10')" "('8', '9')" "('9', '10')")
 # for ((i=0; i<13; i++)); # i=0; i<${#edges[@]};  0 2; 2 5;5 9;9 13

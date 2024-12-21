@@ -125,13 +125,33 @@
             //     "--opt_function","MAXUTIL"
             // ]
 
-            
-            "cwd": "/mydata/DOTE/networking_envs/data", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // progressive training
+            // "cwd": "/mydata/DOTE/networking_envs/save_models/24-12-prog-direct-tran/log_dir", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--ecmp_topo","Abilene-obj2-2-('5', '8')-('6', '7')",
+            //     "--paths_from", "sp",
+            //     "--so_mode", "progressive",
+            //     "--so_epochs","100",
+            //     "--so_batch_size","20",
+            //     "--opt_function","MAXFLOW"
+            // ]
+
+            // "cwd": "/mydata/DOTE/networking_envs/save_models/24-12-prog-direct-tran/model_save", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
+            // "args": [
+            //     "--ecmp_topo","Abilene-obj2-2-('5', '8')-('6', '7')",
+            //     "--paths_from", "sp",
+            //     "--so_mode", "test",
+            //     "--so_epochs","10",
+            //     "--so_batch_size","20",
+            //     "--opt_function","MAXFLOW"
+            // ]
+
+            "cwd": "/mydata/DOTE/networking_envs/save_models/tca/model_save", // #       /mydata/DOTE/networking_envs/data/Abilene  /mydata/DOTE/networking_envs
             "args": [
-                "--ecmp_topo","Abilene-obj2-2-('0', '1')-('0', '2')",
+                "--ecmp_topo","Abilene-obj2-dis125-2-('5', '8')-('6', '7')",
                 "--paths_from", "sp",
                 "--so_mode", "train",
-                "--so_epochs","100",
+                "--so_epochs","5",
                 "--so_batch_size","20",
                 "--opt_function","MAXFLOW"
             ]

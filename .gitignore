@@ -16,3 +16,4 @@ networking_envs/data/*Arnes*/
 networking_envs/data/*Brain*/
 networking_envs/data/*GEANT*/
 real_traffic/download_data/
+networking_envs/data/previous_dir/*

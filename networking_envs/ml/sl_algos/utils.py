@@ -3,6 +3,7 @@ from networking_env.utils.shared_consts import SizeConsts
 import numpy as np
 import tqdm
 import time
+import os
 
 
 def convert_to_batchs(X, Y, props):
@@ -269,7 +270,13 @@ def get_all_cplex_res(props, y_hat, y):
     ress = []
     ress_all = []
     cntr = 0
-    stat_path = "/mydata/DOTE/real_traffic/Brain/data_collecting_stat/collecting_stat-brain-obj1.txt"
+    # stat_path = "/mydata/DOTE/real_traffic/Brain/data_collecting_stat/collecting_stat-brain-obj1.txt"
+    stat_path = props.base_path+'/data/'+props.ecmp_topo+'/' + "data_collecting_stat/collecting_stat-obj2.txt"
+    # 获取文件的目录部分
+    stat_directory = os.path.dirname(stat_path)
+    # 如果目录不存在，则创建所有层级的目录
+    if not os.path.exists(stat_directory):
+        os.makedirs(stat_directory)
     stat_writer = open(stat_path, "a")
     for i in tr:
         tm = y_hat[i, :]
