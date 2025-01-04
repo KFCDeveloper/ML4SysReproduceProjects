@@ -26,7 +26,7 @@ from models.low_rank import peft_model, print_trainable_parameters
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 print("Current working directory: ", os.getcwd())
 
-#TODO:Try to use part of the data for baseline and compare in TCA.
+#TODO:Try to use part of the data for baseline and compare in TCA
 
 
 # These modules are loaded because of TCA and AL
