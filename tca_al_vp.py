@@ -11,7 +11,6 @@ from torch.utils.data import Dataset
 from config_new import cfg
 
 from torch.optim import AdamW
-from config import cfg
 # from dataset.load_dataset import create_dataset
 from models.networking_head import NetworkingHead
 from utils.console_logger import ConsoleLogger
@@ -349,7 +348,7 @@ def create_dataset(dataset, dataset_video_split=None, dataset_user_split=None,
                             dataset_user_split[split], his_window, fut_window, trim_head, trim_tail, step, for_track)
         )
     return dataset_splits
-import numpy as np
+
 
 def apply_tca_on_test(train_dataset, test_dataset):
     # Extract source and target data from total_traces
@@ -363,7 +362,9 @@ def apply_tca_on_test(train_dataset, test_dataset):
     # Apply TCA on traces
     tca_traces = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
     print("Before TCA on traces: ", Xs_traces.shape, Xt_traces.shape)
+    print("Before TCA on features: ", Xs_features.shape, Xt_features.shape)
     Xs_traces_new, Xt_traces_new = tca_traces.fit(np.asarray(Xs_traces), np.asarray(Xt_traces))
+    
 
     #! The transform is necessary?
     Xt_traces_new = ((Xt_traces_new - Xt_traces_new.min()) / (Xt_traces_new.max() - Xt_traces_new.min())) * (Xt_traces.max() - Xt_traces.min()) + Xt_traces.min() # transform
@@ -394,9 +395,6 @@ def apply_tca_on_test(train_dataset, test_dataset):
         index += length
     
     return train_dataset, test_dataset
-
-
-
 
 def save_model(args, model, save_dir):
     """
@@ -507,9 +505,12 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
 
         
     print(f'Training on {args.train_dataset} - bs: {args.bs} - lr: {args.lr} - seed: {args.seed}')
+    
     for epoch in range(args.epochs):
         pipeline.train()
-        for step, (history, future, video_user_info) in enumerate(train_dl): 
+        assert args.using_multimodal == True
+        for step, (history, future, history_images, future_images, video_user_info) in enumerate(train_dl):  
+            # print(f'Step: {step} out of {len(train_dl)}', flush=True)
 
             #! Print the total number of steps
             # print(f'Total steps: {len(dataloader_train)}', flush=True)
@@ -543,9 +544,9 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
                 log_loss = tot_loss
             
             # for debug
-            # if global_step >= 300:
-            #     save_model(args, pipeline, best_model_path)
-            #     break
+            if global_step >= 100:
+                save_model(args, pipeline, best_model_path)
+                break
             
         
         # save checkpoint by save_checkpoint_per_epoch
@@ -558,8 +559,11 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
 
     print('Done adaptation, average training loss =', tot_loss / global_step)
 
-    #! Continue training on test_train dataset for 5 epochs, evaluating on test_test every 1 epoch (hyperparameter to be determined)
-    additional_epoch = 5
+
+    global_step_for_ft = 0
+
+    #! Continue training on test_train dataset for 2 epochs, evaluating on test_test every 1 epoch (hyperparameter to be determined)
+    additional_epoch = 1
     for epoch in range(additional_epoch):
         if apply_check == True:
             apply_check = False
@@ -587,9 +591,13 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
         uncertainties = []
 
         pipeline.train()
-        for step, (history, future, video_user_info) in enumerate(test_train_dl): 
+        assert args.using_multimodal == True
+        for step, (history, future, history_images, future_images, video_user_info) in enumerate(test_train_dl): 
 
-            global_step += 1
+            # print(f'Step: {step} out of {len(test_train_dl)}', flush=True)
+
+
+            global_step_for_ft += 1
             history, future = history.to(args.device), future.to(args.device)
             history = normalize_data(history, args.train_dataset)
             future = normalize_data(future, args.train_dataset)
@@ -616,23 +624,32 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
                 optimizer.zero_grad()
             
             # report training loss
-            if global_step % report_loss_per_steps == 0:
-                print("Epoch {}, global_step {}, average loss: {}".format(epoch, global_step, (tot_loss - log_loss) / report_loss_per_steps), flush=True)
+            if global_step_for_ft % report_loss_per_steps == 0:
+                print("Epoch {}, global_step_for_ft {}, average loss: {}".format(epoch, global_step_for_ft, (tot_loss - log_loss) / report_loss_per_steps), flush=True)
                 log_loss = tot_loss
 
-            ##parameter of uncertainty and time cost
+            # for debug propose
+            if global_step_for_ft >= 200:
+                save_model(args, pipeline, best_model_path)
+                break
 
-            current_uncertainty = sum(uncertainties)
-            print("uncertainties shape:", len(uncertainties))
-            epoch_time_end = time.time()  
+        ##parameter of uncertainty and time cost
 
-            #TODO: Scale this time cost later
-            iter_training_cost = get_time_cost(iter_training_cost,epoch_time_end,epoch_time_start)
-            print('iter_training_cost {}'.format(iter_training_cost))
+        current_uncertainty = sum(uncertainties)
+        print("uncertainties shape:", len(uncertainties))
+        epoch_time_end = time.time()  
 
-            ##simulation of active learning
-            #TODO: uncertainty() function inside uncertainties_simulation() is what we should modify!
-            data_uncertainty = uncertainties_simulation(test_train_dl,dataset_size,sample_size,iter_training_cost,simulation_indices)
+        #TODO: Scale this time cost later
+        iter_training_cost = get_time_cost(iter_training_cost,epoch_time_end,epoch_time_start)
+        print('iter_training_cost {}'.format(iter_training_cost))
+
+        ##simulation of active learning
+        #TODO: uncertainty() function inside uncertainties_simulation() is what we should modify!
+
+
+        #! We can now reach here
+        data_uncertainty = uncertainties_simulation(test_train_dl,dataset_size,sample_size,iter_training_cost,simulation_indices, pipeline, len(active_indices),
+        len(pool_indices))
 
         ##metrics to stop al
         #! In this part, the para to pass in are all related to AL itself
@@ -654,13 +671,17 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
             selection_cost
         )
         simulation_epoch+=1
+
+        # For debugging
+        # result = True
+
         if result == False:
             apply_check = True
             if len(pool_indices) <= 0:
                 break
             
             #TODO: active_learning_iteration is what we should modify!
-            number,new_indices,cost_utility = active_learning_iteration(cost_utility,i, test_train_dl, pool_indices, args.bs)
+            number,new_indices,cost_utility = active_learning_iteration(cost_utility,i, pipeline, test_train_dl, pool_indices, args.bs)
             i+=1
             active_indices.extend(new_indices)
             pool_indices = list(set(pool_indices) - set(new_indices))
@@ -678,15 +699,135 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
             test_model_on_test_test(pipeline, test_test_dl, checkpoint_path)
         
 
+#! This function varies from model to model
+def uncertainty(pipeline, dataloader):
+    pipeline.eval()
+    with torch.no_grad():
+
+        uncertainties = []
+
+        assert args.using_multimodal == True
+
+        for step, (history, future, history_images, future_images, video_user_info) in enumerate(dataloader):
+
+            history, future = history.to(args.device), future.to(args.device)
+            history = normalize_data(history, args.train_dataset)
+            future = normalize_data(future, args.train_dataset)
+            loss = pipeline(history, future, video_user_info, teacher_forcing=False)
+            uncertainties.append(loss.item())
+        return uncertainties
+    
 
 
-def uncertainties_simulation(test_train_dl,dataset_size,sample_size,iter_training_cost,simulation_indices):
+def uncertainties_simulation(tr_dataloader,dataset_size,sample_size,iter_training_cost,simulation_indices, pipeline, AL_select, AL_leftover):
     #TODO1: Finish this function
-    pass
+    top_k = AL_select / AL_leftover
 
-def active_learning_iteration(cost_utility,i, test_train_dl, pool_indices, batch_size):
-    #TODO2: Finish this function
-    pass
+    sample_dataloader = DataLoader(
+        tr_dataloader.dataset,  # Use the dataset attribute
+        batch_size=tr_dataloader.batch_size,
+        sampler=SubsetRandomSampler(simulation_indices)  # Use a sampler instead of Subset
+    )
+
+    sample_scale = dataset_size / sample_size
+    budget = iter_training_cost / sample_scale
+
+    #? Not sure?
+    ### modified based on model
+    sampled_costs = []
+    for _ in simulation_indices:
+        #! In VP task, the time cost is 1
+        sampled_costs.append(1)
+        
+    sampled_uncertainties = []  
+  
+    sampled_uncertainties = uncertainty(pipeline, sample_dataloader)
+    data_uncertainty = AL_intrain(sampled_uncertainties,budget,sampled_costs,top_k)
+    return data_uncertainty
+
+def uncertainty_select(pipeline, dataloader):
+    pipeline.eval()
+    uncertainties = []
+    with torch.no_grad():
+        
+        for history, future, history_images, future_images, video_user_info in dataloader:
+
+            inputs = history.to(args.device)
+            confidence_level = 0.95
+            t_value = t.ppf((1 + confidence_level) / 2, len(inputs) - 1)
+            intervals = []
+
+            for i in range(inputs.shape[0]):  
+                # Loop through each sample in the batch
+                # Prediction interval for latency
+                interval = t_value * torch.sqrt(
+                    1 + (1 / len(inputs)) + 
+                    (([i] - inputs.mean(dim=0))**2).sum() / ((inputs - inputs.mean(dim=0))**2).sum()
+                )
+                intervals.append(interval.cpu().numpy())
+
+            uncertainties.extend(intervals)
+
+        return uncertainties
+
+def active_learning_iteration(cost_utility,i,pipeline, test_train_dl, pool_indices, batch_size):
+    print(f"Starting active learning iteration {i}", flush=True)
+    
+    pool_loader = DataLoader(Subset(test_train_dl.dataset, pool_indices), batch_size=batch_size, shuffle=False)
+    
+    print("Calculating uncertainty values...", flush=True)
+    uncertainty_values = uncertainty_select(pipeline, pool_loader)
+   
+    print("Calculating costs...", flush=True)
+    # Create a dictionary mapping each pool index to its corresponding cost
+
+    #! In VP task, the time cost is 1
+    costs = {1 for _ in pool_indices}
+    
+    print(f"pool_indices: {len(pool_indices)}", flush=True)
+    print(f"Costs: {len(costs)}", flush=True)
+    print(f"uncertainty_values: {len(uncertainty_values)}", flush=True)
+    print("Sample of Uncertainty values:", flush=True)
+    print("First 10:", uncertainty_values[:10], flush=True)
+    
+    assert len(uncertainty_values) == len(costs), "Mismatch between number of uncertainty values and costs"
+    
+    print("Calculating uncertainty-cost ratios...", flush=True)
+    # Compute uncertainty-cost ratios using the dictionary
+    uncertainty_cost_ratios = [u / costs[l] for u, l in zip(uncertainty_values, pool_indices)]
+    
+    num_to_select = int(0.1 * len(test_train_dl.dataset))
+    uncertainty_weights = [1/u for u in uncertainty_cost_ratios]
+    
+    selected_indices = []
+    current_cost = 0
+    
+    if i == 0:
+        print("First iteration (i == 0)", flush=True)
+        print("Selecting indices based on number to select...", flush=True)
+        while len(selected_indices) < num_to_select:
+            selected_data = random.choices(pool_indices, weights=uncertainty_weights, k=1)[0]
+            if selected_data not in selected_indices:  # Avoid duplicates
+                selected_indices.append(selected_data)
+                selected_cost = costs[selected_data]
+                current_cost += selected_cost
+                # print(f"selected_data: {selected_data}, selected_cost: {selected_cost}, cost_utility: {current_cost}", flush=True)
+    else:
+        print(f"Iteration {i}", flush=True)
+        print("Selecting indices based on cost utility...", flush=True)
+        while current_cost < cost_utility:
+            selected_data = random.choices(pool_indices, weights=uncertainty_weights, k=1)[0]
+            if selected_data not in selected_indices:  # Avoid duplicates
+                selected_indices.append(selected_data)
+                selected_cost = costs[selected_data]
+                current_cost += selected_cost
+                # print(f"selected_data: {selected_data}, selected_cost: {selected_cost}, cost_utility: {current_cost}", flush=True)
+    
+    cost_utility = current_cost
+    print(f"Final cost_utility: {cost_utility}", flush=True)
+    print(f"Number of selected points: {len(selected_indices)}", flush=True)
+    
+    return num_to_select, selected_indices, cost_utility
 
 def test_model_on_test_test(pipeline, test_test_dl, checkpoint_path):
     pipeline.eval()
@@ -694,10 +835,11 @@ def test_model_on_test_test(pipeline, test_test_dl, checkpoint_path):
         validata_checkpoint_path = os.path.join(checkpoint_path)
         if not os.path.exists(validata_checkpoint_path):
             os.makedirs(validata_checkpoint_path)
+
         save_model(args, pipeline, validata_checkpoint_path)
         print(f'Checkpoint saved at', checkpoint_path)
         valid_loss = []
-        for history, future, video_user_info in test_test_dl:
+        for index, (history, future, history_images, future_images, video_user_info) in enumerate(test_test_dl):
             history, future = history.to(args.device), future.to(args.device)
             history = normalize_data(history, args.train_dataset)
             future = normalize_data(future, args.train_dataset)
@@ -707,41 +849,6 @@ def test_model_on_test_test(pipeline, test_test_dl, checkpoint_path):
         print(f'Valid loss: {valid_loss}')
         pipeline.train()
         return valid_loss
-
-def test(args, pipeline, dataloader_test, models_dir, results_dir):
-    file_prefix = f'his_{args.his_window}_fut_{args.fut_window}_axes_ss_{args.sample_step}_epochs_{args.epochs}_bs_{args.bs * args.grad_accum_steps}_'\
-                  f'lr_{args.lr}_seed_{args.seed}_rank_{args.rank}_scheduled_sampling_{args.scheduled_sampling}'
-    best_model_path = os.path.join(models_dir, file_prefix, 'best_model')
-    result_path = os.path.join(results_dir, file_prefix + '_results.csv')
-    notebook = ResultNotebook()
-
-    model_path = args.model_path if args.model_path is not None else best_model_path
-    if os.path.exists(model_path):
-        pipeline = load_model(args, pipeline, model_path)
-        print('Load weights from:', model_path)
-    else:
-        print('\033[33mWarning:\033[0m', model_path, 'not found, skip loading weights.')
-
-    print(f'Testing on {args.test_dataset} - seed: {args.seed}')
-    with torch.no_grad():
-        for history, future, video_user_info in dataloader_test:
-            history, future = history.to(args.device), future.to(args.device)
-            history = normalize_data(history, args.train_dataset)
-            pred, gt = pipeline.inference(history, future, video_user_info)
-            pred = denormalize_data(pred, args.test_dataset)
-            
-            # print('pred:', pred, 'gt:', gt)
-
-            videos, users, timesteps = [], [], []
-            videos.append(int(video_user_info[0]))
-            users.append(int(video_user_info[1]))
-            timesteps.append(int(video_user_info[2]))
-            videos, users, timesteps = torch.IntTensor(videos), torch.IntTensor(users), torch.IntTensor(timesteps)
-            notebook.record(pred, gt, videos, users, timesteps)
-        notebook.write(result_path)
-        print("show detail result:")
-        notebook.write_detail(result_path)
-
 
 def run(args):
     assert args.train_dataset in cfg.dataset_list 
@@ -771,29 +878,29 @@ def run(args):
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
 
-    # plm, tokenizer, _ = load_plm(args.plm_type, os.path.join(cfg.plms_dir, args.plm_type, args.plm_size), plm_size=args.plm_size, 
-    #                                  device_input_side=args.device, device_output_side=args.device_out, device_middle_side=args.device_mid)
-    # if (args.plm_type == 'opt' or args.plm_type == 'gpt2') and args.plm_size!= 'large':  # other plm can simply be loaded on one device
-    #     plm = plm.to(args.device)
+    plm, tokenizer, _ = load_plm(args.plm_type, os.path.join(cfg.plms_dir, args.plm_type, args.plm_size), plm_size=args.plm_size, 
+                                     device_input_side=args.device, device_output_side=args.device_out, device_middle_side=args.device_mid)
+    if (args.plm_type == 'opt' or args.plm_type == 'gpt2') and args.plm_size!= 'large':  # other plm can simply be loaded on one device
+        plm = plm.to(args.device)
     
-    # if args.rank != -1:
-    #     plm = peft_model(plm, args.plm_type, args.rank)
+    if args.rank != -1:
+        plm = peft_model(plm, args.plm_type, args.rank)
         
-    # # set up networking head
-    # input_dim = plm.hidden_size
-    # out_dim = 3  # = the number of viewport coordinates
-    # if args.plm_type == 'opt' and args.plm_size == 'xxs':
-    #     networking_head = NetworkingHead(input_dim=512, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
-    # else:
-    #     networking_head = NetworkingHead(input_dim=input_dim, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
-    # plm.set_networking_head(networking_head)
-    # print('PLM model architecture:')
-    # print(plm)
+    # set up networking head
+    input_dim = plm.hidden_size
+    out_dim = 3  # = the number of viewport coordinates
+    if args.plm_type == 'opt' and args.plm_size == 'xxs':
+        networking_head = NetworkingHead(input_dim=512, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
+    else:
+        networking_head = NetworkingHead(input_dim=input_dim, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
+    plm.set_networking_head(networking_head)
+    print('PLM model architecture:')
+    print(plm)
     
-    # if args.plm_type == 'llama':
-    #     embed_size = 4096
+    if args.plm_type == 'llama':
+        embed_size = 4096
 
-    # pipeline = Pipeline(plm, fut_window=args.fut_window, device=args.device, embed_size=embed_size, frequency=args.dataset_frequency, using_multimodal=args.using_multimodal, dataset=args.train_dataset)
+    pipeline = Pipeline(plm, fut_window=args.fut_window, device=args.device, embed_size=embed_size, frequency=args.dataset_frequency, using_multimodal=args.using_multimodal, dataset=args.train_dataset)
 
     if args.compile:
         assert torch.__version__ >= '2.0.0', 'Compile model requires torch version >= 2.0.0, but current torch version is ' + torch.__version__
@@ -803,9 +910,10 @@ def run(args):
     torch.set_float32_matmul_precision('high')
 
     if args.adapt:
+        #! Missing for_track=args.using_multimodal in the original repo
         raw_dataset_train, raw_dataset_valid = create_dataset(args.train_dataset, his_window=args.his_window, 
                                                               fut_window=args.fut_window, trim_head=args.trim_head, trim_tail=args.trim_tail,
-                                                              include=['train', 'valid'], frequency=args.dataset_frequency, step=args.sample_step)
+                                                              include=['train', 'valid'], frequency=args.dataset_frequency, step=args.sample_step, for_track=args.using_multimodal)
         raw_dataset_test = create_dataset(args.test_dataset, his_window=args.his_window, fut_window=args.fut_window,
                                           trim_head=args.trim_head, trim_tail=args.trim_tail, include=['test'], frequency=args.dataset_frequency, step=args.sample_step)[0]
         
@@ -819,9 +927,11 @@ def run(args):
         print("Apply TCA on the domain dataset...")
         
         #! This is the TCA on the training dataset
-        # raw_dataset_train, raw_dataset_test = apply_tca_on_test(raw_dataset_train, raw_dataset_test)
+        #! This is currently commented out
+        print("Skip TCA")
         # The raw_dataset_finetune is used for further training
-        raw_dataset_train, raw_dataset_finetune = apply_tca_on_test(raw_dataset_train, raw_dataset_valid)
+        # raw_dataset_train, raw_dataset_finetune = apply_tca_on_test(raw_dataset_train, raw_dataset_valid)
+        raw_dataset_train, raw_dataset_finetune = raw_dataset_train, raw_dataset_valid
 
         print("##########")
         print('raw_dataset_train:', raw_dataset_train, "len(raw_dataset_train):", len(raw_dataset_train), "len(raw_dataset_train[0]):", len(raw_dataset_train[0]))
@@ -838,7 +948,9 @@ def run(args):
         subset_test_X = raw_dataset_finetune
 
         dataset_size = len(subset_test_X)
-        train_size = int(0.7 * dataset_size)  # 70% 作为训练集
+        #! The sequence is maintained, so we can make sure that 2/3 of the dataset is the test_train dataset that we define in the NetLLM Config file
+
+        train_size = int(2 / 3 * dataset_size)  # x% 作为训练集
 
         # 非随机顺序分割ç
         train_indices = list(range(train_size))
@@ -860,15 +972,6 @@ def run(args):
 
         
         
-
-    if args.test:
-        raw_dataset_test = create_dataset(args.test_dataset, his_window=args.his_window, fut_window=args.fut_window,
-                                          trim_head=args.trim_head, trim_tail=args.trim_tail, include=['test'], frequency=args.dataset_frequency, step=args.sample_step)[0]
-        
-        dataloader_test = DataLoader(raw_dataset_test, batch_size=args.bs, shuffle=True, pin_memory=True)
-        test(args, pipeline, dataloader_test, models_dir, results_dir)
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process the input parameters to train the network.')
     
