@@ -32,7 +32,6 @@ print("Current working directory: ", os.getcwd())
 import sys
 import time
 import os
-print("!!!!!!Script started!!!!!!!")
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 import torch
@@ -61,6 +60,10 @@ from AL_module import *
 
 from scipy.sparse import csr_matrix
 
+
+print("!!!!!!Script started!!!!!!!")
+
+
 class TCA:
     def __init__(self, kernel_type='linear', dim=30, lamb=1, gamma=1):
         self.kernel_type = kernel_type
@@ -73,7 +76,7 @@ class TCA:
         """
         Compute the subset size using the DKW inequality.
         """
-        alpha = 200  # Adjusted scaling factor
+        alpha = 50  # Adjusted scaling factor
         delta = 0.01  # Confidence level
         N = total_samples
 
@@ -161,7 +164,7 @@ class TCA:
         print(f"Dimension of A: {self.A.shape}")
 
         # Transform full kernel matrix
-        K_full = self.kernel(self.kernel_type, X.T, X.T)
+        K_full = self.kernel(self.kernel_type, X.T, None)
         print(f"Dimension of K_full: {K_full.shape}")
         print(f"Dimension of A.T: {self.A.T.shape}")
 
@@ -230,6 +233,8 @@ class ViewportDataset(Dataset):
         With index and self.trace_indices, we can easily access a specific viewport trajectory in the dataset.
         This method is implemented by subclass ViewportDataset360 and ViewportDatasetVV.
         """
+        assert self.for_track == True
+
         if self.for_track:
             video, user, timestep = self.trace_indices[index]
             history = self.total_traces[video][user][timestep - self.history_window:timestep]
@@ -355,28 +360,28 @@ def apply_tca_on_test(train_dataset, test_dataset):
     Xs_traces = np.vstack([train_dataset.total_traces[video][user] for video in train_dataset.videos for user in train_dataset.users])
     Xt_traces = np.vstack([test_dataset.total_traces[video][user] for video in test_dataset.videos for user in test_dataset.users])
     
-    # Extract source and target data from total_content_features
-    Xs_features = np.vstack([train_dataset.total_content_features[video] for video in train_dataset.videos])
-    Xt_features = np.vstack([test_dataset.total_content_features[video] for video in test_dataset.videos])
+    # print("The shape of one trace:", train_dataset.total_traces[train_dataset.videos[2]][train_dataset.users[2]].shape)
+    # The shape of one trace: (288, 3)
+
+
+    print("Shape of Xs_traces:", Xs_traces.shape)
+    print("Shape of Xt_traces:", Xt_traces.shape)
+
+
+    # exit()
     
     # Apply TCA on traces
     tca_traces = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
     print("Before TCA on traces: ", Xs_traces.shape, Xt_traces.shape)
-    print("Before TCA on features: ", Xs_features.shape, Xt_features.shape)
+
     Xs_traces_new, Xt_traces_new = tca_traces.fit(np.asarray(Xs_traces), np.asarray(Xt_traces))
+
+    print("After TCA on traces: ", Xs_traces_new.shape, Xt_traces_new.shape)
     
 
     #! The transform is necessary?
     Xt_traces_new = ((Xt_traces_new - Xt_traces_new.min()) / (Xt_traces_new.max() - Xt_traces_new.min())) * (Xt_traces.max() - Xt_traces.min()) + Xt_traces.min() # transform
-    
-    # Apply TCA on content features
-    tca_features = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
-    print("Before TCA on features: ", Xs_features.shape, Xt_features.shape)
-    Xs_features_new, Xt_features_new = tca_features.fit(np.asarray(Xs_features), np.asarray(Xt_features))
 
-    #! The transform is necessary?
-    Xt_features_new = ((Xt_features_new - Xt_features_new.min()) / (Xt_features_new.max() - Xt_features_new.min())) * (Xt_features.max() - Xt_features.min()) + Xt_features.min() # transform
-    
     # Update test dataset with transformed traces
     index = 0
     for video in test_dataset.videos:
@@ -385,16 +390,90 @@ def apply_tca_on_test(train_dataset, test_dataset):
             # Assign each row back to the corresponding video and user
             test_dataset.total_traces[video][user] = Xt_traces_new[index:index + length]
             index += length
+
+    #! This is for features. Notice that we do not need the return value since we have already saved the file in a new path
     
-    # Update test dataset with transformed content features
-    index = 0
-    for video in test_dataset.videos:
-        length = len(test_dataset.total_content_features[video])
-        # Assign each row back to the corresponding video
-        test_dataset.total_content_features[video] = Xt_features_new[index:index + length]
-        index += length
+    Xs_features_new, Xt_features_new = process_and_apply_tca()
     
     return train_dataset, test_dataset
+
+
+def process_and_apply_tca():
+    # Extract the train and valid indices for Jin2022
+    train_indices = cfg.dataset_video_split['Jin2022']['train']
+    valid_indices = cfg.dataset_video_split['Jin2022']['valid']
+
+    print("Train indices:", train_indices)
+    print("Valid indices:", valid_indices)
+
+    # Calculate the number of target indices (2/3 of valid indices)
+    num_target_indices = len(valid_indices) * 2 // 3
+
+    # Extract the target indices
+    target_indices = valid_indices[:num_target_indices]
+
+    print("Target indices:", target_indices)
+
+    # Define the base path for the image features
+    base_path = '/projects/bcrn/yliang7/research/NetLLM/viewport_prediction/data/images/Jin2022images/features'
+
+    # Get the paths for source and target folders
+    source_folders = [os.path.join(base_path, f'video{index}_images') for index in train_indices]
+    target_folders = [os.path.join(base_path, f'video{index}_images') for index in target_indices]
+
+    print("Source folders:", source_folders)
+    print("Target folders:", target_folders)
+
+    def read_and_stack_features(folders):
+        all_features = []
+        file_paths = []
+        for folder in folders:
+            for file_name in os.listdir(folder):
+                if file_name.endswith('.pth'):
+                    file_path = os.path.join(folder, file_name)
+                    loaded_tensor_dict = torch.load(file_path)
+                    for key, value in loaded_tensor_dict.items():
+                        all_features.append(value.detach().numpy().flatten())
+                    file_paths.append(file_path)
+        return np.vstack(all_features), file_paths
+
+    # Read and stack features for source and target
+    Xs_features, source_file_paths = read_and_stack_features(source_folders)
+    Xt_features, target_file_paths = read_and_stack_features(target_folders)
+
+    print("Shape of Xs_features:", Xs_features.shape)
+    print("Shape of Xt_features:", Xt_features.shape)
+
+    # Apply TCA on traces
+    tca_traces = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
+    print("Before TCA on traces: ", Xs_features.shape, Xt_features.shape)
+    print("Before TCA on features: ", Xs_features.shape, Xt_features.shape)
+    Xs_features_new, Xt_features_new = tca_traces.fit(np.asarray(Xs_features), np.asarray(Xt_features))
+
+    print("After TCA on traces: ", Xs_features_new.shape, Xt_features_new.shape)
+
+    # Transform Xt_features_new
+    Xt_features_new = ((Xt_features_new - Xt_features_new.min()) / (Xt_features_new.max() - Xt_features_new.min())) * (Xt_features.max() - Xt_features.min()) + Xt_features.min()
+
+    print("Transformed Xt_features_new:", Xt_features_new.shape)
+
+    # Save the transformed features back to .pth files
+    def save_transformed_features(folders, transformed_features, file_paths, suffix='_tca'):
+        feature_index = 0
+        for folder, file_path in zip(folders, file_paths):
+            new_folder = folder + suffix
+            os.makedirs(new_folder, exist_ok=True)
+            new_file_path = os.path.join(new_folder, os.path.basename(file_path))
+            loaded_tensor_dict = torch.load(file_path)
+            for key in loaded_tensor_dict.keys():
+                loaded_tensor_dict[key] = torch.tensor(transformed_features[feature_index]).view(1, -1)
+                feature_index += 1
+            torch.save(loaded_tensor_dict, new_file_path)
+
+    save_transformed_features(source_folders, Xs_features_new, source_file_paths)
+    save_transformed_features(target_folders, Xt_features_new, target_file_paths)
+
+    return Xs_features_new, Xt_features_new
 
 def save_model(args, model, save_dir):
     """
@@ -428,7 +507,7 @@ def load_model(args, model, model_dir):
 
 def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, grad_accum_steps):
     file_prefix = f'his_{args.his_window}_fut_{args.fut_window}_ss_{args.sample_step}_epochs_{args.epochs}_bs_{args.bs * args.grad_accum_steps}_'\
-                  f'lr_{args.lr}_seed_{args.seed}_rank_{args.rank}_scheduled_sampling_{args.scheduled_sampling}'
+                  f'lr_{args.lr}_seed_{args.seed}_rank_{args.rank}_scheduled_sampling_{args.scheduled_sampling}_task_name_{args.task_name}'
     checkpoint_path = os.path.join(models_dir, file_prefix, 'checkpoint')
     if not os.path.exists(checkpoint_path):
         os.makedirs(checkpoint_path)
@@ -544,9 +623,9 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
                 log_loss = tot_loss
             
             # for debug
-            if global_step >= 100:
-                save_model(args, pipeline, best_model_path)
-                break
+            # if global_step >= 100:
+            #     save_model(args, pipeline, best_model_path)
+            #     break
             
         
         # save checkpoint by save_checkpoint_per_epoch
@@ -563,7 +642,7 @@ def adapt(args, pipeline, train_dl, test_train_dl, test_test_dl, models_dir, gra
     global_step_for_ft = 0
 
     #! Continue training on test_train dataset for 2 epochs, evaluating on test_test every 1 epoch (hyperparameter to be determined)
-    additional_epoch = 1
+    additional_epoch = 10
     for epoch in range(additional_epoch):
         if apply_check == True:
             apply_check = False
@@ -758,11 +837,15 @@ def uncertainty_select(pipeline, dataloader):
             intervals = []
 
             for i in range(inputs.shape[0]):  
+
+                #! Modified
+                i_tensor = torch.tensor([i], dtype=torch.float32, device=inputs.device)
+
                 # Loop through each sample in the batch
                 # Prediction interval for latency
                 interval = t_value * torch.sqrt(
                     1 + (1 / len(inputs)) + 
-                    (([i] - inputs.mean(dim=0))**2).sum() / ((inputs - inputs.mean(dim=0))**2).sum()
+                    ((i_tensor - inputs.mean(dim=0))**2).sum() / ((inputs - inputs.mean(dim=0))**2).sum()
                 )
                 intervals.append(interval.cpu().numpy())
 
@@ -878,29 +961,29 @@ def run(args):
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
 
-    plm, tokenizer, _ = load_plm(args.plm_type, os.path.join(cfg.plms_dir, args.plm_type, args.plm_size), plm_size=args.plm_size, 
-                                     device_input_side=args.device, device_output_side=args.device_out, device_middle_side=args.device_mid)
-    if (args.plm_type == 'opt' or args.plm_type == 'gpt2') and args.plm_size!= 'large':  # other plm can simply be loaded on one device
-        plm = plm.to(args.device)
+    # plm, tokenizer, _ = load_plm(args.plm_type, os.path.join(cfg.plms_dir, args.plm_type, args.plm_size), plm_size=args.plm_size, 
+    #                                  device_input_side=args.device, device_output_side=args.device_out, device_middle_side=args.device_mid)
+    # if (args.plm_type == 'opt' or args.plm_type == 'gpt2') and args.plm_size!= 'large':  # other plm can simply be loaded on one device
+    #     plm = plm.to(args.device)
     
-    if args.rank != -1:
-        plm = peft_model(plm, args.plm_type, args.rank)
+    # if args.rank != -1:
+    #     plm = peft_model(plm, args.plm_type, args.rank)
         
-    # set up networking head
-    input_dim = plm.hidden_size
-    out_dim = 3  # = the number of viewport coordinates
-    if args.plm_type == 'opt' and args.plm_size == 'xxs':
-        networking_head = NetworkingHead(input_dim=512, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
-    else:
-        networking_head = NetworkingHead(input_dim=input_dim, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
-    plm.set_networking_head(networking_head)
-    print('PLM model architecture:')
-    print(plm)
+    # # set up networking head
+    # input_dim = plm.hidden_size
+    # out_dim = 3  # = the number of viewport coordinates
+    # if args.plm_type == 'opt' and args.plm_size == 'xxs':
+    #     networking_head = NetworkingHead(input_dim=512, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
+    # else:
+    #     networking_head = NetworkingHead(input_dim=input_dim, output_dim=out_dim, fut_window=args.fut_window).to(args.device_out)
+    # plm.set_networking_head(networking_head)
+    # print('PLM model architecture:')
+    # print(plm)
     
-    if args.plm_type == 'llama':
-        embed_size = 4096
+    # if args.plm_type == 'llama':
+    #     embed_size = 4096
 
-    pipeline = Pipeline(plm, fut_window=args.fut_window, device=args.device, embed_size=embed_size, frequency=args.dataset_frequency, using_multimodal=args.using_multimodal, dataset=args.train_dataset)
+    # pipeline = Pipeline(plm, fut_window=args.fut_window, device=args.device, embed_size=embed_size, frequency=args.dataset_frequency, using_multimodal=args.using_multimodal, dataset=args.train_dataset)
 
     if args.compile:
         assert torch.__version__ >= '2.0.0', 'Compile model requires torch version >= 2.0.0, but current torch version is ' + torch.__version__
@@ -928,9 +1011,11 @@ def run(args):
         
         #! This is the TCA on the training dataset
         #! This is currently commented out
-        print("Skip TCA")
+
+        #!For debug
+        # print("Skip TCA")
         # The raw_dataset_finetune is used for further training
-        # raw_dataset_train, raw_dataset_finetune = apply_tca_on_test(raw_dataset_train, raw_dataset_valid)
+        raw_dataset_train, raw_dataset_finetune = apply_tca_on_test(raw_dataset_train, raw_dataset_valid)
         raw_dataset_train, raw_dataset_finetune = raw_dataset_train, raw_dataset_valid
 
         print("##########")
@@ -976,6 +1061,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process the input parameters to train the network.')
     
     # ========== model/plm settings related arguments ==========
+    parser.add_argument('--task_name', action="store", dest='task_name', type=str, help='the task name to run the experiment.')
     parser.add_argument('--adapt', action="store_true", help='adapt llm.')
     parser.add_argument('--test', action="store_true", help='test llm.')
     parser.add_argument('--plm-type', action="store", dest='plm_type', help='type of plm.', default='t5-lm')
