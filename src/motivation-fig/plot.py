@@ -6,6 +6,7 @@ import matplotlib
 import sys
 from collections import OrderedDict
 import scipy.stats
+from matplotlib.ticker import MaxNLocator
 plt.switch_backend('agg')
 
 NUM_BINS = 500
@@ -23,7 +24,6 @@ LW = 1.5
 # set my own path
 LOG = '/mydata/Pensieve-PPO-TCA/src/tca/test_result_dir/tca-dis0-dis1-1e-4/'
 
-app_name = 'metro' # car ferry metro
 
 def mean_confidence_interval(data, confidence=0.95):
     a = 1.0 * np.array(data)
@@ -53,7 +53,7 @@ def bitrate_smo(outputs):
     font = {'size': 15}
     matplotlib.rc('font', **font)
     fig, ax = plt.subplots(figsize=(6, 4))
-    plt.subplots_adjust(left=0.14, bottom=0.16, right=0.96, top=0.96)
+    # plt.subplots_adjust(left=0.14, bottom=0.16, right=0.96, top=0.96)
 
     max_bitrate = 0
     for idx, scheme in enumerate(SCHEMES):
@@ -262,47 +262,81 @@ def qoe_cdf(outputs):
     modern_academic_colors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F', '#EDC948', '#B07AA1', '#FF9DA7', '#9C755F']
 
     reward_all = {}
+    times_all = {}
 
-    plt.rcParams['axes.labelsize'] = 15
-    font = {'size': 15}
+    plt.rcParams['axes.labelsize'] = 20
+    font = {'size': 20}
     matplotlib.rc('font', **font)
-    fig, ax = plt.subplots(figsize=(5, 3.5))
+    fig, ax = plt.subplots(figsize=(10, 6))
     # plt.subplots_adjust(left=0.06, bottom=0.16, right=0.96, top=0.96)
-    plt.subplots_adjust(left=0.16, bottom=0.16, right=0.96, top=0.96)
+    plt.subplots_adjust(left=0.17, bottom=0.16, right=0.96, top=0.96)
 
 
     max_bitrate = 0
-    points = ['-^','-o']
-    names_list = ['Model1','Model2']
-    colors = ['#000000','#d62728']
+    
+    # names_list = ['Model1','Model2']
+    # colors = ['#000000','#d62728']
+    # line_styles = ['solid','dashed']
     points_index = 0
-    legend_position = {'car':'lower center','ferry':'upper left', 'metro':'lower left'}
-    trace_index = {'car':1,'ferry':4, 'metro':4}
 
+    # points = {'car':'-o','ferry':'-^', 'metro':'-*'}
+    # colors = {'car':'#000000','ferry':'#d62728', 'metro':'#1f77b4'}
+    # names_list = {'car':'car','ferry':'ferry', 'metro':'metro'}
+    # legend_position = {'car':'lower center','ferry':'upper left', 'metro':'lower left'}
+    # trace_index = {'car':1,'ferry':5, 'metro':1}
 
-    app_dir_name = '/mydata/Pensieve-PPO/src/motivation-fig/app-' + app_name + '/'
+    # points = {'car':'-o','ferry':'-^', 'bus':'-*'}
+    # colors = {'car':'#000000','ferry':'#d62728', 'bus':'#1f77b4'}
+    # names_list = {'car':'car','ferry':'ferry', 'bus':'bus'}
+    # legend_position = {'car':'lower center','ferry':'upper left', 'bus':'lower left'}
+    # trace_index = {'car':4,'ferry':6, 'bus':4}
+
+    points = {'car':'-o','ferry':'-^', 'bus':'-*'}
+    colors = {'car':'#000000','ferry':'#d62728', 'bus':'#1f77b4'}
+    names_list = {'car':'car','ferry':'ferry', 'bus':'bus'}
+    legend_position = {'car':'lower center','ferry':'upper left', 'bus':'lower left'}
+    trace_index = {'car':4,'ferry':10, 'bus':4}
+# 1 4 4
+# 1 5 4
+# 124
+# 1 2 11
+# 1 2 13
+# 1 2 15
+# 1 2 18
+# 4 2 18
+# 4 6 18 
+    app_dir_name = '/mydata/Pensieve-PPO/src/motivation-fig/app-three-together-bustest-no-global/'
     for each_LOG in os.listdir(app_dir_name):
         each_complete_LOG = app_dir_name + each_LOG
+        app_name = each_LOG.split("-")[-1]
         for idx, scheme in enumerate(SCHEMES):
             arr_list = []
+            time_list = []
             for files in os.listdir(each_complete_LOG):
                 if scheme in files:
                     file_scehem = each_complete_LOG + '/' + files
                     f = open(file_scehem, 'r')
                     arr = []
+                    times_afile = []
                     for line in f:
                         sp = line.split()
                         if len(sp) > 1:
                             arr.append(float(sp[-1]))
+                            times_afile.append(float(sp[0]))
                     f.close()
                     # if np.mean(arr[1:]) > -100.:
                     arr_list.append(arr[1:])
+                    time_list.append(times_afile[1:])
             # 图1:1 # 图2:4  # 图3: 4
             reward_all[scheme] = arr_list[trace_index[app_name]] # 所有的 test 都选择第一个trace的瞬时qoe
+            times_all[scheme] = time_list[trace_index[app_name]]
 
             for scheme in reward_all:
                 rewards = reward_all[scheme]
-                ax.plot(rewards, points[points_index], color=colors[points_index],label='%s: %.2f' % (names_list[points_index], np.mean(rewards)))  # 直接使用 "实验" 作为标签
+                times_for_a_trace = times_all[scheme]
+                times_for_a_trace = [t - times_for_a_trace[0] for t in times_for_a_trace]
+                # ax.plot(rewards, points[points_index], lw=3.0 ,color=colors[points_index],linestyle=line_styles[points_index],label='%s: %.2f' % (names_list[points_index], np.mean(rewards)))
+                ax.plot(times_for_a_trace, rewards, points[app_name], lw=3.0 ,color=colors[app_name],label='%s: %.2f' % (names_list[app_name], np.mean(rewards)))  # 直接使用 "实验" 作为标签
                 points_index += 1
             # values, base = np.histogram(reward_all[scheme], bins=NUM_BINS)
             # cumulative = np.cumsum(values)
@@ -311,9 +345,11 @@ def qoe_cdf(outputs):
             #         label='%s: %.2f' % (each_LOG, np.mean(reward_all[scheme])))
 
             print('%s, %.2f' % (scheme, np.mean(reward_all[scheme])))
-    ax.set_xlabel('Steps')
-    ax.set_ylabel('QoE')
-    ax.set_xlim(0.,)
+
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_xlabel('Seconds',fontsize=20)
+    ax.set_ylabel('QoE',fontsize=20)
+    # ax.set_xlim(0.,46)
     # ax.set_ylim(0., 1.01)
     # ax.set_xlim(0., 1.8)
 
@@ -322,10 +358,12 @@ def qoe_cdf(outputs):
 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    ax.legend(fontsize=12, ncol=1, edgecolor='white',loc=legend_position[app_name])
+    ax.legend(fontsize=17, ncol=1, edgecolor='white',loc="lower left")
 
+    # fig.savefig(outputs + '.png') # pdf
+    fig.savefig(outputs + '.png',bbox_inches='tight')
     # fig.savefig(outputs + '.png')
-    fig.savefig(outputs + '.pdf')
+
     plt.close()
 
 if __name__ == '__main__':
@@ -333,4 +371,4 @@ if __name__ == '__main__':
     # bitrate_rebuf('baselines-br')
     # smo_rebuf('baselines-sr')
     # bitrate_smo('baselines-bs')
-    qoe_cdf('/mydata/Pensieve-PPO/src/motivation-fig/baselines-qoe-'+app_name)
+    qoe_cdf('/mydata/Pensieve-PPO/src/motivation-fig/baselines-qoe-global-together-bus')
