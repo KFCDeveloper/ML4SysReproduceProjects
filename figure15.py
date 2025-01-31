@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -70,20 +69,25 @@ def plot_improvement_DOTE(data, dote_accuracy):
     # Remove top and right spines from the first y-axis
     ax1.spines['top'].set_visible(False)
     ax1.spines['right'].set_visible(False)
+    ax2.spines['top'].set_visible(False)
 
     # Customize ticks
-    ax1.tick_params(axis='both', which='major', labelsize=12, direction='in', length=4)
-    ax2.tick_params(axis='both', which='major', labelsize=12, direction='in', length=4)
+    ax1.tick_params(axis='both', which='major', labelsize=14, direction='in', length=4)
+    ax2.tick_params(axis='both', which='major', labelsize=14, direction='in', length=4)
     ax1.set_xticks(x_positions)
     ax1.set_xticklabels([f"{p/1000:.1f}" if isinstance(p, int) else p for p in data["TCA Sampling Percentage"]])
 
     # Add combined legend
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
-    ax2.legend(lines + lines2, labels + labels2, loc='upper left', fontsize=12)
+    ax2.legend(lines + lines2, labels + labels2, loc='upper left', fontsize=12, frameon=False)
 
     ax2.set_ylim(72, 100)
     ax1.set_ylim(0.0, 1.6)
+
+    # Add grid
+    # ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
+    # ax2.grid(True, which='both', linestyle='--', linewidth=0.5)
 
     # Apply tight layout
     plt.tight_layout()
@@ -165,23 +169,25 @@ def plot_improvement_FLUX():
     # Remove top and right spines from the first y-axis
     ax1.spines['top'].set_visible(False)
     ax1.spines['right'].set_visible(False)
-    
+    ax2.spines['top'].set_visible(False)
 
     # Customize ticks
-    ax1.tick_params(axis='both', which='major', labelsize=12, direction='in', length=4)
-    ax2.tick_params(axis='both', which='major', labelsize=12, direction='in', length=4)
+    ax1.tick_params(axis='both', which='major', labelsize=14, direction='in', length=4)
+    ax2.tick_params(axis='both', which='major', labelsize=14, direction='in', length=4)
     ax1.set_xticks(x_positions)
     ax1.set_xticklabels([f"{p/10000:.1f}" if isinstance(p, int) else p for p in data["TCA Sampling Percentage"]])
 
     # Add combined legend
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
-    ax2.legend(lines + lines2, labels + labels2, loc='upper left', fontsize=12)
+    ax2.legend(lines + lines2, labels + labels2, loc='upper left', fontsize=12, frameon=False)
 
     ax2.set_ylim(60, 100)
     ax1.set_ylim(0.0, 4.05)
 
-    
+    # Add grid
+    # ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
+    # ax2.grid(True, which='both', linestyle='--', linewidth=0.5)
 
     # Apply tight layout
     plt.tight_layout()
