@@ -1,0 +1,1502 @@
+Environment initialized for function readfile_imageresize_imagerotate
+Initial state: [1.0789217046269433, 0.8845915762896567, 0.125, 0.0, 1.0, 1.0, 0.5133825731743386]
+Memory use: 496.37109375 CPU util: 0.0
+Step #0 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #1 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: -1
+Step #2 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: -1
+Step #3 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #4 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #5 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: -1
+Step #7 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: -1
+Step #9 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #10 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #11 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #12 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: -1
+Step #13 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #14 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: -1
+Step #16 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: -1
+Step #17 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #19 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #20 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #22 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #24 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #25 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: -1
+Step #27 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: -1
+Step #28 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: -1
+Step #29 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: -1
+Step #30 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: -1
+Step #31 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: -1
+Step #32 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #33 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #38 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: -1
+Step #39 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: -1
+Step #40 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: -1
+Step #41 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #44 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: -1
+Step #45 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: 1.02638208987793
+Step #46 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: -1
+Step #47 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: -1
+Step #48 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 0 - Average rewards across episodes: -2.558 | Moving average: -2.558
+Memory use: 510.40234375 CPU util: 553.0
+Iteration: 1 - Average rewards across episodes: -1.466 | Moving average: -2.012
+Memory use: 510.37890625 CPU util: 555.6
+Iteration: 2 - Average rewards across episodes: 7.894 | Moving average: 1.29
+Memory use: 510.421875 CPU util: 533.8
+Iteration: 3 - Average rewards across episodes: -5.599 | Moving average: -0.432
+Memory use: 510.4296875 CPU util: 491.4
+Iteration: 4 - Average rewards across episodes: 0.466 | Moving average: -0.253
+Memory use: 510.43359375 CPU util: 472.0
+Iteration: 5 - Average rewards across episodes: 3.697 | Moving average: 0.406
+Memory use: 510.44140625 CPU util: 495.7
+Iteration: 6 - Average rewards across episodes: -2.501 | Moving average: -0.01
+Memory use: 510.4375 CPU util: 490.0
+Iteration: 7 - Average rewards across episodes: 0.479 | Moving average: 0.051
+Memory use: 510.44140625 CPU util: 491.6
+Iteration: 8 - Average rewards across episodes: 2.993 | Moving average: 0.378
+Memory use: 510.44921875 CPU util: 505.5
+Iteration: 9 - Average rewards across episodes: -3.272 | Moving average: 0.013
+Memory use: 510.44921875 CPU util: 446.5
+Iteration: 10 - Average rewards across episodes: 8.81 | Moving average: 1.15
+Memory use: 510.44921875 CPU util: 427.7
+Iteration: 11 - Average rewards across episodes: 8.92 | Moving average: 2.189
+Memory use: 510.4609375 CPU util: 421.2
+Iteration: 12 - Average rewards across episodes: 4.274 | Moving average: 1.827
+Memory use: 510.46875 CPU util: 437.1
+Iteration: 13 - Average rewards across episodes: -0.058 | Moving average: 2.381
+Memory use: 510.46875 CPU util: 428.2
+Iteration: 14 - Average rewards across episodes: 3.497 | Moving average: 2.684
+Memory use: 510.47265625 CPU util: 445.9
+Iteration: 15 - Average rewards across episodes: 2.267 | Moving average: 2.541
+Memory use: 510.47265625 CPU util: 441.8
+Iteration: 16 - Average rewards across episodes: 5.332 | Moving average: 3.324
+Memory use: 510.47265625 CPU util: 447.2
+Iteration: 17 - Average rewards across episodes: 10.042 | Moving average: 4.281
+Memory use: 510.4765625 CPU util: 464.6
+Iteration: 18 - Average rewards across episodes: 19.665 | Moving average: 5.948
+Memory use: 510.4765625 CPU util: 436.5
+Iteration: 19 - Average rewards across episodes: 10.639 | Moving average: 7.339
+Memory use: 510.4765625 CPU util: 417.4
+Iteration: 20 - Average rewards across episodes: 12.335 | Moving average: 7.691
+Memory use: 510.4765625 CPU util: 427.6
+Iteration: 21 - Average rewards across episodes: 17.482 | Moving average: 8.548
+Memory use: 510.4765625 CPU util: 431.1
+Iteration: 22 - Average rewards across episodes: 18.591 | Moving average: 9.979
+Memory use: 510.48046875 CPU util: 445.5
+Iteration: 23 - Average rewards across episodes: 22.445 | Moving average: 12.23
+Memory use: 510.48046875 CPU util: 422.8
+Iteration: 24 - Average rewards across episodes: 27.986 | Moving average: 14.678
+Memory use: 510.5390625 CPU util: 427.8
+Iteration: 25 - Average rewards across episodes: 24.675 | Moving average: 16.919
+Memory use: 510.5390625 CPU util: 426.4
+Iteration: 26 - Average rewards across episodes: 22.391 | Moving average: 18.625
+Memory use: 510.54296875 CPU util: 428.6
+Iteration: 27 - Average rewards across episodes: 27.195 | Moving average: 20.34
+Memory use: 510.54296875 CPU util: 476.5
+Iteration: 28 - Average rewards across episodes: 25.286 | Moving average: 20.903
+Memory use: 510.54296875 CPU util: 433.6
+Iteration: 29 - Average rewards across episodes: 21.485 | Moving average: 21.987
+Memory use: 510.54296875 CPU util: 425.3
+Iteration: 30 - Average rewards across episodes: 32.677 | Moving average: 24.021
+Memory use: 510.54296875 CPU util: 434.5
+Iteration: 31 - Average rewards across episodes: 30.935 | Moving average: 25.367
+Memory use: 510.54296875 CPU util: 439.7
+Iteration: 32 - Average rewards across episodes: 33.906 | Moving average: 26.898
+Memory use: 510.54296875 CPU util: 460.5
+Iteration: 33 - Average rewards across episodes: 33.21 | Moving average: 27.975
+Memory use: 510.546875 CPU util: 426.8
+Iteration: 34 - Average rewards across episodes: 35.494 | Moving average: 28.725
+Memory use: 510.546875 CPU util: 427.3
+Iteration: 35 - Average rewards across episodes: 38.12 | Moving average: 30.07
+Memory use: 510.546875 CPU util: 416.6
+Iteration: 36 - Average rewards across episodes: 35.755 | Moving average: 31.406
+Memory use: 510.546875 CPU util: 424.0
+Iteration: 37 - Average rewards across episodes: 40.014 | Moving average: 32.688
+Memory use: 510.55078125 CPU util: 479.0
+Iteration: 38 - Average rewards across episodes: 36.813 | Moving average: 33.841
+Memory use: 510.55078125 CPU util: 435.4
+Iteration: 39 - Average rewards across episodes: 36.394 | Moving average: 35.332
+Memory use: 510.55078125 CPU util: 453.9
+Iteration: 40 - Average rewards across episodes: 38.989 | Moving average: 35.963
+Memory use: 510.5546875 CPU util: 428.1
+Iteration: 41 - Average rewards across episodes: 31.153 | Moving average: 35.985
+Memory use: 510.5546875 CPU util: 431.0
+Iteration: 42 - Average rewards across episodes: 41.318 | Moving average: 36.726
+Memory use: 510.5546875 CPU util: 451.4
+Iteration: 43 - Average rewards across episodes: 40.522 | Moving average: 37.457
+Memory use: 510.5546875 CPU util: 424.0
+Iteration: 44 - Average rewards across episodes: 37.67 | Moving average: 37.675
+Memory use: 510.5546875 CPU util: 471.9
+Iteration: 45 - Average rewards across episodes: 38.875 | Moving average: 37.75
+Memory use: 510.5546875 CPU util: 438.5
+Iteration: 46 - Average rewards across episodes: 42.954 | Moving average: 38.47
+Memory use: 510.5546875 CPU util: 427.9
+Iteration: 47 - Average rewards across episodes: 43.075 | Moving average: 38.776
+Memory use: 510.5546875 CPU util: 426.5
+Iteration: 48 - Average rewards across episodes: 43.788 | Moving average: 39.474
+Memory use: 510.55859375 CPU util: 424.2
+Iteration: 49 - Average rewards across episodes: 42.814 | Moving average: 40.116
+Memory use: 510.55859375 CPU util: 427.6
+Step #0 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: 1.02638208987793
+Step #23 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #28 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #38 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 50 - Average rewards across episodes: 42.017 | Moving average: 40.419
+Memory use: 510.55859375 CPU util: 424.1
+Iteration: 51 - Average rewards across episodes: 42.548 | Moving average: 41.558
+Memory use: 510.55859375 CPU util: 452.5
+Iteration: 52 - Average rewards across episodes: 42.257 | Moving average: 41.652
+Memory use: 510.55859375 CPU util: 420.5
+Iteration: 53 - Average rewards across episodes: 42.029 | Moving average: 41.803
+Memory use: 510.55859375 CPU util: 437.3
+Iteration: 54 - Average rewards across episodes: 44.403 | Moving average: 42.476
+Memory use: 510.55859375 CPU util: 420.8
+Iteration: 55 - Average rewards across episodes: 43.468 | Moving average: 42.935
+Memory use: 510.55859375 CPU util: 432.4
+Iteration: 56 - Average rewards across episodes: 44.344 | Moving average: 43.074
+Memory use: 510.5625 CPU util: 426.5
+Iteration: 57 - Average rewards across episodes: 43.388 | Moving average: 43.106
+Memory use: 510.56640625 CPU util: 421.3
+Iteration: 58 - Average rewards across episodes: 42.02 | Moving average: 42.929
+Memory use: 510.56640625 CPU util: 431.6
+Iteration: 59 - Average rewards across episodes: 41.67 | Moving average: 42.814
+Memory use: 510.56640625 CPU util: 432.3
+Iteration: 60 - Average rewards across episodes: 44.666 | Moving average: 43.079
+Memory use: 510.56640625 CPU util: 449.4
+Iteration: 61 - Average rewards across episodes: 43.834 | Moving average: 43.208
+Memory use: 510.56640625 CPU util: 426.4
+Iteration: 62 - Average rewards across episodes: 43.127 | Moving average: 43.295
+Memory use: 510.56640625 CPU util: 441.5
+Iteration: 63 - Average rewards across episodes: 43.184 | Moving average: 43.41
+Memory use: 510.56640625 CPU util: 420.6
+Iteration: 64 - Average rewards across episodes: 45.585 | Moving average: 43.529
+Memory use: 510.56640625 CPU util: 424.1
+Iteration: 65 - Average rewards across episodes: 44.292 | Moving average: 43.611
+Memory use: 510.56640625 CPU util: 429.6
+Iteration: 66 - Average rewards across episodes: 41.811 | Moving average: 43.358
+Memory use: 510.56640625 CPU util: 418.1
+Iteration: 67 - Average rewards across episodes: 41.801 | Moving average: 43.199
+Memory use: 510.56640625 CPU util: 449.5
+Iteration: 68 - Average rewards across episodes: 42.764 | Moving average: 43.273
+Memory use: 510.56640625 CPU util: 429.0
+Iteration: 69 - Average rewards across episodes: 42.177 | Moving average: 43.324
+Memory use: 510.56640625 CPU util: 430.6
+Iteration: 70 - Average rewards across episodes: 44.154 | Moving average: 43.273
+Memory use: 510.56640625 CPU util: 435.8
+Iteration: 71 - Average rewards across episodes: 41.209 | Moving average: 43.01
+Memory use: 510.56640625 CPU util: 438.1
+Iteration: 72 - Average rewards across episodes: 45.053 | Moving average: 43.203
+Memory use: 510.56640625 CPU util: 430.8
+Iteration: 73 - Average rewards across episodes: 44.683 | Moving average: 43.353
+Memory use: 510.56640625 CPU util: 426.0
+Iteration: 74 - Average rewards across episodes: 44.734 | Moving average: 43.268
+Memory use: 510.56640625 CPU util: 418.3
+Iteration: 75 - Average rewards across episodes: 42.828 | Moving average: 43.122
+Memory use: 510.56640625 CPU util: 433.1
+Iteration: 76 - Average rewards across episodes: 43.743 | Moving average: 43.315
+Memory use: 510.56640625 CPU util: 418.7
+Iteration: 77 - Average rewards across episodes: 43.851 | Moving average: 43.52
+Memory use: 510.5703125 CPU util: 432.6
+Iteration: 78 - Average rewards across episodes: 45.667 | Moving average: 43.81
+Memory use: 510.5703125 CPU util: 480.5
+Iteration: 79 - Average rewards across episodes: 43.737 | Moving average: 43.966
+Memory use: 510.5703125 CPU util: 466.3
+Iteration: 80 - Average rewards across episodes: 44.733 | Moving average: 44.024
+Memory use: 510.5703125 CPU util: 497.9
+Iteration: 81 - Average rewards across episodes: 44.254 | Moving average: 44.328
+Memory use: 510.5703125 CPU util: 480.4
+Iteration: 82 - Average rewards across episodes: 42.795 | Moving average: 44.103
+Memory use: 510.5703125 CPU util: 473.2
+Iteration: 83 - Average rewards across episodes: 41.757 | Moving average: 43.81
+Memory use: 510.5703125 CPU util: 485.2
+Iteration: 84 - Average rewards across episodes: 43.87 | Moving average: 43.724
+Memory use: 510.5703125 CPU util: 465.9
+Iteration: 85 - Average rewards across episodes: 42.22 | Moving average: 43.663
+Memory use: 510.5703125 CPU util: 467.5
+Iteration: 86 - Average rewards across episodes: 45.202 | Moving average: 43.809
+Memory use: 510.5703125 CPU util: 479.3
+Iteration: 87 - Average rewards across episodes: 43.671 | Moving average: 43.791
+Memory use: 510.5703125 CPU util: 471.7
+Iteration: 88 - Average rewards across episodes: 44.254 | Moving average: 43.649
+Memory use: 510.5703125 CPU util: 469.6
+Iteration: 89 - Average rewards across episodes: 45.202 | Moving average: 43.796
+Memory use: 510.5703125 CPU util: 454.5
+Iteration: 90 - Average rewards across episodes: 44.231 | Moving average: 43.746
+Memory use: 510.5703125 CPU util: 466.4
+Iteration: 91 - Average rewards across episodes: 44.696 | Moving average: 43.79
+Memory use: 510.5703125 CPU util: 483.3
+Iteration: 92 - Average rewards across episodes: 45.202 | Moving average: 44.03
+Memory use: 510.5703125 CPU util: 462.4
+Iteration: 93 - Average rewards across episodes: 43.748 | Moving average: 44.23
+Memory use: 510.5703125 CPU util: 446.7
+Iteration: 94 - Average rewards across episodes: 44.169 | Moving average: 44.259
+Memory use: 510.5703125 CPU util: 465.6
+Iteration: 95 - Average rewards across episodes: 44.254 | Moving average: 44.463
+Memory use: 510.5703125 CPU util: 467.7
+Iteration: 96 - Average rewards across episodes: 45.202 | Moving average: 44.463
+Memory use: 510.5703125 CPU util: 444.5
+Iteration: 97 - Average rewards across episodes: 45.667 | Moving average: 44.662
+Memory use: 510.5703125 CPU util: 483.9
+Iteration: 98 - Average rewards across episodes: 44.696 | Moving average: 44.707
+Memory use: 510.57421875 CPU util: 469.0
+Iteration: 99 - Average rewards across episodes: 45.181 | Moving average: 44.705
+Memory use: 510.57421875 CPU util: 479.7
+Step #0 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #16 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #28 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #49 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Iteration: 100 - Average rewards across episodes: 44.804 | Moving average: 44.762
+Memory use: 510.66015625 CPU util: 479.1
+Iteration: 101 - Average rewards across episodes: 45.181 | Moving average: 44.81
+Memory use: 510.66796875 CPU util: 468.1
+Iteration: 102 - Average rewards across episodes: 45.161 | Moving average: 44.806
+Memory use: 510.671875 CPU util: 478.3
+Iteration: 103 - Average rewards across episodes: 45.202 | Moving average: 44.952
+Memory use: 510.67578125 CPU util: 474.2
+Iteration: 104 - Average rewards across episodes: 45.687 | Moving average: 45.104
+Memory use: 510.67578125 CPU util: 473.6
+Iteration: 105 - Average rewards across episodes: 44.69 | Moving average: 45.147
+Memory use: 510.67578125 CPU util: 472.9
+Iteration: 106 - Average rewards across episodes: 44.696 | Moving average: 45.097
+Memory use: 510.67578125 CPU util: 460.2
+Iteration: 107 - Average rewards across episodes: 45.202 | Moving average: 45.05
+Memory use: 510.67578125 CPU util: 466.5
+Iteration: 108 - Average rewards across episodes: 45.202 | Moving average: 45.101
+Memory use: 510.67578125 CPU util: 459.4
+Iteration: 109 - Average rewards across episodes: 44.696 | Moving average: 45.052
+Memory use: 510.67578125 CPU util: 472.6
+Iteration: 110 - Average rewards across episodes: 44.19 | Moving average: 44.991
+Memory use: 510.67578125 CPU util: 475.3
+Iteration: 111 - Average rewards across episodes: 46.153 | Moving average: 45.088
+Memory use: 510.67578125 CPU util: 474.3
+Iteration: 112 - Average rewards across episodes: 43.748 | Moving average: 44.946
+Memory use: 510.67578125 CPU util: 480.4
+Iteration: 113 - Average rewards across episodes: 43.237 | Moving average: 44.75
+Memory use: 510.67578125 CPU util: 487.2
+Iteration: 114 - Average rewards across episodes: 44.67 | Moving average: 44.648
+Memory use: 510.67578125 CPU util: 490.9
+Iteration: 115 - Average rewards across episodes: 44.665 | Moving average: 44.646
+Memory use: 510.67578125 CPU util: 454.9
+Iteration: 116 - Average rewards across episodes: 43.673 | Moving average: 44.543
+Memory use: 510.67578125 CPU util: 459.1
+Iteration: 117 - Average rewards across episodes: 46.659 | Moving average: 44.689
+Memory use: 510.67578125 CPU util: 466.1
+Iteration: 118 - Average rewards across episodes: 44.69 | Moving average: 44.638
+Memory use: 510.67578125 CPU util: 468.0
+Iteration: 119 - Average rewards across episodes: 45.687 | Moving average: 44.737
+Memory use: 510.6796875 CPU util: 474.5
+Iteration: 120 - Average rewards across episodes: 45.202 | Moving average: 44.838
+Memory use: 510.6796875 CPU util: 488.4
+Iteration: 121 - Average rewards across episodes: 45.202 | Moving average: 44.743
+Memory use: 510.6796875 CPU util: 464.3
+Iteration: 122 - Average rewards across episodes: 45.687 | Moving average: 44.937
+Memory use: 510.6796875 CPU util: 459.0
+Iteration: 123 - Average rewards across episodes: 45.687 | Moving average: 45.182
+Memory use: 510.6796875 CPU util: 464.4
+Iteration: 124 - Average rewards across episodes: 45.176 | Moving average: 45.233
+Memory use: 510.6796875 CPU util: 465.7
+Iteration: 125 - Average rewards across episodes: 44.675 | Moving average: 45.234
+Memory use: 510.6796875 CPU util: 457.7
+Iteration: 126 - Average rewards across episodes: 42.296 | Moving average: 45.096
+Memory use: 510.6796875 CPU util: 456.4
+Iteration: 127 - Average rewards across episodes: 40.733 | Moving average: 44.504
+Memory use: 510.6796875 CPU util: 499.0
+Iteration: 128 - Average rewards across episodes: 42.16 | Moving average: 44.251
+Memory use: 510.71484375 CPU util: 480.1
+Iteration: 129 - Average rewards across episodes: 42.2 | Moving average: 43.902
+Memory use: 510.6796875 CPU util: 482.7
+Iteration: 130 - Average rewards across episodes: 44.19 | Moving average: 43.801
+Memory use: 510.6796875 CPU util: 470.5
+Iteration: 131 - Average rewards across episodes: 43.158 | Moving average: 43.596
+Memory use: 510.6796875 CPU util: 469.0
+Iteration: 132 - Average rewards across episodes: 45.687 | Moving average: 43.596
+Memory use: 510.6796875 CPU util: 483.2
+Iteration: 133 - Average rewards across episodes: 44.184 | Moving average: 43.446
+Memory use: 510.6796875 CPU util: 477.5
+Iteration: 134 - Average rewards across episodes: 44.675 | Moving average: 43.396
+Memory use: 510.6796875 CPU util: 485.4
+Iteration: 135 - Average rewards across episodes: 45.687 | Moving average: 43.497
+Memory use: 510.6796875 CPU util: 456.4
+Iteration: 136 - Average rewards across episodes: 44.675 | Moving average: 43.735
+Memory use: 510.6796875 CPU util: 476.6
+Iteration: 137 - Average rewards across episodes: 44.19 | Moving average: 44.081
+Memory use: 510.6796875 CPU util: 466.1
+Iteration: 138 - Average rewards across episodes: 45.202 | Moving average: 44.385
+Memory use: 510.6796875 CPU util: 479.5
+Iteration: 139 - Average rewards across episodes: 45.687 | Moving average: 44.734
+Memory use: 510.6796875 CPU util: 459.2
+Iteration: 140 - Average rewards across episodes: 45.687 | Moving average: 44.883
+Memory use: 510.68359375 CPU util: 470.4
+Iteration: 141 - Average rewards across episodes: 44.675 | Moving average: 45.035
+Memory use: 510.68359375 CPU util: 463.8
+Iteration: 142 - Average rewards across episodes: 45.667 | Moving average: 45.033
+Memory use: 510.70703125 CPU util: 490.6
+Iteration: 143 - Average rewards across episodes: 45.202 | Moving average: 45.135
+Memory use: 510.68359375 CPU util: 462.1
+Iteration: 144 - Average rewards across episodes: 45.202 | Moving average: 45.187
+Memory use: 510.68359375 CPU util: 460.7
+Iteration: 145 - Average rewards across episodes: 45.687 | Moving average: 45.187
+Memory use: 510.68359375 CPU util: 458.6
+Iteration: 146 - Average rewards across episodes: 44.696 | Moving average: 45.189
+Memory use: 510.6875 CPU util: 455.0
+Iteration: 147 - Average rewards across episodes: 45.202 | Moving average: 45.291
+Memory use: 510.6875 CPU util: 477.0
+Iteration: 148 - Average rewards across episodes: 43.678 | Moving average: 45.138
+Memory use: 510.6875 CPU util: 467.2
+Iteration: 149 - Average rewards across episodes: 45.161 | Moving average: 45.086
+Memory use: 510.6875 CPU util: 473.1
+Step #0 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 150 - Average rewards across episodes: 44.231 | Moving average: 44.94
+Memory use: 510.6875 CPU util: 469.3
+Iteration: 151 - Average rewards across episodes: 45.202 | Moving average: 44.993
+Memory use: 510.6875 CPU util: 496.9
+Iteration: 152 - Average rewards across episodes: 45.687 | Moving average: 44.995
+Memory use: 510.6875 CPU util: 470.9
+Iteration: 153 - Average rewards across episodes: 44.665 | Moving average: 44.941
+Memory use: 510.6875 CPU util: 455.7
+Iteration: 154 - Average rewards across episodes: 40.975 | Moving average: 44.518
+Memory use: 510.6875 CPU util: 460.1
+Iteration: 155 - Average rewards across episodes: 37.281 | Moving average: 43.678
+Memory use: 510.6875 CPU util: 454.3
+Iteration: 156 - Average rewards across episodes: 38.156 | Moving average: 43.024
+Memory use: 510.6875 CPU util: 468.9
+Iteration: 157 - Average rewards across episodes: 38.646 | Moving average: 42.368
+Memory use: 510.6875 CPU util: 460.5
+Iteration: 158 - Average rewards across episodes: 37.896 | Moving average: 41.79
+Memory use: 510.6875 CPU util: 438.4
+Iteration: 159 - Average rewards across episodes: 41.18 | Moving average: 41.392
+Memory use: 510.6875 CPU util: 447.1
+Iteration: 160 - Average rewards across episodes: 38.585 | Moving average: 40.827
+Memory use: 510.6875 CPU util: 427.0
+Iteration: 161 - Average rewards across episodes: 40.406 | Moving average: 40.348
+Memory use: 510.6875 CPU util: 437.6
+Iteration: 162 - Average rewards across episodes: 41.892 | Moving average: 39.968
+Memory use: 510.6875 CPU util: 431.0
+Iteration: 163 - Average rewards across episodes: 43.811 | Moving average: 39.883
+Memory use: 510.69140625 CPU util: 436.8
+Iteration: 164 - Average rewards across episodes: 43.25 | Moving average: 40.11
+Memory use: 510.69140625 CPU util: 449.8
+Iteration: 165 - Average rewards across episodes: 41.336 | Moving average: 40.516
+Memory use: 510.69140625 CPU util: 432.0
+Iteration: 166 - Average rewards across episodes: 40.892 | Moving average: 40.789
+Memory use: 510.69140625 CPU util: 447.9
+Iteration: 167 - Average rewards across episodes: 41.858 | Moving average: 41.111
+Memory use: 510.69140625 CPU util: 433.8
+Iteration: 168 - Average rewards across episodes: 42.325 | Moving average: 41.554
+Memory use: 510.69140625 CPU util: 432.2
+Iteration: 169 - Average rewards across episodes: 39.406 | Moving average: 41.376
+Memory use: 510.69140625 CPU util: 418.1
+Iteration: 170 - Average rewards across episodes: 41.465 | Moving average: 41.664
+Memory use: 510.69140625 CPU util: 422.4
+Iteration: 171 - Average rewards across episodes: 41.336 | Moving average: 41.757
+Memory use: 510.69140625 CPU util: 427.9
+Iteration: 172 - Average rewards across episodes: 41.824 | Moving average: 41.75
+Memory use: 510.69140625 CPU util: 424.4
+Iteration: 173 - Average rewards across episodes: 41.999 | Moving average: 41.569
+Memory use: 510.69140625 CPU util: 431.2
+Iteration: 174 - Average rewards across episodes: 42.86 | Moving average: 41.53
+Memory use: 510.69140625 CPU util: 443.2
+Iteration: 175 - Average rewards across episodes: 43.974 | Moving average: 41.794
+Memory use: 510.69140625 CPU util: 432.9
+Iteration: 176 - Average rewards across episodes: 41.925 | Moving average: 41.897
+Memory use: 510.69140625 CPU util: 430.5
+Iteration: 177 - Average rewards across episodes: 40.933 | Moving average: 41.805
+Memory use: 510.69140625 CPU util: 435.2
+Iteration: 178 - Average rewards across episodes: 39.477 | Moving average: 41.52
+Memory use: 510.69140625 CPU util: 426.2
+Iteration: 179 - Average rewards across episodes: 41.354 | Moving average: 41.715
+Memory use: 510.69140625 CPU util: 418.3
+Iteration: 180 - Average rewards across episodes: 41.499 | Moving average: 41.718
+Memory use: 510.69140625 CPU util: 446.1
+Iteration: 181 - Average rewards across episodes: 41.442 | Moving average: 41.729
+Memory use: 510.69140625 CPU util: 426.7
+Iteration: 182 - Average rewards across episodes: 41.085 | Moving average: 41.655
+Memory use: 510.69140625 CPU util: 430.4
+Iteration: 183 - Average rewards across episodes: 36.679 | Moving average: 41.123
+Memory use: 510.69140625 CPU util: 423.9
+Iteration: 184 - Average rewards across episodes: 36.772 | Moving average: 40.514
+Memory use: 510.69140625 CPU util: 424.5
+Iteration: 185 - Average rewards across episodes: 34.608 | Moving average: 39.577
+Memory use: 510.69140625 CPU util: 443.5
+Iteration: 186 - Average rewards across episodes: 41.919 | Moving average: 39.577
+Memory use: 510.6953125 CPU util: 426.6
+Iteration: 187 - Average rewards across episodes: 38.456 | Moving average: 39.329
+Memory use: 510.6953125 CPU util: 430.4
+Iteration: 188 - Average rewards across episodes: 39.026 | Moving average: 39.284
+Memory use: 510.6953125 CPU util: 451.3
+Iteration: 189 - Average rewards across episodes: 42.907 | Moving average: 39.439
+Memory use: 510.6953125 CPU util: 471.4
+Iteration: 190 - Average rewards across episodes: 39.363 | Moving average: 39.226
+Memory use: 510.6953125 CPU util: 449.3
+Iteration: 191 - Average rewards across episodes: 41.635 | Moving average: 39.245
+Memory use: 510.6953125 CPU util: 437.6
+Iteration: 192 - Average rewards across episodes: 42.746 | Moving average: 39.411
+Memory use: 510.6953125 CPU util: 442.9
+Iteration: 193 - Average rewards across episodes: 41.855 | Moving average: 39.929
+Memory use: 510.6953125 CPU util: 416.0
+Iteration: 194 - Average rewards across episodes: 44.2 | Moving average: 40.672
+Memory use: 510.6953125 CPU util: 460.8
+Iteration: 195 - Average rewards across episodes: 45.175 | Moving average: 41.728
+Memory use: 510.6953125 CPU util: 439.8
+Iteration: 196 - Average rewards across episodes: 40.739 | Moving average: 41.61
+Memory use: 510.6953125 CPU util: 432.3
+Iteration: 197 - Average rewards across episodes: 42.726 | Moving average: 42.037
+Memory use: 510.6953125 CPU util: 424.8
+Iteration: 198 - Average rewards across episodes: 37.962 | Moving average: 41.931
+Memory use: 510.6953125 CPU util: 454.6
+Iteration: 199 - Average rewards across episodes: 41.451 | Moving average: 41.785
+Memory use: 510.6953125 CPU util: 445.7
+Step #0 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #1 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #2 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #40 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 128 cpu.shares | Reward: 0.8619351573984454
+Step #47 | State: [Avg CPU utilization: 0.9789854 Avg SLO preservation: 0.8117708 Num of containers: 1.0 CPU shares: 0.0625 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 200 - Average rewards across episodes: 40.412 | Moving average: 41.89
+Memory use: 510.6953125 CPU util: 433.1
+Iteration: 201 - Average rewards across episodes: 40.073 | Moving average: 41.734
+Memory use: 510.6953125 CPU util: 450.5
+Iteration: 202 - Average rewards across episodes: 38.236 | Moving average: 41.283
+Memory use: 510.6953125 CPU util: 422.1
+Iteration: 203 - Average rewards across episodes: 43.271 | Moving average: 41.425
+Memory use: 510.6953125 CPU util: 432.2
+Iteration: 204 - Average rewards across episodes: 41.7 | Moving average: 41.175
+Memory use: 510.6953125 CPU util: 448.5
+Iteration: 205 - Average rewards across episodes: 41.916 | Moving average: 40.849
+Memory use: 510.69921875 CPU util: 426.9
+Iteration: 206 - Average rewards across episodes: 42.235 | Moving average: 40.998
+Memory use: 510.69921875 CPU util: 450.7
+Iteration: 207 - Average rewards across episodes: 42.973 | Moving average: 41.023
+Memory use: 510.69921875 CPU util: 416.1
+Iteration: 208 - Average rewards across episodes: 40.956 | Moving average: 41.322
+Memory use: 510.69921875 CPU util: 442.0
+Iteration: 209 - Average rewards across episodes: 41.455 | Moving average: 41.323
+Memory use: 510.69921875 CPU util: 419.9
+Iteration: 210 - Average rewards across episodes: 43.461 | Moving average: 41.628
+Memory use: 510.69921875 CPU util: 418.9
+Iteration: 211 - Average rewards across episodes: 43.459 | Moving average: 41.966
+Memory use: 510.69921875 CPU util: 453.4
+Iteration: 212 - Average rewards across episodes: 43.397 | Moving average: 42.482
+Memory use: 510.69921875 CPU util: 423.7
+Iteration: 213 - Average rewards across episodes: 44.961 | Moving average: 42.651
+Memory use: 510.69921875 CPU util: 432.2
+Iteration: 214 - Average rewards across episodes: 45.539 | Moving average: 43.035
+Memory use: 510.69921875 CPU util: 434.4
+Iteration: 215 - Average rewards across episodes: 43.881 | Moving average: 43.232
+Memory use: 510.69921875 CPU util: 428.9
+Iteration: 216 - Average rewards across episodes: 45.371 | Moving average: 43.545
+Memory use: 510.69921875 CPU util: 441.6
+Iteration: 217 - Average rewards across episodes: 43.343 | Moving average: 43.582
+Memory use: 510.69921875 CPU util: 434.3
+Iteration: 218 - Average rewards across episodes: 41.487 | Moving average: 43.636
+Memory use: 510.69921875 CPU util: 455.4
+Iteration: 219 - Average rewards across episodes: 46.48 | Moving average: 44.138
+Memory use: 510.69921875 CPU util: 438.4
+Iteration: 220 - Average rewards across episodes: 40.68 | Moving average: 43.86
+Memory use: 510.69921875 CPU util: 447.0
+Iteration: 221 - Average rewards across episodes: 45.11 | Moving average: 44.025
+Memory use: 510.69921875 CPU util: 419.4
+Iteration: 222 - Average rewards across episodes: 42.972 | Moving average: 43.982
+Memory use: 510.69921875 CPU util: 440.5
+Iteration: 223 - Average rewards across episodes: 41.384 | Moving average: 43.625
+Memory use: 510.69921875 CPU util: 444.9
+Iteration: 224 - Average rewards across episodes: 44.376 | Moving average: 43.508
+Memory use: 510.69921875 CPU util: 416.2
+Iteration: 225 - Average rewards across episodes: 43.776 | Moving average: 43.498
+Memory use: 510.703125 CPU util: 415.9
+Iteration: 226 - Average rewards across episodes: 42.778 | Moving average: 43.239
+Memory use: 510.703125 CPU util: 428.7
+Iteration: 227 - Average rewards across episodes: 42.518 | Moving average: 43.156
+Memory use: 510.703125 CPU util: 434.8
+Iteration: 228 - Average rewards across episodes: 45.265 | Moving average: 43.534
+Memory use: 510.703125 CPU util: 425.1
+Iteration: 229 - Average rewards across episodes: 44.501 | Moving average: 43.336
+Memory use: 510.703125 CPU util: 427.2
+Iteration: 230 - Average rewards across episodes: 42.994 | Moving average: 43.567
+Memory use: 510.703125 CPU util: 427.4
+Iteration: 231 - Average rewards across episodes: 43.029 | Moving average: 43.359
+Memory use: 510.703125 CPU util: 424.3
+Iteration: 232 - Average rewards across episodes: 46.446 | Moving average: 43.707
+Memory use: 510.703125 CPU util: 418.3
+Iteration: 233 - Average rewards across episodes: 43.684 | Moving average: 43.937
+Memory use: 510.703125 CPU util: 419.1
+Iteration: 234 - Average rewards across episodes: 43.657 | Moving average: 43.865
+Memory use: 510.703125 CPU util: 436.0
+Iteration: 235 - Average rewards across episodes: 44.851 | Moving average: 43.972
+Memory use: 510.703125 CPU util: 422.8
+Iteration: 236 - Average rewards across episodes: 44.699 | Moving average: 44.164
+Memory use: 510.703125 CPU util: 431.2
+Iteration: 237 - Average rewards across episodes: 45.59 | Moving average: 44.471
+Memory use: 510.703125 CPU util: 427.7
+Iteration: 238 - Average rewards across episodes: 45.241 | Moving average: 44.469
+Memory use: 510.703125 CPU util: 439.4
+Iteration: 239 - Average rewards across episodes: 44.741 | Moving average: 44.493
+Memory use: 510.703125 CPU util: 426.2
+Iteration: 240 - Average rewards across episodes: 45.631 | Moving average: 44.757
+Memory use: 510.703125 CPU util: 418.9
+Iteration: 241 - Average rewards across episodes: 45.687 | Moving average: 45.023
+Memory use: 510.703125 CPU util: 430.5
+Iteration: 242 - Average rewards across episodes: 45.104 | Moving average: 44.888
+Memory use: 510.703125 CPU util: 463.6
+Iteration: 243 - Average rewards across episodes: 46.04 | Moving average: 45.124
+Memory use: 510.703125 CPU util: 445.6
+Iteration: 244 - Average rewards across episodes: 45.61 | Moving average: 45.319
+Memory use: 510.703125 CPU util: 427.3
+Iteration: 245 - Average rewards across episodes: 46.147 | Moving average: 45.449
+Memory use: 510.703125 CPU util: 407.7
+Iteration: 246 - Average rewards across episodes: 45.585 | Moving average: 45.538
+Memory use: 510.70703125 CPU util: 416.7
+Iteration: 247 - Average rewards across episodes: 45.683 | Moving average: 45.547
+Memory use: 510.70703125 CPU util: 424.1
+Iteration: 248 - Average rewards across episodes: 45.687 | Moving average: 45.592
+Memory use: 510.70703125 CPU util: 432.4
+Iteration: 249 - Average rewards across episodes: 46.066 | Moving average: 45.724
+Memory use: 510.70703125 CPU util: 422.2
+Step #0 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 250 - Average rewards across episodes: 45.662 | Moving average: 45.727
+Memory use: 510.70703125 CPU util: 421.3
+Iteration: 251 - Average rewards across episodes: 45.202 | Moving average: 45.679
+Memory use: 510.70703125 CPU util: 432.2
+Iteration: 252 - Average rewards across episodes: 46.479 | Moving average: 45.816
+Memory use: 510.70703125 CPU util: 446.6
+Iteration: 253 - Average rewards across episodes: 46.173 | Moving average: 45.829
+Memory use: 510.70703125 CPU util: 421.7
+Iteration: 254 - Average rewards across episodes: 46.173 | Moving average: 45.886
+Memory use: 510.70703125 CPU util: 435.1
+Iteration: 255 - Average rewards across episodes: 45.202 | Moving average: 45.791
+Memory use: 510.70703125 CPU util: 457.8
+Iteration: 256 - Average rewards across episodes: 46.147 | Moving average: 45.847
+Memory use: 510.71875 CPU util: 435.8
+Iteration: 257 - Average rewards across episodes: 45.662 | Moving average: 45.845
+Memory use: 510.70703125 CPU util: 422.3
+Iteration: 258 - Average rewards across episodes: 45.687 | Moving average: 45.845
+Memory use: 510.70703125 CPU util: 413.0
+Iteration: 259 - Average rewards across episodes: 45.202 | Moving average: 45.759
+Memory use: 510.70703125 CPU util: 425.6
+Iteration: 260 - Average rewards across episodes: 45.181 | Moving average: 45.711
+Memory use: 510.70703125 CPU util: 438.4
+Iteration: 261 - Average rewards across episodes: 45.202 | Moving average: 45.711
+Memory use: 510.70703125 CPU util: 415.5
+Iteration: 262 - Average rewards across episodes: 45.202 | Moving average: 45.583
+Memory use: 510.70703125 CPU util: 428.6
+Iteration: 263 - Average rewards across episodes: 46.659 | Moving average: 45.632
+Memory use: 510.70703125 CPU util: 436.1
+Iteration: 264 - Average rewards across episodes: 45.202 | Moving average: 45.534
+Memory use: 510.71484375 CPU util: 424.5
+Iteration: 265 - Average rewards across episodes: 45.687 | Moving average: 45.583
+Memory use: 510.70703125 CPU util: 408.9
+Iteration: 266 - Average rewards across episodes: 45.667 | Moving average: 45.535
+Memory use: 510.70703125 CPU util: 450.2
+Iteration: 267 - Average rewards across episodes: 45.202 | Moving average: 45.489
+Memory use: 510.7109375 CPU util: 442.8
+Iteration: 268 - Average rewards across episodes: 46.173 | Moving average: 45.538
+Memory use: 510.7109375 CPU util: 430.6
+Iteration: 269 - Average rewards across episodes: 45.202 | Moving average: 45.538
+Memory use: 510.7109375 CPU util: 478.8
+Iteration: 270 - Average rewards across episodes: 45.202 | Moving average: 45.54
+Memory use: 510.7109375 CPU util: 441.1
+Iteration: 271 - Average rewards across episodes: 45.202 | Moving average: 45.54
+Memory use: 510.7109375 CPU util: 476.8
+Iteration: 272 - Average rewards across episodes: 45.202 | Moving average: 45.54
+Memory use: 510.71484375 CPU util: 473.0
+Iteration: 273 - Average rewards across episodes: 46.173 | Moving average: 45.491
+Memory use: 510.71484375 CPU util: 487.2
+Iteration: 274 - Average rewards across episodes: 45.202 | Moving average: 45.491
+Memory use: 510.71484375 CPU util: 479.2
+Iteration: 275 - Average rewards across episodes: 45.687 | Moving average: 45.491
+Memory use: 510.71484375 CPU util: 465.2
+Iteration: 276 - Average rewards across episodes: 45.687 | Moving average: 45.493
+Memory use: 510.71484375 CPU util: 482.5
+Iteration: 277 - Average rewards across episodes: 45.202 | Moving average: 45.493
+Memory use: 510.7265625 CPU util: 471.2
+Iteration: 278 - Average rewards across episodes: 45.687 | Moving average: 45.445
+Memory use: 510.71484375 CPU util: 471.3
+Iteration: 279 - Average rewards across episodes: 45.687 | Moving average: 45.493
+Memory use: 510.73828125 CPU util: 478.8
+Iteration: 280 - Average rewards across episodes: 45.687 | Moving average: 45.542
+Memory use: 510.71484375 CPU util: 524.4
+Iteration: 281 - Average rewards across episodes: 45.202 | Moving average: 45.542
+Memory use: 510.71484375 CPU util: 473.1
+Iteration: 282 - Average rewards across episodes: 45.687 | Moving average: 45.59
+Memory use: 510.71484375 CPU util: 484.3
+Iteration: 283 - Average rewards across episodes: 45.687 | Moving average: 45.542
+Memory use: 510.71484375 CPU util: 492.5
+Iteration: 284 - Average rewards across episodes: 46.173 | Moving average: 45.639
+Memory use: 510.71484375 CPU util: 477.2
+Iteration: 285 - Average rewards across episodes: 46.173 | Moving average: 45.687
+Memory use: 510.71484375 CPU util: 477.5
+Iteration: 286 - Average rewards across episodes: 45.687 | Moving average: 45.687
+Memory use: 510.71484375 CPU util: 494.3
+Iteration: 287 - Average rewards across episodes: 45.202 | Moving average: 45.687
+Memory use: 510.71484375 CPU util: 461.2
+Iteration: 288 - Average rewards across episodes: 45.687 | Moving average: 45.687
+Memory use: 510.71875 CPU util: 483.0
+Iteration: 289 - Average rewards across episodes: 45.202 | Moving average: 45.639
+Memory use: 510.71875 CPU util: 460.2
+Iteration: 290 - Average rewards across episodes: 45.202 | Moving average: 45.59
+Memory use: 510.71875 CPU util: 497.0
+Iteration: 291 - Average rewards across episodes: 45.202 | Moving average: 45.59
+Memory use: 510.71875 CPU util: 474.6
+Iteration: 292 - Average rewards across episodes: 45.687 | Moving average: 45.59
+Memory use: 510.71875 CPU util: 485.2
+Iteration: 293 - Average rewards across episodes: 45.202 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 454.4
+Iteration: 294 - Average rewards across episodes: 46.173 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 474.5
+Iteration: 295 - Average rewards across episodes: 45.687 | Moving average: 45.493
+Memory use: 510.71875 CPU util: 474.7
+Iteration: 296 - Average rewards across episodes: 45.687 | Moving average: 45.493
+Memory use: 510.71875 CPU util: 482.6
+Iteration: 297 - Average rewards across episodes: 45.687 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 493.5
+Iteration: 298 - Average rewards across episodes: 45.687 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 472.5
+Iteration: 299 - Average rewards across episodes: 45.202 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 501.3
+Step #0 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 300 - Average rewards across episodes: 45.202 | Moving average: 45.542
+Memory use: 510.71875 CPU util: 518.6
+Iteration: 301 - Average rewards across episodes: 40.383 | Moving average: 45.06
+Memory use: 510.71875 CPU util: 488.7
+Iteration: 302 - Average rewards across episodes: 43.664 | Moving average: 44.857
+Memory use: 510.71875 CPU util: 476.6
+Iteration: 303 - Average rewards across episodes: 44.169 | Moving average: 44.754
+Memory use: 510.71875 CPU util: 465.7
+Iteration: 304 - Average rewards across episodes: 43.308 | Moving average: 44.468
+Memory use: 510.71875 CPU util: 461.8
+Iteration: 305 - Average rewards across episodes: 45.667 | Moving average: 44.466
+Memory use: 510.71875 CPU util: 492.5
+Iteration: 306 - Average rewards across episodes: 43.243 | Moving average: 44.221
+Memory use: 510.71875 CPU util: 495.5
+Iteration: 307 - Average rewards across episodes: 44.675 | Moving average: 44.12
+Memory use: 510.71875 CPU util: 478.9
+Iteration: 308 - Average rewards across episodes: 44.231 | Moving average: 43.974
+Memory use: 510.71875 CPU util: 454.0
+Iteration: 309 - Average rewards across episodes: 43.749 | Moving average: 43.829
+Memory use: 510.71875 CPU util: 463.4
+Iteration: 310 - Average rewards across episodes: 44.72 | Moving average: 43.781
+Memory use: 510.72265625 CPU util: 444.6
+Iteration: 311 - Average rewards across episodes: 44.169 | Moving average: 44.16
+Memory use: 510.72265625 CPU util: 493.9
+Iteration: 312 - Average rewards across episodes: 43.198 | Moving average: 44.113
+Memory use: 510.72265625 CPU util: 500.3
+Iteration: 313 - Average rewards across episodes: 44.211 | Moving average: 44.117
+Memory use: 510.72265625 CPU util: 468.6
+Iteration: 314 - Average rewards across episodes: 44.149 | Moving average: 44.201
+Memory use: 510.72265625 CPU util: 463.4
+Iteration: 315 - Average rewards across episodes: 45.202 | Moving average: 44.155
+Memory use: 510.72265625 CPU util: 463.6
+Iteration: 316 - Average rewards across episodes: 45.667 | Moving average: 44.397
+Memory use: 510.72265625 CPU util: 484.0
+Iteration: 317 - Average rewards across episodes: 44.72 | Moving average: 44.402
+Memory use: 510.72265625 CPU util: 476.3
+Iteration: 318 - Average rewards across episodes: 43.664 | Moving average: 44.345
+Memory use: 510.72265625 CPU util: 479.7
+Iteration: 319 - Average rewards across episodes: 45.687 | Moving average: 44.539
+Memory use: 510.72265625 CPU util: 483.1
+Iteration: 320 - Average rewards across episodes: 44.696 | Moving average: 44.536
+Memory use: 510.72265625 CPU util: 479.7
+Iteration: 321 - Average rewards across episodes: 43.398 | Moving average: 44.459
+Memory use: 510.72265625 CPU util: 454.6
+Iteration: 322 - Average rewards across episodes: 45.667 | Moving average: 44.706
+Memory use: 510.72265625 CPU util: 466.6
+Iteration: 323 - Average rewards across episodes: 42.888 | Moving average: 44.574
+Memory use: 510.72265625 CPU util: 470.7
+Iteration: 324 - Average rewards across episodes: 44.3 | Moving average: 44.589
+Memory use: 510.72265625 CPU util: 452.7
+Iteration: 325 - Average rewards across episodes: 43.484 | Moving average: 44.417
+Memory use: 510.72265625 CPU util: 492.6
+Iteration: 326 - Average rewards across episodes: 43.925 | Moving average: 44.243
+Memory use: 510.72265625 CPU util: 495.6
+Iteration: 327 - Average rewards across episodes: 42.913 | Moving average: 44.062
+Memory use: 510.72265625 CPU util: 494.6
+Iteration: 328 - Average rewards across episodes: 43.398 | Moving average: 44.036
+Memory use: 510.734375 CPU util: 469.1
+Iteration: 329 - Average rewards across episodes: 42.076 | Moving average: 43.675
+Memory use: 510.72265625 CPU util: 475.4
+Iteration: 330 - Average rewards across episodes: 43.88 | Moving average: 43.593
+Memory use: 510.72265625 CPU util: 454.1
+Iteration: 331 - Average rewards across episodes: 39.868 | Moving average: 43.24
+Memory use: 510.72265625 CPU util: 459.9
+Iteration: 332 - Average rewards across episodes: 41.08 | Moving average: 42.781
+Memory use: 510.72265625 CPU util: 479.3
+Iteration: 333 - Average rewards across episodes: 41.676 | Moving average: 42.66
+Memory use: 510.7265625 CPU util: 453.2
+Iteration: 334 - Average rewards across episodes: 43.529 | Moving average: 42.583
+Memory use: 510.7265625 CPU util: 463.3
+Iteration: 335 - Average rewards across episodes: 41.17 | Moving average: 42.351
+Memory use: 510.7265625 CPU util: 484.7
+Iteration: 336 - Average rewards across episodes: 44.761 | Moving average: 42.435
+Memory use: 510.7265625 CPU util: 456.7
+Iteration: 337 - Average rewards across episodes: 43.814 | Moving average: 42.525
+Memory use: 510.7265625 CPU util: 469.3
+Iteration: 338 - Average rewards across episodes: 44.365 | Moving average: 42.622
+Memory use: 510.7265625 CPU util: 433.7
+Iteration: 339 - Average rewards across episodes: 43.88 | Moving average: 42.802
+Memory use: 510.7265625 CPU util: 420.9
+Iteration: 340 - Average rewards across episodes: 44.786 | Moving average: 42.893
+Memory use: 510.7265625 CPU util: 425.0
+Iteration: 341 - Average rewards across episodes: 44.32 | Moving average: 43.338
+Memory use: 510.7265625 CPU util: 421.3
+Iteration: 342 - Average rewards across episodes: 44.365 | Moving average: 43.667
+Memory use: 510.7265625 CPU util: 413.7
+Iteration: 343 - Average rewards across episodes: 44.761 | Moving average: 43.975
+Memory use: 510.7265625 CPU util: 431.0
+Iteration: 344 - Average rewards across episodes: 43.437 | Moving average: 43.966
+Memory use: 510.7265625 CPU util: 437.1
+Iteration: 345 - Average rewards across episodes: 44.365 | Moving average: 44.285
+Memory use: 510.7265625 CPU util: 429.0
+Iteration: 346 - Average rewards across episodes: 44.85 | Moving average: 44.294
+Memory use: 510.7265625 CPU util: 427.0
+Iteration: 347 - Average rewards across episodes: 45.247 | Moving average: 44.438
+Memory use: 510.7265625 CPU util: 421.8
+Iteration: 348 - Average rewards across episodes: 46.173 | Moving average: 44.618
+Memory use: 510.7265625 CPU util: 428.4
+Iteration: 349 - Average rewards across episodes: 43.876 | Moving average: 44.618
+Memory use: 510.7265625 CPU util: 413.5
+Step #0 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #16 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #40 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #41 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 350 - Average rewards across episodes: 44.32 | Moving average: 44.571
+Memory use: 510.7265625 CPU util: 442.5
+Iteration: 351 - Average rewards across episodes: 43.438 | Moving average: 44.483
+Memory use: 510.7265625 CPU util: 467.2
+Iteration: 352 - Average rewards across episodes: 44.275 | Moving average: 44.474
+Memory use: 510.7265625 CPU util: 433.3
+Iteration: 353 - Average rewards across episodes: 44.319 | Moving average: 44.43
+Memory use: 510.73046875 CPU util: 429.9
+Iteration: 354 - Average rewards across episodes: 45.247 | Moving average: 44.611
+Memory use: 510.73046875 CPU util: 427.0
+Iteration: 355 - Average rewards across episodes: 45.202 | Moving average: 44.695
+Memory use: 510.73046875 CPU util: 423.3
+Iteration: 356 - Average rewards across episodes: 45.202 | Moving average: 44.73
+Memory use: 510.73046875 CPU util: 418.8
+Iteration: 357 - Average rewards across episodes: 46.173 | Moving average: 44.822
+Memory use: 510.7421875 CPU util: 416.1
+Iteration: 358 - Average rewards across episodes: 46.173 | Moving average: 44.822
+Memory use: 510.73046875 CPU util: 432.3
+Iteration: 359 - Average rewards across episodes: 45.687 | Moving average: 45.004
+Memory use: 510.73046875 CPU util: 412.8
+Iteration: 360 - Average rewards across episodes: 43.878 | Moving average: 44.959
+Memory use: 510.73046875 CPU util: 426.7
+Iteration: 361 - Average rewards across episodes: 45.687 | Moving average: 45.184
+Memory use: 510.74609375 CPU util: 432.9
+Iteration: 362 - Average rewards across episodes: 43.415 | Moving average: 45.098
+Memory use: 510.734375 CPU util: 452.8
+Iteration: 363 - Average rewards across episodes: 45.687 | Moving average: 45.235
+Memory use: 510.734375 CPU util: 455.2
+Iteration: 364 - Average rewards across episodes: 43.389 | Moving average: 45.049
+Memory use: 510.734375 CPU util: 444.1
+Iteration: 365 - Average rewards across episodes: 44.804 | Moving average: 45.01
+Memory use: 510.734375 CPU util: 419.3
+Iteration: 366 - Average rewards across episodes: 38.112 | Moving average: 44.301
+Memory use: 510.734375 CPU util: 420.2
+Iteration: 367 - Average rewards across episodes: 42.28 | Moving average: 43.911
+Memory use: 510.734375 CPU util: 421.4
+Iteration: 368 - Average rewards across episodes: 40.294 | Moving average: 43.323
+Memory use: 510.734375 CPU util: 429.5
+Iteration: 369 - Average rewards across episodes: 43.087 | Moving average: 43.063
+Memory use: 510.734375 CPU util: 441.9
+Iteration: 370 - Average rewards across episodes: 44.452 | Moving average: 43.121
+Memory use: 510.734375 CPU util: 434.6
+Iteration: 371 - Average rewards across episodes: 41.624 | Moving average: 42.714
+Memory use: 510.734375 CPU util: 426.9
+Iteration: 372 - Average rewards across episodes: 37.173 | Moving average: 42.09
+Memory use: 510.734375 CPU util: 419.8
+Iteration: 373 - Average rewards across episodes: 40.952 | Moving average: 41.617
+Memory use: 510.734375 CPU util: 438.3
+Iteration: 374 - Average rewards across episodes: 39.5 | Moving average: 41.228
+Memory use: 510.734375 CPU util: 454.2
+Iteration: 375 - Average rewards across episodes: 44.11 | Moving average: 41.158
+Memory use: 510.73828125 CPU util: 420.4
+Iteration: 376 - Average rewards across episodes: 37.885 | Moving average: 41.136
+Memory use: 510.73828125 CPU util: 422.4
+Iteration: 377 - Average rewards across episodes: 35.176 | Moving average: 40.425
+Memory use: 510.73828125 CPU util: 411.6
+Iteration: 378 - Average rewards across episodes: 38.614 | Moving average: 40.257
+Memory use: 510.73828125 CPU util: 424.0
+Iteration: 379 - Average rewards across episodes: 33.687 | Moving average: 39.317
+Memory use: 510.73828125 CPU util: 425.9
+Iteration: 380 - Average rewards across episodes: 39.222 | Moving average: 38.794
+Memory use: 510.73828125 CPU util: 415.6
+Iteration: 381 - Average rewards across episodes: 39.169 | Moving average: 38.549
+Memory use: 510.75 CPU util: 426.9
+Iteration: 382 - Average rewards across episodes: 36.55 | Moving average: 38.486
+Memory use: 510.73828125 CPU util: 427.8
+Iteration: 383 - Average rewards across episodes: 43.918 | Moving average: 38.783
+Memory use: 510.73828125 CPU util: 439.9
+Iteration: 384 - Average rewards across episodes: 40.714 | Moving average: 38.905
+Memory use: 510.73828125 CPU util: 432.2
+Iteration: 385 - Average rewards across episodes: 40.859 | Moving average: 38.579
+Memory use: 510.73828125 CPU util: 424.9
+Iteration: 386 - Average rewards across episodes: 42.916 | Moving average: 39.083
+Memory use: 510.73828125 CPU util: 457.0
+Iteration: 387 - Average rewards across episodes: 44.382 | Moving average: 40.003
+Memory use: 510.73828125 CPU util: 415.8
+Iteration: 388 - Average rewards across episodes: 44.125 | Moving average: 40.554
+Memory use: 510.73828125 CPU util: 444.5
+Iteration: 389 - Average rewards across episodes: 45.313 | Moving average: 41.717
+Memory use: 510.73828125 CPU util: 426.2
+Iteration: 390 - Average rewards across episodes: 44.116 | Moving average: 42.206
+Memory use: 510.73828125 CPU util: 433.5
+Iteration: 391 - Average rewards across episodes: 45.174 | Moving average: 42.807
+Memory use: 510.73828125 CPU util: 444.2
+Iteration: 392 - Average rewards across episodes: 45.683 | Moving average: 43.72
+Memory use: 510.73828125 CPU util: 476.2
+Iteration: 393 - Average rewards across episodes: 43.161 | Moving average: 43.644
+Memory use: 510.73828125 CPU util: 484.1
+Iteration: 394 - Average rewards across episodes: 44.311 | Moving average: 44.004
+Memory use: 510.73828125 CPU util: 475.1
+Iteration: 395 - Average rewards across episodes: 44.711 | Moving average: 44.389
+Memory use: 510.7421875 CPU util: 468.6
+Iteration: 396 - Average rewards across episodes: 44.362 | Moving average: 44.534
+Memory use: 510.7421875 CPU util: 442.6
+Iteration: 397 - Average rewards across episodes: 44.769 | Moving average: 44.572
+Memory use: 510.7421875 CPU util: 469.5
+Iteration: 398 - Average rewards across episodes: 44.257 | Moving average: 44.586
+Memory use: 510.7421875 CPU util: 446.8
+Iteration: 399 - Average rewards across episodes: 44.347 | Moving average: 44.489
+Memory use: 510.7421875 CPU util: 481.3
+Step #0 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #16 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #20 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #30 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #31 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #34 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #35 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #36 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #37 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #38 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #39 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 512 cpu.shares | Reward: 1.1229933022616987
+Step #40 | State: [Avg CPU utilization: 1.4099777 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.25 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #41 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #42 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #43 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #44 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 400 - Average rewards across episodes: 44.429 | Moving average: 44.52
+Memory use: 510.7421875 CPU util: 462.1
+Iteration: 401 - Average rewards across episodes: 43.039 | Moving average: 44.307
+Memory use: 510.7421875 CPU util: 492.7
+Iteration: 402 - Average rewards across episodes: 43.368 | Moving average: 44.075
+Memory use: 510.7421875 CPU util: 520.8
+Iteration: 403 - Average rewards across episodes: 42.087 | Moving average: 43.968
+Memory use: 510.7421875 CPU util: 573.6
+Iteration: 404 - Average rewards across episodes: 44.25 | Moving average: 43.962
+Memory use: 510.7421875 CPU util: 553.1
+Iteration: 405 - Average rewards across episodes: 45.708 | Moving average: 44.062
+Memory use: 510.7421875 CPU util: 539.8
+Iteration: 406 - Average rewards across episodes: 44.296 | Moving average: 44.055
+Memory use: 510.7421875 CPU util: 571.5
+Iteration: 407 - Average rewards across episodes: 43.455 | Moving average: 43.924
+Memory use: 510.7421875 CPU util: 500.8
+Iteration: 408 - Average rewards across episodes: 41.589 | Moving average: 43.657
+Memory use: 510.7421875 CPU util: 504.0
+Iteration: 409 - Average rewards across episodes: 38.821 | Moving average: 43.104
+Memory use: 510.7421875 CPU util: 568.2
+Iteration: 410 - Average rewards across episodes: 37.898 | Moving average: 42.451
+Memory use: 510.7421875 CPU util: 537.6
+Iteration: 411 - Average rewards across episodes: 43.449 | Moving average: 42.492
+Memory use: 510.7421875 CPU util: 546.8
+Iteration: 412 - Average rewards across episodes: 39.978 | Moving average: 42.153
+Memory use: 510.7421875 CPU util: 567.1
+Iteration: 413 - Average rewards across episodes: 42.938 | Moving average: 42.238
+Memory use: 510.7421875 CPU util: 524.6
+Iteration: 414 - Average rewards across episodes: 41.946 | Moving average: 42.008
+Memory use: 510.7421875 CPU util: 574.1
+Iteration: 415 - Average rewards across episodes: 43.452 | Moving average: 41.782
+Memory use: 510.7421875 CPU util: 526.5
+Iteration: 416 - Average rewards across episodes: 39.374 | Moving average: 41.29
+Memory use: 510.7421875 CPU util: 559.6
+Iteration: 417 - Average rewards across episodes: 43.648 | Moving average: 41.309
+Memory use: 510.74609375 CPU util: 558.6
+Iteration: 418 - Average rewards across episodes: 42.941 | Moving average: 41.445
+Memory use: 510.74609375 CPU util: 568.0
+Iteration: 419 - Average rewards across episodes: 42.829 | Moving average: 41.845
+Memory use: 510.74609375 CPU util: 555.0
+Iteration: 420 - Average rewards across episodes: 43.299 | Moving average: 42.385
+Memory use: 510.74609375 CPU util: 566.1
+Iteration: 421 - Average rewards across episodes: 41.927 | Moving average: 42.233
+Memory use: 510.74609375 CPU util: 532.5
+Iteration: 422 - Average rewards across episodes: 45.419 | Moving average: 42.777
+Memory use: 510.74609375 CPU util: 556.2
+Iteration: 423 - Average rewards across episodes: 43.027 | Moving average: 42.786
+Memory use: 510.74609375 CPU util: 540.5
+Iteration: 424 - Average rewards across episodes: 39.082 | Moving average: 42.5
+Memory use: 510.74609375 CPU util: 519.8
+Iteration: 425 - Average rewards across episodes: 39.274 | Moving average: 42.082
+Memory use: 510.74609375 CPU util: 565.8
+Iteration: 426 - Average rewards across episodes: 36.028 | Moving average: 41.747
+Memory use: 510.74609375 CPU util: 546.7
+Iteration: 427 - Average rewards across episodes: 38.345 | Moving average: 41.217
+Memory use: 510.74609375 CPU util: 555.3
+Iteration: 428 - Average rewards across episodes: 37.452 | Moving average: 40.668
+Memory use: 510.74609375 CPU util: 549.9
+Iteration: 429 - Average rewards across episodes: 37.234 | Moving average: 40.109
+Memory use: 510.74609375 CPU util: 533.7
+Iteration: 430 - Average rewards across episodes: 41.027 | Moving average: 39.882
+Memory use: 510.74609375 CPU util: 561.9
+Iteration: 431 - Average rewards across episodes: 45.321 | Moving average: 40.221
+Memory use: 510.74609375 CPU util: 572.3
+Iteration: 432 - Average rewards across episodes: 42.67 | Moving average: 39.946
+Memory use: 510.74609375 CPU util: 556.0
+Iteration: 433 - Average rewards across episodes: 40.171 | Moving average: 39.661
+Memory use: 510.74609375 CPU util: 539.2
+Iteration: 434 - Average rewards across episodes: 39.811 | Moving average: 39.733
+Memory use: 510.74609375 CPU util: 566.0
+Iteration: 435 - Average rewards across episodes: 39.567 | Moving average: 39.763
+Memory use: 510.74609375 CPU util: 550.2
+Iteration: 436 - Average rewards across episodes: 39.799 | Moving average: 40.14
+Memory use: 510.74609375 CPU util: 555.2
+Iteration: 437 - Average rewards across episodes: 35.866 | Moving average: 39.892
+Memory use: 510.74609375 CPU util: 571.6
+Iteration: 438 - Average rewards across episodes: 39.511 | Moving average: 40.098
+Memory use: 510.74609375 CPU util: 535.7
+Iteration: 439 - Average rewards across episodes: 43.218 | Moving average: 40.696
+Memory use: 510.75 CPU util: 539.7
+Iteration: 440 - Average rewards across episodes: 40.497 | Moving average: 40.643
+Memory use: 510.75 CPU util: 559.7
+Iteration: 441 - Average rewards across episodes: 32.978 | Moving average: 39.409
+Memory use: 510.75 CPU util: 555.3
+Iteration: 442 - Average rewards across episodes: 38.167 | Moving average: 38.958
+Memory use: 510.75 CPU util: 551.8
+Iteration: 443 - Average rewards across episodes: 38.383 | Moving average: 38.78
+Memory use: 510.75 CPU util: 562.6
+Iteration: 444 - Average rewards across episodes: 40.824 | Moving average: 38.881
+Memory use: 510.75 CPU util: 536.7
+Iteration: 445 - Average rewards across episodes: 40.606 | Moving average: 38.985
+Memory use: 510.75 CPU util: 512.7
+Iteration: 446 - Average rewards across episodes: 39.811 | Moving average: 38.986
+Memory use: 510.75 CPU util: 512.0
+Iteration: 447 - Average rewards across episodes: 40.321 | Moving average: 39.432
+Memory use: 510.75 CPU util: 497.8
+Iteration: 448 - Average rewards across episodes: 40.312 | Moving average: 39.512
+Memory use: 510.75 CPU util: 489.4
+Iteration: 449 - Average rewards across episodes: 41.728 | Moving average: 39.363
+Memory use: 510.75 CPU util: 524.2
+Step #0 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #1 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #2 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #3 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #4 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #5 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #6 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #7 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #8 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #9 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #10 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #11 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #12 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #13 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #14 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #15 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #16 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #17 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #18 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #19 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #20 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #21 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #22 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #23 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #24 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #25 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #26 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #27 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #28 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #29 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1536 cpu.shares | Reward: 1.02638208987793
+Step #30 | State: [Avg CPU utilization: 1.1307661 Avg SLO preservation: 0.9816461 Num of containers: 1.0 CPU shares: 0.75 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #31 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: -1
+Step #32 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #33 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 1024 cpu.shares | Reward: 1.1187561200860223
+Step #34 | State: [Avg CPU utilization: 1.3958537 Avg SLO preservation: 1.0000000 Num of containers: 1.0 CPU shares: 0.5 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #35 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #36 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #37 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #38 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #39 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #40 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #41 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #42 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #43 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 2048 cpu.shares | Reward: 0.8403235293096609
+Step #44 | State: [Avg CPU utilization: 0.9513055 Avg SLO preservation: 0.7927598 Num of containers: 1.0 CPU shares: 1.0 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #45 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #46 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #47 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #48 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Step #49 | State: [Avg CPU utilization: 1.0789217 Avg SLO preservation: 0.8845916 Num of containers: 1.0 CPU shares: 0.125 CPU shares (others): 0.0 Arrival rate: 1.0] | Action: Scaling to 256 cpu.shares | Reward: 0.9428906147908426
+Iteration: 450 - Average rewards across episodes: 41.26 | Moving average: 39.439
+Memory use: 510.75 CPU util: 511.1
+Iteration: 451 - Average rewards across episodes: 45.539 | Moving average: 40.695
+Memory use: 510.75 CPU util: 509.8
+Iteration: 452 - Average rewards across episodes: 42.324 | Moving average: 41.111
+Memory use: 510.75 CPU util: 506.7
+Iteration: 453 - Average rewards across episodes: 41.434 | Moving average: 41.416
+Memory use: 510.75 CPU util: 502.0
+Iteration: 454 - Average rewards across episodes: 42.755 | Moving average: 41.609
+Memory use: 510.75 CPU util: 493.6
+Iteration: 455 - Average rewards across episodes: 44.318 | Moving average: 41.98
+Memory use: 510.75 CPU util: 492.9
+Iteration: 456 - Average rewards across episodes: 43.249 | Moving average: 42.324
+Memory use: 510.75 CPU util: 521.8
+Iteration: 457 - Average rewards across episodes: 41.547 | Moving average: 42.447
+Memory use: 510.75 CPU util: 496.6
+Iteration: 458 - Average rewards across episodes: 46.14 | Moving average: 43.029
+Memory use: 510.75390625 CPU util: 515.2
+Iteration: 459 - Average rewards across episodes: 43.34 | Moving average: 43.191
+Memory use: 510.75390625 CPU util: 501.4
+Iteration: 460 - Average rewards across episodes: 43.131 | Moving average: 43.378
+Memory use: 510.75390625 CPU util: 493.2
+Iteration: 461 - Average rewards across episodes: 42.754 | Moving average: 43.099
+Memory use: 510.75390625 CPU util: 514.7
+Iteration: 462 - Average rewards across episodes: 42.795 | Moving average: 43.146
+Memory use: 510.75390625 CPU util: 504.8
+Iteration: 463 - Average rewards across episodes: 42.759 | Moving average: 43.279
+Memory use: 510.75390625 CPU util: 492.3
+Iteration: 464 - Average rewards across episodes: 43.292 | Moving average: 43.333
+Memory use: 510.75390625 CPU util: 512.4
+Iteration: 465 - Average rewards across episodes: 43.404 | Moving average: 43.241
+Memory use: 510.75390625 CPU util: 513.6
+Iteration: 466 - Average rewards across episodes: 39.376 | Moving average: 42.854
+Memory use: 510.75390625 CPU util: 502.3
+Iteration: 467 - Average rewards across episodes: 40.563 | Moving average: 42.755
+Memory use: 510.75390625 CPU util: 506.4
+Iteration: 468 - Average rewards across episodes: 42.336 | Moving average: 42.375
+Memory use: 510.75390625 CPU util: 499.1
+Iteration: 469 - Average rewards across episodes: 39.929 | Moving average: 42.034
+Memory use: 510.75390625 CPU util: 501.8
+Iteration: 470 - Average rewards across episodes: 42.922 | Moving average: 42.013
+Memory use: 510.75390625 CPU util: 490.1
+Iteration: 471 - Average rewards across episodes: 40.471 | Moving average: 41.785
+Memory use: 510.75390625 CPU util: 518.0
+Iteration: 472 - Average rewards across episodes: 37.962 | Moving average: 41.301
+Memory use: 510.75390625 CPU util: 497.7
+Iteration: 473 - Average rewards across episodes: 41.18 | Moving average: 41.144
+Memory use: 510.75390625 CPU util: 501.9
+Iteration: 474 - Average rewards across episodes: 38.125 | Moving average: 40.627
+Memory use: 510.75390625 CPU util: 502.7
+Iteration: 475 - Average rewards across episodes: 41.121 | Moving average: 40.399
+Memory use: 510.75390625 CPU util: 498.3
+Iteration: 476 - Average rewards across episodes: 41.638 | Moving average: 40.625
+Memory use: 510.75390625 CPU util: 530.7
+Iteration: 477 - Average rewards across episodes: 36.597 | Moving average: 40.228
+Memory use: 510.75390625 CPU util: 505.2
+Iteration: 478 - Average rewards across episodes: 37.263 | Moving average: 39.721
+Memory use: 510.75390625 CPU util: 500.3
+Iteration: 479 - Average rewards across episodes: 40.722 | Moving average: 39.8
+Memory use: 510.75390625 CPU util: 490.8
+Iteration: 480 - Average rewards across episodes: 37.913 | Moving average: 39.299
+Memory use: 510.75390625 CPU util: 501.7
+Iteration: 481 - Average rewards across episodes: 42.456 | Moving average: 39.498
+Memory use: 510.7578125 CPU util: 496.3
+Iteration: 482 - Average rewards across episodes: 40.705 | Moving average: 39.772
+Memory use: 510.7578125 CPU util: 498.5
+Iteration: 483 - Average rewards across episodes: 43.872 | Moving average: 40.041
+Memory use: 510.7578125 CPU util: 501.6
+Iteration: 484 - Average rewards across episodes: 40.216 | Moving average: 40.25
+Memory use: 510.7578125 CPU util: 534.2
+Iteration: 485 - Average rewards across episodes: 44.34 | Moving average: 40.572
+Memory use: 510.7578125 CPU util: 594.3
+Iteration: 486 - Average rewards across episodes: 39.267 | Moving average: 40.335
+Memory use: 510.7578125 CPU util: 588.1
+Iteration: 487 - Average rewards across episodes: 42.443 | Moving average: 40.92
+Memory use: 510.7578125 CPU util: 589.9
+Iteration: 488 - Average rewards across episodes: 40.123 | Moving average: 41.206
+Memory use: 510.7578125 CPU util: 590.5
+Iteration: 489 - Average rewards across episodes: 42.0 | Moving average: 41.333
+Memory use: 510.7578125 CPU util: 595.1
+Iteration: 490 - Average rewards across episodes: 38.622 | Moving average: 41.404
+Memory use: 510.7578125 CPU util: 595.8
+Iteration: 491 - Average rewards across episodes: 40.983 | Moving average: 41.257
+Memory use: 510.7578125 CPU util: 581.9
+Iteration: 492 - Average rewards across episodes: 40.639 | Moving average: 41.25
+Memory use: 510.7578125 CPU util: 581.1
+Iteration: 493 - Average rewards across episodes: 43.457 | Moving average: 41.209
+Memory use: 510.7578125 CPU util: 598.1
+Iteration: 494 - Average rewards across episodes: 40.957 | Moving average: 41.283
+Memory use: 510.7578125 CPU util: 586.9
+Iteration: 495 - Average rewards across episodes: 41.893 | Moving average: 41.038
+Memory use: 510.7578125 CPU util: 591.1
+Iteration: 496 - Average rewards across episodes: 41.496 | Moving average: 41.261
+Memory use: 510.7578125 CPU util: 586.8
+Iteration: 497 - Average rewards across episodes: 41.211 | Moving average: 41.138
+Memory use: 510.7578125 CPU util: 576.0
+Iteration: 498 - Average rewards across episodes: 42.027 | Moving average: 41.329
+Memory use: 510.7578125 CPU util: 584.8
+Iteration: 499 - Average rewards across episodes: 42.899 | Moving average: 41.418

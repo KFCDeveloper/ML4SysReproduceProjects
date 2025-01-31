@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "flash",
+			"path": "."
+		},
+		{
+			"name": "firm_tca_results",
+			"path": "../../flash/firm_tca_results"
+		},
+		{
+			"name": "firm_scratch_results",
+			"path": "../../flash/firm_scratch_results"
+		},
+		{
+			"name": "firm_cl_results",
+			"path": "../../flash/firm_cl_results"
+		}
+	],
+	"settings": {}
+}
